@@ -1,0 +1,4 @@
+E:\visual studio 2010\--= android 2 =--\test6\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\visual studio 2010\--= android 3 =--\test6\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\visual studio 2010\--= android 3 =--\test6___backup_2\test6\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\visual studio 2010\--= android 3 =--\test7\test6\obj\x86\Debug\ResolveAssemblyReference.cache

@@ -1,0 +1,60 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+
+    <style name="myScroll">
+		<item name="android:scrollbarSize">50.0dip</item>
+    </style>
+	
+	<style name="up_lable_style">
+		<item name="android:textAppearance">?android:textAppearanceMedium</item>
+		<item name="android:textSize">23.0dip</item>
+		<item name="android:textStyle">normal</item>
+		<item name="android:gravity">center_horizontal</item>
+		<item name="android:paddingTop">30.0dip</item>
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:text">Medium Text</item>
+		<item name="android:layout_alignParentTop">true</item>
+	</style>
+	<style name="small_icon2">
+		<item name="android:paddingLeft">15.0dip</item>
+		<item name="android:paddingTop">23.0dip</item>
+		<item name="android:paddingRight">15.0dip</item>
+		<item name="android:paddingBottom">23.0dip</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_marginBottom">80.0dip</item>
+		<item name="android:layout_alignParentLeft">true</item>
+		<item name="android:layout_alignParentBottom">true</item>
+	</style>
+	<style name="message_style2">
+		<item name="android:textAppearance">?android:textAppearanceMedium</item>
+		<item name="android:textSize">14.0dip</item>
+		<item name="android:typeface">normal</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:textColor">#ff727679</item>
+		<item name="android:paddingBottom">30.0dip</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_marginBottom">78.0dip</item>
+		<item name="android:layout_alignParentBottom">true</item>
+	</style>
+
+</resources>

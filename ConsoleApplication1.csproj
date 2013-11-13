@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DA48204E-C832-4C9D-AED5-3C6C3DC5F643}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ConsoleApplication1</RootNamespace>
+    <AssemblyName>ConsoleApplication1</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="res\drawable-ldpi\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="gen\com\example\test6\BuildConfig.java" />
+    <Content Include="gen\com\example\test6\R.java" />
+    <Content Include="res\drawable-hdpi\background_with_logo.png" />
+    <Content Include="res\drawable-hdpi\blank_wallpaper.png" />
+    <Content Include="res\drawable-hdpi\button_enter.png" />
+    <Content Include="res\drawable-hdpi\button_enter_pressed.png" />
+    <Content Include="res\drawable-hdpi\button_not_pressed.png" />
+    <Content Include="res\drawable-hdpi\button_pressed.png" />
+    <Content Include="res\drawable-hdpi\button_start.png" />
+    <Content Include="res\drawable-hdpi\check.png" />
+    <Content Include="res\drawable-hdpi\finish.png" />
+    <Content Include="res\drawable-hdpi\hand.png" />
+    <Content Include="res\drawable-hdpi\icon_2.png" />
+    <Content Include="res\drawable-hdpi\icon_4.png" />
+    <Content Include="res\drawable-hdpi\ic_launcher.png" />
+    <Content Include="res\drawable-hdpi\input_pin.png" />
+    <Content Include="res\drawable-hdpi\loading.png" />
+    <Content Include="res\drawable-hdpi\logo_pin.png" />
+    <Content Include="res\drawable-hdpi\no_photo.png" />
+    <Content Include="res\drawable-hdpi\ogidanie.png" />
+    <Content Include="res\drawable-hdpi\personel_data_label.png" />
+    <Content Include="res\drawable-hdpi\podlogka_0.png" />
+    <Content Include="res\drawable-hdpi\podlogka_1.png" />
+    <Content Include="res\drawable-hdpi\podlogka_2.png" />
+    <Content Include="res\drawable-hdpi\podlogka_3.png" />
+    <Content Include="res\drawable-hdpi\podlogka_4.png" />
+    <Content Include="res\drawable-hdpi\start.png" />
+    <Content Include="res\drawable-hdpi\waves_animation_1.png" />
+    <Content Include="res\drawable-hdpi\waves_animation_2.png" />
+    <Content Include="res\drawable-hdpi\waves_animation_3.png" />
+    <Content Include="res\drawable-mdpi\ic_launcher.png" />
+    <Content Include="res\drawable-xhdpi\ic_launcher.png" />
+    <Content Include="res\drawable-xxhdpi\ic_launcher.png" />
+    <Content Include="res\drawable\button_auth.xml" />
+    <Content Include="res\drawable\button_list.xml" />
+    <Content Include="res\drawable\button_mode.xml" />
+    <Content Include="res\drawable\loading_spinner.xml" />
+    <Content Include="res\drawable\waiting_spinner.xml" />
+    <Content Include="res\drawable\wait_animation_list.xml" />
+    <Content Include="res\drawable\wait_waves.xml" />
+    <Content Include="res\layout\ctrl_loading_progress_bar.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\list_item.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\ctrl_loading_progress_bar_item.xml" />
+    <Content Include="res\layout\main.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\_2_main_menu.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\ctrl_date_picker.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\_4_checkin_list.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\page_data_transmition2.xml" />
+    <Content Include="res\layout\page_error_connection.xml" />
+    <Content Include="res\layout\page_error_reading.xml" />
+    <Content Include="res\layout\page_mode_selection.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\page_personel_info.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\page_personel_list.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\_1_pin.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\page_points_list.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\page_sync.xml" />
+    <Content Include="res\layout\page_wait2.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\_3_points_list_2.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\sv_box.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\_5_reference.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\menu\main.xml" />
+    <Content Include="res\raw\ref_text___utf8.htm" />
+    <Content Include="res\values-sw600dp\dimens.xml" />
+    <Content Include="res\values-sw720dp-land\dimens.xml" />
+    <Content Include="res\values-v11\styles.xml" />
+    <Content Include="res\values-v14\styles.xml" />
+    <Content Include="res\values\colors.xml" />
+    <Content Include="res\values\dimens.xml" />
+    <Content Include="res\values\ids.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\values\strings.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\values\styles.xml" />
+    <Content Include="src\com\ifree\CheckinList\CheckinAdapter.java" />
+    <Content Include="src\com\ifree\CheckinList\CheckinAdapter2.java" />
+    <Content Include="src\com\ifree\CheckinList\CheckinAdapter3.java" />
+    <Content Include="src\com\ifree\CheckinList\CheckinFilter.java" />
+    <Content Include="src\com\ifree\CheckinList\TabCheckinList.java" />
+    <Content Include="src\com\ifree\Database\Checkin.java" />
+    <Content Include="src\com\ifree\Database\DbConnector.java" />
+    <Content Include="src\com\ifree\Database\EntityBase.java" />
+    <Content Include="src\com\ifree\Database\Personel.java" />
+    <Content Include="src\com\ifree\Database\PersonelPoint.java" />
+    <Content Include="src\com\ifree\Database\Point.java" />
+    <Content Include="src\com\ifree\lib\BackgroundFunc.java" />
+    <Content Include="src\com\ifree\lib\BroadcastReceiver\UpdateReceiver.java" />
+    <Content Include="src\com\ifree\lib\Controls\LoadingProgressBarAdapter.java" />
+    <Content Include="src\com\ifree\lib\DateHelper.java" />
+    <Content Include="src\com\ifree\lib\DatePicker\aaa.java" />
+    <Content Include="src\com\ifree\lib\DatePicker\aaa2.java" />
+    <Content Include="src\com\ifree\lib\DatePicker\MyDatePicker.java" />
+    <Content Include="src\com\ifree\lib\Event.java" />
+    <Content Include="src\com\ifree\lib\HttpHelper.java" />
+    <Content Include="src\com\ifree\lib\NFCHelper.java" />
+    <Content Include="src\com\ifree\lib\operator.java" />
+    <Content Include="src\com\ifree\lib\RunnableWithArgs.java" />
+    <Content Include="src\com\ifree\lib\BroadcastReceiver\ScreenReceiver.java" />
+    <Content Include="src\com\ifree\lib\tabui\Tab.java" />
+    <Content Include="src\com\ifree\lib\TALog.java" />
+    <Content Include="src\com\ifree\lib\NfcThread.java" />
+    <Content Include="src\com\ifree\lib\UIHelper.java" />
+    <Content Include="src\com\ifree\timeattendance\ListPointsAdapter.java" />
+    <Content Include="src\com\ifree\timeattendance\MainActivityProxy.java" />
+    <Content Include="src\com\ifree\timeattendance\MainActivity.java" />
+    <Content Include="src\com\ifree\timeattendance\MainEngine.java" />
+    <Content Include="src\com\ifree\timeattendance\Mode.java" />
+    <Content Include="src\com\ifree\timeattendance\PersonelListAdapter.java" />
+    <Content Include="src\com\ifree\timeattendance\TabDataTransmition.java" />
+    <Content Include="src\com\ifree\timeattendance\TabErrorConnection.java" />
+    <Content Include="src\com\ifree\timeattendance\TabErrorReading.java" />
+    <Content Include="src\com\ifree\timeattendance\TabMainMenu.java" />
+    <Content Include="src\com\ifree\timeattendance\TabModeSelection.java" />
+    <Content Include="src\com\ifree\timeattendance\TabPersonelInfo.java" />
+    <Content Include="src\com\ifree\timeattendance\TabPersonelList.java" />
+    <Content Include="src\com\ifree\timeattendance\TabPin.java" />
+    <Content Include="src\com\ifree\timeattendance\TabPointsList.java" />
+    <Content Include="src\com\ifree\timeattendance\TabReference.java" />
+    <Content Include="src\com\ifree\timeattendance\TabSync.java" />
+    <Content Include="src\com\ifree\timeattendance\TabWait.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\ifree\lib\Controls\SvBox.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\ifree\lib\UpdateManager.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\ifree\lib\Controls\LoadingProgressBar.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\ifree\lib\IMessageReceiver.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\ifree\lib\BroadcastReceiver\Test1.java" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
