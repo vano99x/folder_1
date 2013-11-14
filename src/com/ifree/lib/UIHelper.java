@@ -667,7 +667,8 @@ public class UIHelper implements IMessageReceiver
 		android.app.AlertDialog.Builder b = new android.app.AlertDialog.Builder(   context   );
 		b.setMessage(   message   );
 		b.setPositiveButton("Ok",  onClickOk);
-		b.setNegativeButton("Нет", onClickNo);
+		if(onClickNo != null)
+			b.setNegativeButton("Нет", onClickNo);
 		b.create();
 		b.show();
 			
