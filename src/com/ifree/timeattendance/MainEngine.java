@@ -482,12 +482,17 @@ public class MainEngine
 
 				respond = HttpHelper.httpGet(new URL(strUrl));
 				
-				//ch.save( engine.mContext, true);
-				ch.IsCheckinExistOnServer = true;
-				ch.save( engine.mContext );
+				if( respond != null && !respond.isEmpty() )
+				{
+					//ch.save( engine.mContext, true);
+					ch.IsCheckinExistOnServer = true;
+					ch.save( engine.mContext );
 				
-				MsgFromBackground( Act.CheckinSuccess );
-				result = true;
+					MsgFromBackground( Act.CheckinSuccess );
+					result = true;
+				} else {
+					throw new java.net.ConnectException("Request not returned response");
+				}
 			}
 			catch( Exception e)
 			{
