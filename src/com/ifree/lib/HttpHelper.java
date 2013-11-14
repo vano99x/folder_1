@@ -188,7 +188,7 @@ public class HttpHelper
 
 	public static final String getAuthRequestURL(String mPin)
 	{
-		String str = "http://" + AkmeHost + "/Api/Auth?pin=" + mPin;
+		String str = "http://93.153.172.26/authorization?pin=" + mPin;
 		//TALog.Log("AUTH URL >> " + str);
 		return str;
 	}
@@ -199,23 +199,18 @@ public class HttpHelper
 	}
 	public static final String getSearchURL (String mPin, String paramString)
 	{
-		if(paramString == null)
-			return "http://" + AkmeHost + "/Api/getuser?pin=" + mPin;
-		else
-			return "http://" + AkmeHost + "/Api/getuser?pin=" + mPin + "&name=" + URLEncoder.encode(paramString);
+		return "http://93.153.172.26/get_employee?resp_man=" + mPin;
 	}
 
 	public static final String getCheckinURL(Checkin paramCheckin)
 	{
 		String str = 
-			"http://" + AkmeHost + "/Api/sync/checkin?" +
-
-			"id="      + paramCheckin.SupervicerId + "&"+
-			"WorkerId="+ paramCheckin.WorkerId + "&"+
-			"cardId="  + paramCheckin.CardId       + "&"+
-			"status="  + paramCheckin.Mode         + "&"+
-			"pointId=" + paramCheckin.PointId      + "&"+
-			"date="    + paramCheckin.DateTime     ;
+				"http://93.153.172.26/check?id=" + paramCheckin.SupervicerId + 
+				"&cardId=" 		+ paramCheckin.CardId +
+				"&status=" 		+ paramCheckin.Mode + 
+				"&pointId=" 	+ paramCheckin.PointId + 
+				"&date=" 		+ paramCheckin.DateTime +
+				"&pcode="    	+ paramCheckin.WorkerId;
 
 		return str;
 	}
