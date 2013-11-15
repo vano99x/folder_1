@@ -3,6 +3,8 @@ package com.ifree.timeattendance;
 import android.content.Context;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import com.ifree.Database.Checkin;
 import com.ifree.Database.Personel;
@@ -395,8 +397,7 @@ public class MainEngine
 	//************************************************************************************************
 	// 2 entering tag
 	private onClickOkMessageBox get_onClickOkMessageBox() { onClickOkMessageBox o = new onClickOkMessageBox(); o._this = this; return o; } 
-	class onClickOkMessageBox implements android.content.DialogInterface.OnClickListener { public MainEngine _this;public void onClick( 
-			android.content.DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt)
+	class onClickOkMessageBox implements OnClickListener { public MainEngine _this;public void onClick(DialogInterface di, int paramAnonymousInt)
 	{
 		_this.SaveCheckinCompleteEvent.RunEvent(new Object[]{false});
 	}}
@@ -484,9 +485,8 @@ public class MainEngine
 				
 				if( respond != null && !respond.isEmpty() )
 				{
-					//ch.save( engine.mContext, true);
 					ch.IsCheckinExistOnServer = true;
-					int stateCheckinOnServer = -1;
+					/*int stateCheckinOnServer = -1;
 					try {
 						JSONObject jo = new JSONObject(respond);
 						if(jo.has("status")) {
@@ -494,7 +494,8 @@ public class MainEngine
 							stateCheckinOnServer = Integer.parseInt(status);
 						}
 					} catch(JSONException jse){ } catch(NumberFormatException nfe){ }
-					ch.StateCheckinOnServer = stateCheckinOnServer;
+					ch.StateCheckinOnServer = stateCheckinOnServer;*/
+					ch.set_StateCheckinOnServer(respond);
 					ch.save( engine.mContext );
 				
 					MsgFromBackground( Act.CheckinSuccess );
@@ -505,7 +506,6 @@ public class MainEngine
 			}
 			catch( Exception e)
 			{
-				//ch.save(engine.mContext, false);
 				ch.IsCheckinExistOnServer = false;
 				ch.save( engine.mContext );
 				

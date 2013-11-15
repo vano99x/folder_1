@@ -114,7 +114,7 @@ public class CheckinAdapter3 extends BaseAdapter implements Filterable
 			{
 				Checkin checkin = this.items.get(paramInt);
 				String text = GetTextForItem(checkin);
-				String state = Integer.toString(checkin.StateCheckinOnServer);
+				String state = Integer.toString(checkin.get_StateCheckinOnServer());
 
 				chView.setText(text);
 				stateView.setText(state);

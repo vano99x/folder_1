@@ -3,6 +3,8 @@ package com.ifree.Database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import org.json.JSONObject;
+import org.json.JSONException;
 
 import java.util.Date;
 import java.util.Calendar;
@@ -35,7 +37,7 @@ public class Checkin //extends EntityBase
 	public int PointId;
 	public String DateTime;
 	public boolean IsCheckinExistOnServer;
-	public int StateCheckinOnServer;
+	//public int StateCheckinOnServer;
 
 	public Checkin()
 	{
@@ -60,7 +62,7 @@ public class Checkin //extends EntityBase
 		this.PointId      = paramInt3;
 		this.DateTime     = dt;
 		//this.IsCheckinExistOnServer     = isCheckinExistOnServer;
-		this.StateCheckinOnServer = -1;
+		//this.StateCheckinOnServer = -1;
 	}
 
 
@@ -163,7 +165,7 @@ public class Checkin //extends EntityBase
 
 		index = cursor.getColumnIndex("StateCheckinOnServer");
 		if(index != -1)
-		ch.StateCheckinOnServer = cursor.getInt(index);
+		ch.__stateCheckinOnServer = cursor.getInt(index);
 		
 
 		return ch;
@@ -256,7 +258,7 @@ public class Checkin //extends EntityBase
 
 		//cv.put("IsCheckinExistOnServer", Boolean.valueOf(isCheckinExistOnServer));
 		cv.put("IsCheckinExistOnServer", Boolean.valueOf(this.IsCheckinExistOnServer));
-		cv.put("StateCheckinOnServer",   Integer.valueOf(this.StateCheckinOnServer));
+		cv.put("StateCheckinOnServer",   Integer.valueOf(this.get_StateCheckinOnServer()));
 		
 		long id = db.insert("Checkin", cv);
 		
@@ -282,8 +284,21 @@ public class Checkin //extends EntityBase
 		return this._personel;
 	}
 
-	//public boolean CompareDate(CharSequence chars)
-	//{
-	//    return true;
-	//}
+	private int __stateCheckinOnServer;
+	public int get_StateCheckinOnServer()
+	{
+		return this.__stateCheckinOnServer;
+	}
+	public void set_StateCheckinOnServer(String serverRespond)
+	{
+					int stateCheckinOnServer = -1;
+					try {
+						JSONObject jo = new JSONObject(serverRespond);
+						if(jo.has("status")) {
+							String status = jo.getString("status");
+							stateCheckinOnServer = Integer.parseInt(status);
+						}
+					} catch(JSONException jse){ } catch(NumberFormatException nfe){ }
+					this.__stateCheckinOnServer = stateCheckinOnServer;
+	}
 }
