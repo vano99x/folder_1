@@ -35,6 +35,7 @@ public class Checkin //extends EntityBase
 	public int PointId;
 	public String DateTime;
 	public boolean IsCheckinExistOnServer;
+	public int StateCheckinOnServer;
 
 	public Checkin()
 	{
@@ -59,6 +60,7 @@ public class Checkin //extends EntityBase
 		this.PointId      = paramInt3;
 		this.DateTime     = dt;
 		//this.IsCheckinExistOnServer     = isCheckinExistOnServer;
+		this.StateCheckinOnServer = -1;
 	}
 
 
@@ -159,6 +161,11 @@ public class Checkin //extends EntityBase
 			}
 		}
 
+		index = cursor.getColumnIndex("StateCheckinOnServer");
+		if(index != -1)
+		ch.StateCheckinOnServer = cursor.getInt(index);
+		
+
 		return ch;
 	}
 	private static ArrayList<Checkin> getCheckinList(Cursor cursor)
@@ -249,6 +256,7 @@ public class Checkin //extends EntityBase
 
 		//cv.put("IsCheckinExistOnServer", Boolean.valueOf(isCheckinExistOnServer));
 		cv.put("IsCheckinExistOnServer", Boolean.valueOf(this.IsCheckinExistOnServer));
+		cv.put("StateCheckinOnServer",   Integer.valueOf(this.StateCheckinOnServer));
 		
 		long id = db.insert("Checkin", cv);
 		

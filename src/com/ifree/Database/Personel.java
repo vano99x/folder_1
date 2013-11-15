@@ -161,7 +161,7 @@ public class Personel //extends EntityBase
 		return p;
 	}
 
-	public static Personel[] ArrayFromStr(String serverRespond, Context context)
+	public static Personel[] ArrayFromJson(String serverRespond, Context context)
 	{
 		Personel[] personelArr;
 		try
@@ -368,7 +368,7 @@ public class Personel //extends EntityBase
 			String strUrl = HttpHelper.getSearchURL( this.Pin );
 			URL urlPersonel = new URL(strUrl);
 			String respond = HttpHelper.httpGet(urlPersonel);
-			personelArr = Personel.ArrayFromStr( respond, context);
+			personelArr = Personel.ArrayFromJson( respond, context);
 		}
 
 		return personelArr;

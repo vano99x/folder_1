@@ -93,7 +93,9 @@
     <Content Include="res\layout\list_item.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="res\layout\ctrl_loading_progress_bar_item.xml" />
+    <Content Include="res\layout\ctrl_loading_progress_bar_item.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="res\layout\main.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -132,6 +134,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="res\layout\sv_box.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\_4_checkin_list_item.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="res\layout\_5_reference.xml">
