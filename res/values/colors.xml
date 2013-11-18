@@ -4,4 +4,6 @@
 	<color name="afaaaa">#afaaaa</color>
 	<color name="eee">#eee</color>
 	<color name="backW8">#312f30</color>
+	<color name="pin_edit_ctrl_style_focused">#fff</color><!--//A8DBA8//-->
+	<color name="fff">#fff</color>
 </resources>

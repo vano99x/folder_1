@@ -8,14 +8,17 @@
 	<ImageView 
 		android:id="@id/iconMode" android:src="@drawable/start" 
 		android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="60.0dip" android:layout_marginTop="16.0px" />
+	<!--//-->
 	<TextView 
 		android:id="@id/mode" android:text="Проверка" 
 		android:layout_toRightOf="@id/icon_4" style="@style/up_lable_style" 
-		android:textSize="10.0pt" android:textStyle="bold" android:textColor="#ffffffff" 
+		android:textSize="10.0pt" android:textStyle="bold" android:textColor="#fff" 
 		android:gravity="center_horizontal" android:paddingTop="13.0px" android:layout_height="70.0px" />
+	
 	<TextView 
 		android:id="@id/up_lable" android:text="@string/lable_wait_mode" 
-		android:textSize="11.0pt" android:textStyle="bold" android:textColor="#ffffffff" 
+		style="@style/TitleShadow1"
+		android:textSize="11.0pt" android:textStyle="bold" android:textColor="#fff" 
 		android:gravity="center_horizontal" android:paddingLeft="28.0px" android:paddingTop="47.0px" 
 		android:layout_width="wrap_content" android:layout_height="wrap_content" 
 		/>

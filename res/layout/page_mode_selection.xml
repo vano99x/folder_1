@@ -6,7 +6,9 @@
 	
 	<TextView 
 		android:id="@id/lable_head" 
-		android:text="@string/msg_select_mode" 
+		android:text="@string/msg_select_mode"
+		
+		style="@style/TitleShadow1"
 		
 		android:textSize="13.0pt" android:textColor="#fff" android:gravity="center_horizontal" 
 		android:layout_width="fill_parent" android:layout_height="wrap_content" 

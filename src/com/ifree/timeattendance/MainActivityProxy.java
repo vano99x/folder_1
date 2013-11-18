@@ -214,6 +214,7 @@ public class MainActivityProxy extends FragmentActivity
 	public void finish()
 	{
 		super.finish();
+		MainActivityProxy.set_CurrentSuperviser(null);
 		UIHelper.Instance().currentState = MainActivity.State.PIN;
 	}
 
