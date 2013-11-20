@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import com.ifree.lib.tabui.Tab;
 
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.ifree.lib.*;
 import com.example.test6.R;
@@ -21,17 +22,21 @@ public class TabModeSelection extends Tab implements View.OnClickListener
 		//TALog.Log("===========TabModeSelection=================:" + this);
 		this._engine = MainEngine.getInstance();
 
-		Button start_button = (Button)this.root.findViewById(R.id.PageModeSelection_start_button);
+		RelativeLayout start_button = (RelativeLayout)this.root.findViewById(R.id.PageModeSelection_start_button);
 		start_button.setOnClickListener(this);
 		start_button.setTag(R.id.PageModeSelection_start_button);
 
-		Button end_button = (Button)this.root.findViewById(R.id.PageModeSelection_end_button);
+		RelativeLayout end_button = (RelativeLayout)this.root.findViewById(R.id.PageModeSelection_end_button);
 		end_button.setOnClickListener(this);
 		end_button.setTag(R.id.PageModeSelection_end_button);
 
-		Button check_button = (Button)this.root.findViewById(R.id.PageModeSelection_check_button);
+		RelativeLayout check_button = (RelativeLayout)this.root.findViewById(R.id.PageModeSelection_check_button);
 		check_button.setOnClickListener(this);
 		check_button.setTag(R.id.PageModeSelection_check_button);
+
+		RelativeLayout pause_button = (RelativeLayout)this.root.findViewById(R.id.PageModeSelection_pause_button);
+		pause_button.setOnClickListener(this);
+		pause_button.setTag(R.id.PageModeSelection_pause_button);
 	}
 
 	public void onClick_start_button()
@@ -55,6 +60,13 @@ public class TabModeSelection extends Tab implements View.OnClickListener
 		               UIHelper.Instance().switchState(MainActivity.State.WAIT_MODE);
 	}
 
+	public void onClick_pause_button()
+	{
+		this._engine.setCurrentMode(Mode.Pause);
+		//this.mEngine.showScreen(State.WAIT_MODE, 0L);
+		               UIHelper.Instance().switchState(MainActivity.State.WAIT_MODE);
+	}
+
 	public void onClick(View paramView)
 	{
 		Object tag = paramView.getTag();
@@ -73,6 +85,9 @@ public class TabModeSelection extends Tab implements View.OnClickListener
 		        break;}
 		        case R.id.PageModeSelection_check_button:{
 		            onClick_check_button();
+		        break;}
+		        case R.id.PageModeSelection_pause_button:{
+		            onClick_pause_button();
 		        break;}
 		    }
 		}

@@ -29,6 +29,7 @@ public class TabWait extends Tab implements View.OnClickListener
 		imageView.post(new Tab.AnimationRunner(this.wavesAnim));
 
 		this._iconMode = ((ImageView)this.root.findViewById(R.id.iconMode));
+		this._labelMode = ((TextView)this.root.findViewById(R.id.mode));
 
 		Button back_button = (Button)this.root.findViewById(R.id.PageWait_back_button);
 		back_button.setOnClickListener(this);
@@ -42,7 +43,6 @@ public class TabWait extends Tab implements View.OnClickListener
 	public void Show()
 	{
 		super.Show();
-		this._labelMode = ((TextView)this.root.findViewById(R.id.mode));
 
 		MainEngine engine = MainEngine.getInstance();
 		//Mode mode = engine.getCurrentMode();
@@ -61,6 +61,11 @@ public class TabWait extends Tab implements View.OnClickListener
 		{
 			this._iconMode.setImageResource(R.drawable.check);
 			this._labelMode.setText(R.string.mode_check);
+		}
+		else if (engine.getCurrentMode() == Mode.Pause)
+		{
+			this._iconMode.setImageResource(R.drawable.pause2);
+			this._labelMode.setText(R.string.mode_pause);
 		}
 	}
 

@@ -86,7 +86,9 @@
     <Content Include="res\drawable\button_list.xml" />
     <Content Include="res\drawable\button_mode.xml" />
     <Content Include="res\drawable\loading_spinner.xml" />
-    <Content Include="res\drawable\pin_edit_ctrl_style.xml" />
+    <Content Include="res\drawable\pin_edit_ctrl_style.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="res\drawable\style_button.xml" />
     <Content Include="res\drawable\style_button_bg.xml" />
     <Content Include="res\drawable\waiting_spinner.xml" />
@@ -153,7 +155,9 @@
     <Content Include="res\values-sw720dp-land\dimens.xml" />
     <Content Include="res\values-v11\styles.xml" />
     <Content Include="res\values-v14\styles.xml" />
-    <Content Include="res\values\colors.xml" />
+    <Content Include="res\values\colors.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="res\values\dimens.xml" />
     <Content Include="res\values\ids.xml">
       <SubType>Designer</SubType>
@@ -161,7 +165,9 @@
     <Content Include="res\values\strings.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="res\values\styles.xml" />
+    <Content Include="res\values\styles.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="src\com\ifree\CheckinList\CheckinAdapter.java" />
     <Content Include="src\com\ifree\CheckinList\CheckinAdapter2.java" />
     <Content Include="src\com\ifree\CheckinList\CheckinAdapter3.java" />

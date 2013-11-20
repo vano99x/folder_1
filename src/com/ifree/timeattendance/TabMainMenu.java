@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.ViewGroup;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 
@@ -23,15 +24,15 @@ public class TabMainMenu extends Tab implements View.OnClickListener
 		this._engine = MainEngine.getInstance();
 		this._mainActivity = paramContext;
 
-		Button start = (Button)this.root.findViewById(R.id.MainMenu_StartBtn_Id);
+		RelativeLayout start = (RelativeLayout)this.root.findViewById(R.id.MainMenu_StartBtn_Id);
 		start.setOnClickListener(this);
 		start.setTag(R.id.MainMenu_StartBtn_Id);
 
-		Button sync = (Button)this.root.findViewById(R.id.MainMenu_SyncBtn_Id);
+		RelativeLayout sync = (RelativeLayout)this.root.findViewById(R.id.MainMenu_SyncBtn_Id);
 		sync.setOnClickListener(this);
 		sync.setTag(R.id.MainMenu_SyncBtn_Id);
 
-		Button list = (Button)this.root.findViewById(R.id.MainMenu_CheckinListBtn_Id);
+		RelativeLayout list = (RelativeLayout)this.root.findViewById(R.id.MainMenu_CheckinListBtn_Id);
 		list.setOnClickListener(this);
 		list.setTag(R.id.MainMenu_CheckinListBtn_Id);
 
