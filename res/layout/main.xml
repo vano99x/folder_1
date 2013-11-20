@@ -17,12 +17,13 @@
 
 </RelativeLayout>
 
+	android:background="@drawable/blank_wallpaper"
 //-->
 
 <FrameLayout 
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/main_layout" 
-	android:background="@drawable/blank_wallpaper"
+	android:background="@drawable/background_3"
 	android:layout_width="fill_parent" 
 	android:layout_height="fill_parent" 
 	/>

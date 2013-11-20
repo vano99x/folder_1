@@ -80,10 +80,15 @@
     <Content Include="res\drawable-mdpi\ic_launcher.png" />
     <Content Include="res\drawable-xhdpi\ic_launcher.png" />
     <Content Include="res\drawable-xxhdpi\ic_launcher.png" />
+    <Content Include="res\drawable\background_2.xml" />
+    <Content Include="res\drawable\background_3.xml" />
     <Content Include="res\drawable\button_auth.xml" />
     <Content Include="res\drawable\button_list.xml" />
     <Content Include="res\drawable\button_mode.xml" />
     <Content Include="res\drawable\loading_spinner.xml" />
+    <Content Include="res\drawable\pin_edit_ctrl_style.xml" />
+    <Content Include="res\drawable\style_button.xml" />
+    <Content Include="res\drawable\style_button_bg.xml" />
     <Content Include="res\drawable\waiting_spinner.xml" />
     <Content Include="res\drawable\wait_animation_list.xml" />
     <Content Include="res\drawable\wait_waves.xml" />
@@ -93,7 +98,9 @@
     <Content Include="res\layout\list_item.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="res\layout\ctrl_loading_progress_bar_item.xml" />
+    <Content Include="res\layout\ctrl_loading_progress_bar_item.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="res\layout\main.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -132,6 +139,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="res\layout\sv_box.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\_4_checkin_list_item.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="res\layout\_5_reference.xml">

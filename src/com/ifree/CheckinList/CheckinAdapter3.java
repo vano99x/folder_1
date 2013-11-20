@@ -99,23 +99,26 @@ public class CheckinAdapter3 extends BaseAdapter implements Filterable
 	{
 		if( paramView == null )
 		{
-			paramView = this.mInflater.inflate(R.layout.list_item, null);
-			paramView.setTag(null);
+			paramView = this.mInflater.inflate(R.layout._4_checkin_list_item, null);
+			//paramView.setTag(null);
 		}
 
-		TextView     textView = (TextView)    paramView.findViewById(R.id.txtName);
-		LinearLayout baseView = (LinearLayout)paramView.findViewById(R.id.item);
-		baseView.setOnClickListener(this.listener);
+		TextView     chView  = (TextView)paramView.findViewById(R.id.CheckinListItem_TextId);
+		TextView     stateView = (TextView)paramView.findViewById(R.id.CheckinListItem_StateId);
+		//LinearLayout baseView = (LinearLayout)paramView.findViewById(R.id.CheckinListItem_RootId);
+		//baseView.setOnClickListener(this.listener);
 
 		if( this.items != null && this.items.size() != 0 )
 		{
 			try
 			{
 				Checkin checkin = this.items.get(paramInt);
-				String str = GetTextForItem(checkin);
+				String text = GetTextForItem(checkin);
+				String state = Integer.toString(checkin.get_StateCheckinOnServer());
 
-				textView.setText(str);
-				baseView.setTag(checkin);
+				chView.setText(text);
+				stateView.setText(state);
+				//baseView.setTag(checkin);
 			}
 			catch (Exception e)
 			{

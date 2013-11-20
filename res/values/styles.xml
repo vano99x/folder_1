@@ -32,7 +32,13 @@
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:text">Medium Text</item>
 		<item name="android:layout_alignParentTop">true</item>
+		
+		<item name="android:shadowColor">#000</item>
+		<item name="android:shadowDx">0</item>
+		<item name="android:shadowDy">1</item>
+		<item name="android:shadowRadius">3</item>
 	</style>
+	
 	<style name="small_icon2">
 		<item name="android:paddingLeft">15.0dip</item>
 		<item name="android:paddingTop">23.0dip</item>
@@ -55,6 +61,13 @@
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:layout_marginBottom">78.0dip</item>
 		<item name="android:layout_alignParentBottom">true</item>
+	</style>
+
+	<style name="TitleShadow1">
+		<item name="android:shadowColor">#000</item>
+		<item name="android:shadowDx">0</item>
+		<item name="android:shadowDy">1</item>
+		<item name="android:shadowRadius">3</item>
 	</style>
 
 </resources>

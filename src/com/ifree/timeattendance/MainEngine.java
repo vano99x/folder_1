@@ -3,6 +3,8 @@ package com.ifree.timeattendance;
 import android.content.Context;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import com.ifree.Database.Checkin;
 import com.ifree.Database.Personel;
@@ -38,7 +40,7 @@ public class MainEngine
 	private int currentMode;
 
 	private Personel __currentPersonel;
-	private Personel __currentSuperviser;
+	//private Personel __currentSuperviser;
 	private boolean __isIntenetDisable;
 	private int __currentPointId;
 	public Event<RunnableWithArgs> AuthenticateSVCompleteEvent;
@@ -94,7 +96,7 @@ public class MainEngine
 		this.currentMode = 1;
 
 		this.__currentPersonel = null;
-		this.__currentSuperviser = null;
+		//this.__currentSuperviser = null;
 		this.__isIntenetDisable = false;
 		this.__currentPointId = -1;
 
@@ -117,7 +119,7 @@ public class MainEngine
 	//       manage state
 	public void MainEngine_ToDefault()
 	{
-		set_CurrentSuperviser(null);
+		//set_CurrentSuperviser(null);
 		setCurrentMode(1);
 		MainEngine._mainEngineObj.Clearing.RunEvent(null);
 	}
@@ -219,14 +221,14 @@ public class MainEngine
 		this.__currentPersonel = p;
 	}
 	
-	public Personel get_CurrentSuperviser()
-	{
-		return this.__currentSuperviser;
-	}
-	public void set_CurrentSuperviser(Personel p)
-	{
-		this.__currentSuperviser = p;
-	}
+	//public Personel get_CurrentSuperviser()
+	//{
+	//return this.__currentSuperviser;
+	//}
+	//public void set_CurrentSuperviser(Personel p)
+	//{
+	//this.__currentSuperviser = p;
+	//}
 	
 	public boolean get_IsIntenetDisable()
 	{
@@ -348,7 +350,7 @@ public class MainEngine
 				sv = LoadPersonelFromServer( pinStr, engine.mContext);
 				if(sv != null)
 				{
-					engine.set_CurrentSuperviser(sv);
+					MainActivityProxy.set_CurrentSuperviser(sv);
 					Personel [] workers = sv.LoadWorkers(engine.mContext);
 
 					MainEngine.Synchronization( sv, workers, sv.pointArray, sv.get_PersonelPoints(), engine.mContext);
@@ -370,7 +372,7 @@ public class MainEngine
 			{
 				sv = Personel.SelecByPin( pinStr );
 				if( sv != null && sv.Id != -1 && sv.IsSupervisor) {
-					engine.set_CurrentSuperviser(sv);
+					MainActivityProxy.set_CurrentSuperviser(sv);
 					
 					MsgFromBackground(Act.LocalAuthOk);
 					result = true;
@@ -395,8 +397,7 @@ public class MainEngine
 	//************************************************************************************************
 	// 2 entering tag
 	private onClickOkMessageBox get_onClickOkMessageBox() { onClickOkMessageBox o = new onClickOkMessageBox(); o._this = this; return o; } 
-	class onClickOkMessageBox implements android.content.DialogInterface.OnClickListener { public MainEngine _this;public void onClick( 
-			android.content.DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt)
+	class onClickOkMessageBox implements OnClickListener { public MainEngine _this;public void onClick(DialogInterface di, int paramAnonymousInt)
 	{
 		_this.SaveCheckinCompleteEvent.RunEvent(new Object[]{false});
 	}}
@@ -459,7 +460,7 @@ public class MainEngine
 		MsgFromBackground(Act.StartOperation);
 
 		Checkin ch = new Checkin(
-			engine.get_CurrentSuperviser().Id,				// SupervicerId
+			MainActivityProxy.get_CurrentSuperviser().Id,				// SupervicerId
 			engine.get_CurrentPersonel().Id,					// Id
 			engine.get_CurrentPersonel().CardId,				// CardId
 			//engine.get_CurrentPersonel().IsSupervisor,
@@ -484,8 +485,17 @@ public class MainEngine
 				
 				if( respond != null && !respond.isEmpty() )
 				{
-					//ch.save( engine.mContext, true);
 					ch.IsCheckinExistOnServer = true;
+					/*int stateCheckinOnServer = -1;
+					try {
+						JSONObject jo = new JSONObject(respond);
+						if(jo.has("status")) {
+							String status = jo.getString("status");
+							stateCheckinOnServer = Integer.parseInt(status);
+						}
+					} catch(JSONException jse){ } catch(NumberFormatException nfe){ }
+					ch.StateCheckinOnServer = stateCheckinOnServer;*/
+					ch.set_StateCheckinOnServer(respond);
 					ch.save( engine.mContext );
 				
 					MsgFromBackground( Act.CheckinSuccess );
@@ -496,7 +506,6 @@ public class MainEngine
 			}
 			catch( Exception e)
 			{
-				//ch.save(engine.mContext, false);
 				ch.IsCheckinExistOnServer = false;
 				ch.save( engine.mContext );
 				
@@ -544,7 +553,7 @@ public class MainEngine
 				Personel sv = LoadPersonelFromServer( _this.mPin, _this.mContext);
 				if(sv.Id != 0)
 				{
-					_this.set_CurrentSuperviser(sv);
+					MainActivityProxy.set_CurrentSuperviser(sv);
 					Personel [] workers = sv.LoadWorkers(_this.mContext);
 					MainEngine.Synchronization( sv, workers, sv.pointArray, sv.get_PersonelPoints(), _this.mContext);
 

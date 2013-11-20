@@ -119,7 +119,8 @@ public class DbConnector
 				new ColumnItem("Mode",         "INTEGER", null),
 				new ColumnItem("PointId",      "INTEGER", null),
 				new ColumnItem("DateTime",     "TEXT",    null),
-				new ColumnItem("IsCheckinExistOnServer",  "INTEGER", null)
+				new ColumnItem("IsCheckinExistOnServer",  "INTEGER", null),
+				new ColumnItem("StateCheckinOnServer",    "INTEGER", null)
 			};
 			return arr;
 		}

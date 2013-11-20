@@ -87,7 +87,7 @@ public class TabPointsList extends Tab implements View.OnClickListener
 		TextView localTextView2;
 		if (localMainEngine != null)
 		{
-			Personel superviser = localMainEngine.get_CurrentSuperviser();
+			Personel superviser = MainActivityProxy.get_CurrentSuperviser();
 			Point [] pointArr   = Point.getBySuperviser( superviser.Id, this.context);
 
 			createListRouteAdapter(pointArr);

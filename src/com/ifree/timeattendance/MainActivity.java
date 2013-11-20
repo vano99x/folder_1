@@ -51,6 +51,7 @@ public class MainActivity
 
 		// 2 Engine
 		MainEngine.CreateInstance(context);
+		//MainEngine.CreateAAA(context);
 		this.mEngine = MainEngine.getInstance();
 
 		// 3 Db
@@ -206,7 +207,11 @@ public class MainActivity
 		if( this._isRunning == false )
 		{
 			this._isRunning = true;
-			UIHelper.Instance().switchState(State.PIN);
+			if(MainActivityProxy.get_CurrentSuperviser() == null){
+				UIHelper.Instance().switchState(State.PIN);
+			}else{
+				UIHelper.Instance().switchState(State.MAIN_MENU);
+			}
 
 			NFCHelper.CreateInstance( this.get_FragmentActivity() );
 		}

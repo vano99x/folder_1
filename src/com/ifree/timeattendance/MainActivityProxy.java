@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.ifree.lib.*;
 import com.ifree.lib.tabui.*;
+import com.ifree.Database.*;
 
 public class MainActivityProxy extends FragmentActivity
 {
@@ -213,6 +214,7 @@ public class MainActivityProxy extends FragmentActivity
 	public void finish()
 	{
 		super.finish();
+		MainActivityProxy.set_CurrentSuperviser(null);
 		UIHelper.Instance().currentState = MainActivity.State.PIN;
 	}
 
@@ -226,6 +228,16 @@ public class MainActivityProxy extends FragmentActivity
 			_fragmentManager = this.getSupportFragmentManager();
 		}
 		return _fragmentManager;
+	}
+
+	private static Personel __currentSuperviser;
+	public static Personel get_CurrentSuperviser()
+	{
+		return MainActivityProxy.__currentSuperviser;
+	}
+	public static void set_CurrentSuperviser(Personel p)
+	{
+		MainActivityProxy.__currentSuperviser = p;
 	}
 
 
@@ -245,5 +257,6 @@ public class MainActivityProxy extends FragmentActivity
 	{
 		MainActivityProxy._count = 0;
 		MainActivityProxy.ma = null;
+		MainActivityProxy.__currentSuperviser = null;
 	}
 }
