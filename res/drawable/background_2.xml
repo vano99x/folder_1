@@ -12,10 +12,11 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 	<item>
 	    <shape android:shape="rectangle">
+	        <!--//#0B486B #79BD9A//-->
 			<gradient
 			    
-				android:startColor="#0B486B"
-				android:endColor="#79BD9A"
+				android:startColor="#262932"
+				android:endColor="#333740"
 				android:type="linear" >
 
 			</gradient>

@@ -106,10 +106,15 @@ public class TabPersonelInfo extends Tab implements View.OnClickListener
 				this._iconMode.setImageResource(R.drawable.start);
 				this._labelMode.setText(R.string.mode_start_result);
 			}
-			else
+			else if (engine.getCurrentMode() == Mode.EndWork)
 			{
 				this._iconMode.setImageResource(R.drawable.finish);
 				this._labelMode.setText(R.string.mode_end_result);
+			}
+			else if (engine.getCurrentMode() == Mode.Pause)
+			{
+				this._iconMode.setImageResource(R.drawable.pause2);
+				this._labelMode.setText(R.string.mode_pause);
 			}
 			//localMainEngine.showScreen(MainActivity.State.WAIT_MODE, TIME_OUT);
 		

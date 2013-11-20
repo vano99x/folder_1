@@ -52,6 +52,8 @@
 	
     <string name="mode_end_result">Уход зафиксирован</string>
     <string name="mode_end">Уход</string>
+	
+    <string name="mode_pause">Перерыв</string>
 
 	<string name="Reference_Text_Id">
 		<![CDATA[<html><body>

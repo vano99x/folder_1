@@ -15,6 +15,7 @@
 	<item type="id" name="PageModeSelection_start_button" />
 	<item type="id" name="PageModeSelection_end_button" />
 	<item type="id" name="PageModeSelection_check_button" />
+	<item type="id" name="PageModeSelection_pause_button" />
 	
 	
 	<item type="id" name="PagePointsList" />
