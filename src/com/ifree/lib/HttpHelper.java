@@ -205,13 +205,20 @@ public class HttpHelper
 	public static final String getCheckinURL(Checkin paramCheckin)
 	{
 		String str = 
-				"http://93.153.172.26/check?id=" + paramCheckin.SupervicerId + 
-				"&cardId=" 		+ paramCheckin.CardId +
-				"&status=" 		+ paramCheckin.Mode + 
-				"&pointId=" 	+ paramCheckin.PointId + 
-				"&date=" 		+ paramCheckin.DateTime +
-				"&pcode="    	+ paramCheckin.WorkerId;
+		"http://93.153.172.26/check?" +
+		"id=" + paramCheckin.SupervicerId + 
+		"&cardId=" 		+ paramCheckin.CardId +
+		"&status=" 		+ paramCheckin.Mode + 
+		"&pointId=" 	+ paramCheckin.PointId + 
+		"&date=" 		+ paramCheckin.DateTime +
+		"&pcode="    	+ paramCheckin.WorkerId;
 
+		return str;
+	}
+
+	public static final String getCheckinURL2(Checkin paramCheckin)
+	{
+		String str = "http://akme.telemetry.i-free.ru/Api/sync/checkin?id=4&WorkerId=5&cardId=2999600235&status=3&pointId=4&date=1382632193964";
 		return str;
 	}
 

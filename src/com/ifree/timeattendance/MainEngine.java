@@ -40,10 +40,9 @@ public class MainEngine
 	private int currentMode;
 
 	private Personel __currentPersonel;
-	//private Personel __currentSuperviser;
 	private boolean __isIntenetDisable;
 	private int __currentPointId;
-	public Event<RunnableWithArgs> AuthenticateSVCompleteEvent;
+	//public Event<RunnableWithArgs> AuthenticateSVCompleteEvent;
 	public Event<RunnableWithArgs> SaveCheckinCompleteEvent;
 	public Event<RunnableWithArgs> WorkerFound;
 	public Event<RunnableWithArgs> Clearing;
@@ -76,7 +75,7 @@ public class MainEngine
 		this.mContext = context;
 		//this.mSettings = context.getSharedPreferences("com.ifree.timeattendance", 0);
 
-		this.AuthenticateSVCompleteEvent = new Event<RunnableWithArgs>();
+		//this.AuthenticateSVCompleteEvent = new Event<RunnableWithArgs>();
 		this.SaveCheckinCompleteEvent    = new Event<RunnableWithArgs>();
 		this.WorkerFound                 = new Event<RunnableWithArgs>();
 		this.Clearing                    = new Event<RunnableWithArgs>();
@@ -96,11 +95,10 @@ public class MainEngine
 		this.currentMode = 1;
 
 		this.__currentPersonel = null;
-		//this.__currentSuperviser = null;
 		this.__isIntenetDisable = false;
 		this.__currentPointId = -1;
 
-		this.AuthenticateSVCompleteEvent = null;
+		//this.AuthenticateSVCompleteEvent = null;
 		this.SaveCheckinCompleteEvent = null;
 		this.WorkerFound = null;
 		this.Clearing = null;
@@ -119,7 +117,6 @@ public class MainEngine
 	//       manage state
 	public void MainEngine_ToDefault()
 	{
-		//set_CurrentSuperviser(null);
 		setCurrentMode(1);
 		MainEngine._mainEngineObj.Clearing.RunEvent(null);
 	}
@@ -221,15 +218,6 @@ public class MainEngine
 		this.__currentPersonel = p;
 	}
 	
-	//public Personel get_CurrentSuperviser()
-	//{
-	//return this.__currentSuperviser;
-	//}
-	//public void set_CurrentSuperviser(Personel p)
-	//{
-	//this.__currentSuperviser = p;
-	//}
-	
 	public boolean get_IsIntenetDisable()
 	{
 		return this.__isIntenetDisable;
@@ -305,7 +293,12 @@ public class MainEngine
 	class onBfAuth extends RunnableWithArgs { public void run()
 	{
 		MainEngine _this = (MainEngine)this.arg1;
-		_this.AuthenticateSVCompleteEvent.RunEvent((Object[])this.result);
+		//_this.AuthenticateSVCompleteEvent.RunEvent((Object[])this.result);
+		Object[] resultArr = (Object[])this.result;
+		boolean result = ((Boolean)resultArr[0]).booleanValue();
+		if(result){
+			MainActivityProxy.get_SvModel().set_CurrentSuperviser((Personel)resultArr[1]);
+		}
 	}}
 
 	void AuthenticateSV_2(final String pinStr)
@@ -316,10 +309,7 @@ public class MainEngine
 
 		this.mPin = pinStr; //TALog.Log("Check Pin start");
 
-		BackgroundFunc bf = 
-			BackgroundFunc.get_BackgroundFunc( 
-				get_onAuthenticateSV(this.mPin), this,  "AuthenticateSVCompleteEvent"
-			);
+		BackgroundFunc bf = BackgroundFunc.get_BackgroundFunc( get_onAuthenticateSV(this.mPin), this );
 		bf.BackgroundFuncComplete.Add(get_onBfAuth());
 
 		this.serverRunnable = bf;
@@ -327,14 +317,8 @@ public class MainEngine
 		Thread thread = new Thread(this.serverRunnable,"-Authenticate-"); // thread.setPriority(Thread.MAX_PRIORITY);
 		thread.start();
 	}
-	private onAuthenticateSV get_onAuthenticateSV(String pinStr)
-	{
-		onAuthenticateSV o = new onAuthenticateSV();
-		o.arg1 = this;
-		o.arg2 = pinStr;
-		return o;
-	}
-	class onAuthenticateSV extends RunnableWithArgs { public void run()
+	private onAuthenticateSV get_onAuthenticateSV(String pinStr) { onAuthenticateSV o = new onAuthenticateSV(); o.arg1 = this; o.arg2 = pinStr; return o; }
+	class   onAuthenticateSV extends RunnableWithArgs { public void run()
 	{
 		MainEngine engine = (MainEngine)this.arg1;
 		String pinStr = (String)this.arg2;
@@ -350,7 +334,7 @@ public class MainEngine
 				sv = LoadPersonelFromServer( pinStr, engine.mContext);
 				if(sv != null)
 				{
-					MainActivityProxy.set_CurrentSuperviser(sv);
+					//MainActivityProxy.get_SvModel().set_CurrentSuperviser(sv);
 					Personel [] workers = sv.LoadWorkers(engine.mContext);
 
 					MainEngine.Synchronization( sv, workers, sv.pointArray, sv.get_PersonelPoints(), engine.mContext);
@@ -372,7 +356,7 @@ public class MainEngine
 			{
 				sv = Personel.SelecByPin( pinStr );
 				if( sv != null && sv.Id != -1 && sv.IsSupervisor) {
-					MainActivityProxy.set_CurrentSuperviser(sv);
+					//MainActivityProxy.get_SvModel().set_CurrentSuperviser(sv);
 					
 					MsgFromBackground(Act.LocalAuthOk);
 					result = true;
@@ -425,7 +409,7 @@ public class MainEngine
 	private onBfComplete get_onBfComplete() {
 		onBfComplete o = new onBfComplete(); o.arg1 = this; return o;
 	}
-	class onBfComplete extends RunnableWithArgs { public void run()
+	class onBfComplete extends RunnableWithArgs { public void run() // ---> call in ui thread
 	{
 		MainEngine _this = (MainEngine)this.arg1;
 		_this.SaveCheckinCompleteEvent.RunEvent((Object[])this.result);
@@ -436,10 +420,7 @@ public class MainEngine
 	{
 		if((this.get_CurrentPersonel() != null) && (this.get_CurrentPersonel().Id != -1) )
 		{
-			BackgroundFunc bf = 
-				BackgroundFunc.get_BackgroundFunc( 
-					get_onSaveCheckin(), this, "SaveCheckinCompleteEvent"
-				);
+			BackgroundFunc bf = BackgroundFunc.get_BackgroundFunc( get_onSaveCheckin(), this );
 			bf.BackgroundFuncComplete.Add(get_onBfComplete());
 
 			this.serverRunnable = bf;
@@ -460,7 +441,7 @@ public class MainEngine
 		MsgFromBackground(Act.StartOperation);
 
 		Checkin ch = new Checkin(
-			MainActivityProxy.get_CurrentSuperviser().Id,				// SupervicerId
+			MainActivityProxy.get_SvModel().get_CurrentSuperviser().Id,				// SupervicerId
 			engine.get_CurrentPersonel().Id,					// Id
 			engine.get_CurrentPersonel().CardId,				// CardId
 			//engine.get_CurrentPersonel().IsSupervisor,
@@ -486,15 +467,6 @@ public class MainEngine
 				if( respond != null && !respond.isEmpty() )
 				{
 					ch.IsCheckinExistOnServer = true;
-					/*int stateCheckinOnServer = -1;
-					try {
-						JSONObject jo = new JSONObject(respond);
-						if(jo.has("status")) {
-							String status = jo.getString("status");
-							stateCheckinOnServer = Integer.parseInt(status);
-						}
-					} catch(JSONException jse){ } catch(NumberFormatException nfe){ }
-					ch.StateCheckinOnServer = stateCheckinOnServer;*/
 					ch.set_StateCheckinOnServer(respond);
 					ch.save( engine.mContext );
 				
@@ -507,6 +479,7 @@ public class MainEngine
 			catch( Exception e)
 			{
 				ch.IsCheckinExistOnServer = false;
+				ch.set_StateCheckinOnServer(-2);
 				ch.save( engine.mContext );
 				
 				HttpHelper.ExceptionHandler( e );
@@ -515,7 +488,6 @@ public class MainEngine
 		}
 		else
 		{
-				//ch.save(engine.mContext, false);
 				ch.IsCheckinExistOnServer = false;
 				ch.save( engine.mContext );
 			
@@ -553,7 +525,7 @@ public class MainEngine
 				Personel sv = LoadPersonelFromServer( _this.mPin, _this.mContext);
 				if(sv.Id != 0)
 				{
-					MainActivityProxy.set_CurrentSuperviser(sv);
+					MainActivityProxy.get_SvModel().set_CurrentSuperviser(sv);
 					Personel [] workers = sv.LoadWorkers(_this.mContext);
 					MainEngine.Synchronization( sv, workers, sv.pointArray, sv.get_PersonelPoints(), _this.mContext);
 

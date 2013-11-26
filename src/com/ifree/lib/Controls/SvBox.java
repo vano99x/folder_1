@@ -11,7 +11,8 @@ import android.widget.LinearLayout;
 import com.ifree.lib.*;
 import com.ifree.lib.tabui.*;
 import com.ifree.timeattendance.*;
-import com.ifree.Database.Personel;
+import com.ifree.Database.*;
+import com.ifree.timeattendance.Models.*;
 
 import com.example.test6.R;
 
@@ -22,6 +23,8 @@ public class SvBox extends Tab implements View.OnClickListener
 	private TextView     _labelLastName;
 	private TextView     _labelName;
 	private TextView     _labelThirdName;
+
+	private ISupervisorModel __svModel;
 
 	public SvBox(Context mainActivity, ViewGroup rootView)
 	{
@@ -36,11 +39,16 @@ public class SvBox extends Tab implements View.OnClickListener
 		CheckBox checkBoxInternet = ((CheckBox)this.root.findViewById(R.id.checkBoxInternet));
 		checkBoxInternet.setOnClickListener(this);
 		checkBoxInternet.setTag(R.id.checkBoxInternet);
-		
+
+		this.HideNameBlock();
+
 		// subscribe on event
-		this._engine.AuthenticateSVCompleteEvent.Add(get_onAuthenticateSVHandler());
-		this._engine.Clearing.Add(get_onClearing());
+		//this._engine.AuthenticateSVCompleteEvent.Add(get_onAuthenticateSVHandler());
+		//this._engine.Clearing.Add(get_onClearing());
 		//this._engine.Closing.Add(get_onClosing());
+
+		this.__svModel = Bootstrapper.Resolve( ISupervisorModel.class );
+		this.__svModel.set_CurrentSuperviserApplied(get_onAuthenticateSVHandler());
 	}
 
 
@@ -65,6 +73,7 @@ public class SvBox extends Tab implements View.OnClickListener
 	}
 	class onAuthenticateSVHandler extends RunnableWithArgs { public void run()
 	{
+		/*
 		SvBox _this = (SvBox)this.arg1;
 		
 		Object[] resultArr = (Object[])this.result;
@@ -78,19 +87,29 @@ public class SvBox extends Tab implements View.OnClickListener
 			_this._labelName.setText(      p.FirstName);
 			_this._labelThirdName.setText( p.ThirdName);
 		}
+		*/
+		SvBox _this = (SvBox)this.arg1;
+		
+		Object[] resultArr = (Object[])this.result;
+		Personel p = (Personel)resultArr[0];
+
+			_this.ShowNameBlock();
+			_this._labelLastName.setText(  p.LastName);
+			_this._labelName.setText(      p.FirstName);
+			_this._labelThirdName.setText( p.ThirdName);
 	}}
 
-	private onClearing get_onClearing()
-	{
-		onClearing o = new onClearing();
-		o.arg1 = this;
-		return o;
-	}
-	class onClearing extends RunnableWithArgs { public void run()
-	{
-		SvBox _this = (SvBox)this.arg1;
-		_this.HideNameBlock();
-	}}
+	//private onClearing get_onClearing()
+	//{
+	//onClearing o = new onClearing();
+	//o.arg1 = this;
+	//return o;
+	//}
+	//class onClearing extends RunnableWithArgs { public void run()
+	//{
+	//SvBox _this = (SvBox)this.arg1;
+	//_this.HideNameBlock();
+	//}}
 
 	//private onClosing get_onClosing()
 	//{

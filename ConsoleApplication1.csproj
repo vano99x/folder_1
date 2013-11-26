@@ -230,6 +230,18 @@
   <ItemGroup>
     <Content Include="src\com\ifree\lib\BroadcastReceiver\Test1.java" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\ifree\timeattendance\Models\SupervisorModel.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\ifree\timeattendance\Models\Bootstrapper.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\ifree\timeattendance\Models\TypeItem.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\ifree\timeattendance\Models\ISupervisorModel.java" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

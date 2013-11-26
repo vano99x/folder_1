@@ -85,7 +85,7 @@ public class UIHelper implements IMessageReceiver
 
 		//*****************************************************************************************
 		this.svBox = new SvBox( this.context, this.rootView);
-		svBox.HideNameBlock();
+		//svBox.HideNameBlock();
 
 		this.tabPin             = new TabPin(            this.context, this.rootView, R.layout._1_pin,               R.id.PagePin);
 		this.tabMainMenu        = new TabMainMenu(       this.context, this.rootView, R.layout._2_main_menu,              R.id.MainMenu_Id);
