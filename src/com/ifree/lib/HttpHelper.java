@@ -26,7 +26,7 @@ public class HttpHelper
 	static int TIMEOUT = 15000;//final 
 	//static final int BUFFER_SIZE = 0x40000;
 
-	public static String AkmeHost = "akme.telemetry.i-free.ru";//final 
+	public static String AkmeHost = "akme";//final 
 
 	private static void FromConnectionToStream(OutputStream outputstream, HttpURLConnection connection, IMessageReceiver messageReceiver)
 		throws java.io.IOException, java.net.ProtocolException, java.lang.IndexOutOfBoundsException
