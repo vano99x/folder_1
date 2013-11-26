@@ -134,7 +134,7 @@ public class DbConnector
 				new ColumnItem("ThirdName",     "TEXT",    null),
 
 				new ColumnItem("IsSupervisor",  "INTEGER", null),
-				new ColumnItem("Pin",           "INTEGER", null),
+				new ColumnItem("Pin",           "TEXT", null),
 				new ColumnItem("PersonelCode",  "INTEGER", null),
 				new ColumnItem("CardId",        "TEXT",    null),
 				new ColumnItem("PhotoTimeSpan", "TEXT",    null)

@@ -61,6 +61,8 @@ public class Personel //extends EntityBase
 		this.pointArray   = null;
 	}
 
+	//************************************************************************************************
+	// select from sqlite by one field
 	public static Personel SelecByPin( String pinStr )
 	{
 		DbConnector db = DbConnector.getInstance();
@@ -105,6 +107,10 @@ public class Personel //extends EntityBase
 		//return null;
 	}
 
+
+
+	//************************************************************************************************
+	// construct object
 	public static Personel FromCursor(Cursor cursor)
 	{
 		if(cursor.isAfterLast())
@@ -249,6 +255,8 @@ public class Personel //extends EntityBase
 		return p;
 	}
 
+
+
 	private static long save(Personel p, Context context)
 	{
 		DbConnector db = DbConnector.getInstance();
@@ -266,7 +274,8 @@ public class Personel //extends EntityBase
 		}
 
 		if(p.Pin != null) {
-			cv.put("Pin",  Integer.valueOf(p.Pin));
+			//cv.put("Pin", Integer.valueOf(p.Pin));
+			cv.put("Pin", p.Pin);
 		}
 
 		if(p.PersonelCode != 0) {
