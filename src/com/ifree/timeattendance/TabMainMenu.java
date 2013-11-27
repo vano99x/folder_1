@@ -56,7 +56,7 @@ public class TabMainMenu extends Tab implements View.OnClickListener
 
 	public void onClick_sync()
 	{
-		this._engine.startSync();
+		this._engine.Sync();
 	}
 
 	public void onClick_list()

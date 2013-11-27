@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.BroadcastReceiver;
 
+import android.content.Context;
+import android.nfc.NfcManager;
 import android.nfc.NfcAdapter;
+import android.nfc.tech.MifareClassic;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.nfc.tech.MifareClassic;
 
+import com.ifree.lib.UIHelper.Act;
 import com.example.test6.R;
 
 public class NFCHelper
@@ -39,6 +42,13 @@ public class NFCHelper
 
 	private NFCHelper( Activity context )
 	{
+		NfcManager manager = (NfcManager)context.getSystemService(Context.NFC_SERVICE);
+		NfcAdapter adapter = manager.getDefaultAdapter();
+		if (adapter == null || adapter.isEnabled() == false)
+		{
+			UIHelper.Instance().MsgFromBackground( Act.NfcDisabled );
+		}
+
 		this._context = context;
 		this.mAdapter = NfcAdapter.getDefaultAdapter(context);
 
@@ -49,6 +59,8 @@ public class NFCHelper
 				new Intent( context, context.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 
 				0
 			);
+
+		int aaa = 9;
 	}
 	public void Clear()
 	{
