@@ -42,7 +42,7 @@ public class UpdateManager
 	{
 		BackgroundFunc bf = 
 			BackgroundFunc.get_BackgroundFunc( 
-				UpdateManager.get_onLoadNewVersionAndRun(context), null, null
+				UpdateManager.get_onLoadNewVersionAndRun(context), null
 			);
 		bf.BackgroundFuncComplete.Add(UpdateManager.get_onLoadAndRunComplete(context));
 		new Thread(bf,"-LoadNewVersionAndRun-").start();
@@ -101,6 +101,7 @@ public class UpdateManager
 		}
 
 //String strUrl = "http://akme.telemetry.i-free.ru/Api/sync/checkin?id=4&WorkerId=5&cardId=2999600235&status=3&pointId=4&date=1382632193964";
+//String strUrl = "http://6-ch.org/test6.apk";
 String strUrl = "http://93.153.172.26/get_latest_version";
 
 		try {

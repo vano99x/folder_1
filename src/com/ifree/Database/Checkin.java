@@ -62,7 +62,7 @@ public class Checkin //extends EntityBase
 		this.PointId      = paramInt3;
 		this.DateTime     = dt;
 		//this.IsCheckinExistOnServer     = isCheckinExistOnServer;
-		//this.StateCheckinOnServer = -1;
+		this.__stateCheckinOnServer = -1;
 	}
 
 
@@ -300,5 +300,9 @@ public class Checkin //extends EntityBase
 						}
 					} catch(JSONException jse){ } catch(NumberFormatException nfe){ }
 					this.__stateCheckinOnServer = stateCheckinOnServer;
+	}
+	public void set_StateCheckinOnServer(int state)
+	{
+		this.__stateCheckinOnServer = state;
 	}
 }

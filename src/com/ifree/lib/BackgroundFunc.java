@@ -8,7 +8,7 @@ import java.lang.reflect.*;
 
 		final RunnableWithArgs targetFunc = (RunnableWithArgs)this.arg1;
 		Object eventHolder = this.arg2;
-		final String eventName = (String)this.arg3;
+		//final String eventName = (String)this.arg3;
 		try {
 
 		UIHelper.Instance().RunAndWait(
@@ -56,8 +56,8 @@ import java.lang.reflect.*;
 
 	public static BackgroundFunc get_BackgroundFunc(
 		RunnableWithArgs targetFunc, 
-		Object eventHolder, 
-		String eventName 
+		Object eventHolder
+		//,String eventName 
 		//,Object[] paramArr
 	)
 	{
@@ -66,7 +66,7 @@ import java.lang.reflect.*;
 
 		bf.arg1 = targetFunc;
 		bf.arg2 = eventHolder;
-		bf.arg3 = eventName;
+		//bf.arg3 = eventName;
 		//bf.arg4 = paramArr;
 		return bf;
 	}}

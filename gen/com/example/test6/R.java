@@ -198,9 +198,8 @@ public final class R {
         public static final int main=0x7f0a0000;
     }
     public static final class raw {
-        public static final int ref_text=0x7f040000;
-        public static final int ref_text___utf8=0x7f040001;
-        public static final int ref_text___utf8_2=0x7f040002;
+        public static final int ref_text___utf8=0x7f040000;
+        public static final int ref_text___utf8_2=0x7f040001;
     }
     public static final class string {
         public static final int MainMenu_CheckinListBtn_Text=0x7f080006;

@@ -207,7 +207,7 @@ public class MainActivity
 		if( this._isRunning == false )
 		{
 			this._isRunning = true;
-			if(MainActivityProxy.get_CurrentSuperviser() == null){
+			if(MainActivityProxy.get_SvModel().get_CurrentSuperviser() == null){
 				UIHelper.Instance().switchState(State.PIN);
 			}else{
 				UIHelper.Instance().switchState(State.MAIN_MENU);

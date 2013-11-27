@@ -45,6 +45,7 @@
   <ItemGroup>
     <Folder Include="Properties\" />
     <Folder Include="res\drawable-ldpi\" />
+    <Folder Include="res\raw\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="gen\com\example\test6\BuildConfig.java" />
@@ -150,7 +151,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="res\menu\main.xml" />
-    <Content Include="res\raw\ref_text___utf8.htm" />
     <Content Include="res\values-sw600dp\dimens.xml" />
     <Content Include="res\values-sw720dp-land\dimens.xml" />
     <Content Include="res\values-v11\styles.xml" />
@@ -229,6 +229,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="src\com\ifree\lib\BroadcastReceiver\Test1.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\ifree\timeattendance\Models\SupervisorModel.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\ifree\timeattendance\Models\Bootstrapper.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\ifree\timeattendance\Models\TypeItem.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\ifree\timeattendance\Models\ISupervisorModel.java" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

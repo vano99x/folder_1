@@ -23,7 +23,10 @@ public class operator
 		for(PT itemPT : paramList)
 		{
 			RT itemRT = filter.run(itemPT);
-			returnList.add(itemRT);
+			if(itemRT != null)
+			{
+				returnList.add(itemRT);
+			}
 		}
 		return returnList;
 	}
@@ -40,7 +43,10 @@ public class operator
 			for( int i = 0; i < count; i++)
 			{
 				RT itemRT = filter.run(paramList[i]);
-				returnList.add(itemRT);
+				if(itemRT != null)
+				{
+					returnList.add(itemRT);
+				}
 			}
 			return returnList;
 		}

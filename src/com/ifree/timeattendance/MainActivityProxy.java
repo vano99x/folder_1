@@ -17,6 +17,7 @@ import android.support.v4.app.FragmentActivity;
 import com.ifree.lib.*;
 import com.ifree.lib.tabui.*;
 import com.ifree.Database.*;
+import com.ifree.timeattendance.Models.*;
 
 public class MainActivityProxy extends FragmentActivity
 {
@@ -214,7 +215,7 @@ public class MainActivityProxy extends FragmentActivity
 	public void finish()
 	{
 		super.finish();
-		MainActivityProxy.set_CurrentSuperviser(null);
+		MainActivityProxy.get_SvModel().set_CurrentSuperviser(null);
 		UIHelper.Instance().currentState = MainActivity.State.PIN;
 	}
 
@@ -230,15 +231,16 @@ public class MainActivityProxy extends FragmentActivity
 		return _fragmentManager;
 	}
 
-	private static Personel __currentSuperviser;
-	public static Personel get_CurrentSuperviser()
+	private static ISupervisorModel __svModel;
+	public static ISupervisorModel get_SvModel()
 	{
-		return MainActivityProxy.__currentSuperviser;
+		if(MainActivityProxy.__svModel == null)
+		{
+			MainActivityProxy.__svModel = Bootstrapper.Resolve( ISupervisorModel.class );
+		}
+		return MainActivityProxy.__svModel;
 	}
-	public static void set_CurrentSuperviser(Personel p)
-	{
-		MainActivityProxy.__currentSuperviser = p;
-	}
+	//public static void set_SvModel(ISupervisorModel p) { MainActivityProxy.__svModel = p; }
 
 
 
@@ -257,6 +259,6 @@ public class MainActivityProxy extends FragmentActivity
 	{
 		MainActivityProxy._count = 0;
 		MainActivityProxy.ma = null;
-		MainActivityProxy.__currentSuperviser = null;
+		MainActivityProxy.__svModel = null;
 	}
 }

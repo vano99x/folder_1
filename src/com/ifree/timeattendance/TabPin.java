@@ -6,10 +6,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.*;
 
-import com.ifree.timeattendance.MainActivity;
+import com.ifree.timeattendance.*;
 import com.ifree.lib.*;
-import com.ifree.lib.tabui.Tab;
-//import com.ifree.lib.tabui.TabActionListener;
+import com.ifree.lib.tabui.*;
+import com.ifree.timeattendance.Models.*;
 
 import com.example.test6.R;
 
@@ -23,11 +23,12 @@ public class TabPin extends Tab implements View.OnClickListener
 	private EditText mPinEditText;
 	private boolean _isBisy;
 
+	private ISupervisorModel __svModel;
+
 	public TabPin(Context mainActivity, ViewGroup rootView, int paramInt1, int paramInt2)
 	{
 		super( mainActivity, rootView, paramInt1, paramInt2);
-		//TALog.Log("===========TabPin=================:" + this);
-		this._engine = MainEngine.getInstance();
+		this._engine = MainEngine.getInstance(); //TALog.Log("===========TabPin=================:" + this);
 		this._isBisy = false;
 
 		// ctrls
@@ -42,8 +43,11 @@ public class TabPin extends Tab implements View.OnClickListener
 		//checkBoxInternet.setTag(R.id.checkBoxInternet);
 		
 		// subscribe on event
-		this._engine.AuthenticateSVCompleteEvent.Add(get_onAuthenticateSVHandler());
-		this._engine.Clearing.Add(get_onClearing());
+		//this._engine.AuthenticateSVCompleteEvent.Add(get_onAuthenticateSVHandler());
+		//this._engine.Clearing.Add(get_onClearing());
+
+		this.__svModel = Bootstrapper.Resolve( ISupervisorModel.class );
+		this.__svModel.set_CurrentSuperviserApplied(get_onAuthenticateSVHandler());
 	}
 
 
@@ -56,24 +60,22 @@ public class TabPin extends Tab implements View.OnClickListener
 	}
 	class onAuthenticateSVHandler extends RunnableWithArgs { public void run()
 	{
-		Object[] resultArr = (Object[])this.result;
-		boolean result = ((Boolean)resultArr[0]).booleanValue();
-		//boolean result = (Boolean)resultArr[0];
+		//Object[] resultArr = (Object[])this.result;
+		//boolean result = ((Boolean)resultArr[0]).booleanValue();
 
-		if(result)
-		{
-			UIHelper.Instance().switchState(MainActivity.State.MAIN_MENU);
-		}
+		//if(result) {
+		UIHelper.Instance().switchState(MainActivity.State.MAIN_MENU);
+		//}
 	}}
-	private onClearing get_onClearing()
-	{
-		onClearing o = new onClearing(); o.arg1 = this; return o;
-	}
-	class onClearing extends RunnableWithArgs { public void run()
-	{
-		TabPin _this = (TabPin)this.arg1;
-		_this.mPinEditText.setText("");
-	}}
+	//private onClearing get_onClearing()
+	//{
+	//onClearing o = new onClearing(); o.arg1 = this; return o;
+	//}
+	//class onClearing extends RunnableWithArgs { public void run()
+	//{
+	//TabPin _this = (TabPin)this.arg1;
+	//_this.mPinEditText.setText("");
+	//}}
 
 
 	//*********************************************************************************************

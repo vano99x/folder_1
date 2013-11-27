@@ -117,8 +117,21 @@ public class CheckinAdapter3 extends BaseAdapter implements Filterable
 				String state = Integer.toString(checkin.get_StateCheckinOnServer());
 
 				chView.setText(text);
-				stateView.setText(state);
-				//baseView.setTag(checkin);
+				//stateView.setText(state);
+				stateView.setText("");
+
+				switch(checkin.get_StateCheckinOnServer())
+				{
+					case -2:{
+						stateView.setBackgroundColor(0xffff0000);
+					break;}
+					case -1:{
+						stateView.setBackgroundColor(0xfff5d50b);
+					break;}
+					default :{
+						stateView.setBackgroundColor(0xff46b525);
+					}
+				}
 			}
 			catch (Exception e)
 			{
