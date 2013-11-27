@@ -47,7 +47,7 @@
 		android:paddingTop="57.0dip"
 	>
 	<ListView 
-		android:id="@id/list" 
+		android:id="@id/PageCheckinList_ListView_Id" 
 		style="@style/myScroll"
 		android:scrollbarSize="50dp"
 		

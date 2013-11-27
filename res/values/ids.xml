@@ -19,6 +19,7 @@
 	
 	
 	<item type="id" name="PagePointsList" />
+	<item type="id" name="PagePointsList_ListView_Id" />
 	<item type="id" name="lable_empty_list" />
 	<item type="id" name="route_block" />
 	<item type="id" name="txtName" />
@@ -63,6 +64,7 @@
 	
 	
 	<item type="id" name="PagePersonelList" />
+	<item type="id" name="PagePersonelList_ListView_Id" />
 	<item type="id" name="txt_lastname" />
 	<item type="id" name="SearchButton_Id" />
 	<item type="id" name="PersonelListItem_Id" />
@@ -86,6 +88,7 @@
 	<item type="id" name="checkin_list" />
 	
 	<item type="id" name="PageCheckinList" />
+	<item type="id" name="PageCheckinList_ListView_Id" />
 	<item type="id" name="checkin_btn_filter_left" />
 	<item type="id" name="checkin_btn_filter_right" />
 	<item type="id" name="checkin_input_filter" />
@@ -109,6 +112,9 @@
 	<item type="id" name="LoadingProgressBar_ListView" />
 	<item type="id" name="LoadingProgressBar_ListView_Item_RootId" />
 	<item type="id" name="LoadingProgressBar_ListView_Item_Text" />
+	
+	<item type="id" name="OperationalEnvironment_RootId" />
+	<item type="id" name="OperationalEnvironment_ListView_Id" />
 	
 </resources>
 

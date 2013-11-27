@@ -48,7 +48,7 @@ public class TabCheckinList extends Tab implements View.OnClickListener
 		this._day1   = this._day2   = currentDate.get(Calendar.DAY_OF_MONTH);
 
 		//android.widget.ScrollView.setScrollbarFadingEnabled(false);
-		listView = (ListView)this.root.findViewById(R.id.list);
+		listView = (ListView)this.root.findViewById(R.id.PageCheckinList_ListView_Id);
 		listView.setScrollbarFadingEnabled(false);
 		
 		Button checkin_btn_filter_left = (Button)this.root.findViewById(R.id.checkin_btn_filter_left);

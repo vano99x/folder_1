@@ -40,11 +40,13 @@
 		android:singleLine="false" android:layout_x="0.0px" android:layout_y="250.0px" 
 	/>
 	
-    <LinearLayout 
+	<LinearLayout 
 		android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" 
 		android:layout_y="100.0px" android:layout_weight="1.0"
 	>
-        <ListView android:id="@id/list" android:layout_width="fill_parent" android:layout_height="wrap_content" />
-    </LinearLayout>
+		<ListView
+			android:id="@id/PagePersonelList_ListView_Id"
+			android:layout_width="fill_parent" android:layout_height="wrap_content" />
+	</LinearLayout>
 	
 </AbsoluteLayout>

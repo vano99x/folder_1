@@ -48,6 +48,7 @@ public class UIHelper implements IMessageReceiver
 	public  TabPersonelInfo  tabPersonelInfo;
 	public  TabPersonelList  tabPersonelList;
 	private TabCheckinList   tabCheckinList;
+	private TabCheckinList   tabOpEnv;
 
 	private TabItem[]         __tabItemArray;
 	//private HttpMessage       _myRunnable;
@@ -100,6 +101,7 @@ public class UIHelper implements IMessageReceiver
 		this.tabPersonelInfo    = new TabPersonelInfo(   this.context, this.rootView, R.layout.page_personel_info,     R.id.PagePersonelInfo);
 		this.tabPersonelList    = new TabPersonelList(   this.context, this.rootView, R.layout.page_personel_list,     R.id.PagePersonelList);
 		//this.tabSync            = new TabSync(           this.context, this.rootView, R.layout.page_sync,              R.id.PageSync);
+		this.tabPersonelList    = new TabPersonelList(   this.context, this.rootView, R.layout.page_personel_list,     R.id.PagePersonelList);
 
 		this.SetToDefaultState();
 	}

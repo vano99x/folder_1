@@ -27,7 +27,7 @@ public class TabPersonelList extends Tab implements View.OnClickListener
 		super(paramContext, paramViewGroup, paramInt1, paramInt2);
 		this._engine = MainEngine.getInstance();
 
-		listView        = (ListView)this.root.findViewById(R.id.list);
+		listView        = (ListView)this.root.findViewById(R.id.PagePersonelList_ListView_Id);
 		mLableEmptyList = (TextView)this.root.findViewById(R.id.lable_empty_list);
 		txtSearch       = (EditText)this.root.findViewById(R.id.txt_lastname);//continue_button
 

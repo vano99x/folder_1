@@ -107,6 +107,7 @@
     <Content Include="res\layout\main.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="res\layout\p_facility_info.xml" />
     <Content Include="res\layout\_2_main_menu.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -116,9 +117,6 @@
     <Content Include="res\layout\_4_checkin_list.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="res\layout\page_data_transmition2.xml" />
-    <Content Include="res\layout\page_error_connection.xml" />
-    <Content Include="res\layout\page_error_reading.xml" />
     <Content Include="res\layout\page_mode_selection.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -131,10 +129,6 @@
     <Content Include="res\layout\_1_pin.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="res\layout\page_points_list.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="res\layout\page_sync.xml" />
     <Content Include="res\layout\page_wait2.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -202,9 +196,6 @@
     <Content Include="src\com\ifree\timeattendance\MainEngine.java" />
     <Content Include="src\com\ifree\timeattendance\Mode.java" />
     <Content Include="src\com\ifree\timeattendance\PersonelListAdapter.java" />
-    <Content Include="src\com\ifree\timeattendance\TabDataTransmition.java" />
-    <Content Include="src\com\ifree\timeattendance\TabErrorConnection.java" />
-    <Content Include="src\com\ifree\timeattendance\TabErrorReading.java" />
     <Content Include="src\com\ifree\timeattendance\TabMainMenu.java" />
     <Content Include="src\com\ifree\timeattendance\TabModeSelection.java" />
     <Content Include="src\com\ifree\timeattendance\TabPersonelInfo.java" />
@@ -212,7 +203,6 @@
     <Content Include="src\com\ifree\timeattendance\TabPin.java" />
     <Content Include="src\com\ifree\timeattendance\TabPointsList.java" />
     <Content Include="src\com\ifree\timeattendance\TabReference.java" />
-    <Content Include="src\com\ifree\timeattendance\TabSync.java" />
     <Content Include="src\com\ifree\timeattendance\TabWait.java" />
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +231,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="src\com\ifree\timeattendance\Models\ISupervisorModel.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\ifree\FacilityInfo\TabFacilityInfo.java" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
