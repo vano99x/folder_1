@@ -380,7 +380,8 @@ public class UIHelper implements IMessageReceiver
 		TimeoutException, ServerNotRespond, ServerNotAvailable, UnhandledException, 
 		ServerAuthOk, LocalAuthOk, ServerAuthError, LocalAuthError, 
 		SyncOk, SyncError, CheckinSuccess, CheckinSaveLocal, CheckinFailed,
-		LoadNewVersionFailed, LoadNewVersionSuccess, CanNotCreateFileForLoading; }
+		LoadNewVersionFailed, LoadNewVersionSuccess, CanNotCreateFileForLoading,
+		NfcDisabled; }
 	private HttpMessage get_HttpMessage(Act act)
 	{
 		return this.get_HttpMessage( act, null, -1);
@@ -424,7 +425,7 @@ public class UIHelper implements IMessageReceiver
 			}
 			else
 			{
-				if(_ui.mProgress.isShowing())
+				if(_ui.mProgress != null && _ui.mProgress.isShowing())
 				{
 					_ui.mProgress.dismiss();
 				}
@@ -475,6 +476,10 @@ public class UIHelper implements IMessageReceiver
 					break;}
 					case UnhandledException:{
 						_ui.Toast( (String)this.arg3, (Integer)this.arg4 );
+					break;}
+
+					case NfcDisabled:{
+						_ui.Toast("Nfc датчик отключён");
 					break;}
 				}
 			}

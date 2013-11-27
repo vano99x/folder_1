@@ -292,11 +292,11 @@ public class MainEngine
 	}
 	class onBfAuth extends RunnableWithArgs { public void run()
 	{
-		MainEngine _this = (MainEngine)this.arg1;
+		//MainEngine _this = (MainEngine)this.arg1;
 		//_this.AuthenticateSVCompleteEvent.RunEvent((Object[])this.result);
 		Object[] resultArr = (Object[])this.result;
 		boolean result = ((Boolean)resultArr[0]).booleanValue();
-		if(result){
+		if(result) {
 			MainActivityProxy.get_SvModel().set_CurrentSuperviser((Personel)resultArr[1]);
 		}
 	}}
@@ -513,34 +513,57 @@ public class MainEngine
 
 	//************************************************************************************************
 	// 5 Sync
-	public void startSync()
+	private onBfSyncComplete get_onBfSyncComplete() { onBfSyncComplete o = new onBfSyncComplete(); o.arg1 = this; return o; }
+	class   onBfSyncComplete extends RunnableWithArgs { public void run() // ---> call in ui thread
 	{
-		this.serverRunnable = new Runnable() { public void run()
-		{
-			MsgFromBackground( Act.StartOperation );
+		//MainEngine _this = (MainEngine)this.arg1;
+		Object[] resultArr = (Object[])this.result;
+		boolean result = ((Boolean)resultArr[0]).booleanValue();
+		if(result) {
+			MainActivityProxy.get_SvModel().set_CurrentSuperviser((Personel)resultArr[1]);
+		}
+	}}
 
-			MainEngine _this = MainEngine.this;
-			try
-			{
-				Personel sv = LoadPersonelFromServer( _this.mPin, _this.mContext);
-				if(sv.Id != 0)
-				{
-					MainActivityProxy.get_SvModel().set_CurrentSuperviser(sv);
-					Personel [] workers = sv.LoadWorkers(_this.mContext);
-					MainEngine.Synchronization( sv, workers, sv.pointArray, sv.get_PersonelPoints(), _this.mContext);
+	public void Sync()
+	{
+		//this.serverRunnable = new Runnable() { public void run()
+		//{
+		//}};
+		BackgroundFunc bf = BackgroundFunc.get_BackgroundFunc( get_onSync(), this );
+		bf.BackgroundFuncComplete.Add(get_onBfSyncComplete());
 
-					MsgFromBackground(Act.SyncOk);
-				}
-				else
-				{
-					MsgFromBackground(Act.SyncError);
-				}
-			}
-			catch( Exception e)
-			{
-				HttpHelper.ExceptionHandler( e );
-			}
-		}};
-		new Thread(this.serverRunnable,"-startSync-").start();
+		new Thread(bf,"-Sync-").start();
 	}
+
+	private onSync get_onSync() { onSync o = new onSync(); o.arg1 = this; return o; }
+	class onSync extends RunnableWithArgs { public void run()
+	{
+		MainEngine engine = (MainEngine)this.arg1;
+		boolean result = false;
+
+		MsgFromBackground( Act.StartOperation );
+		Personel sv = null;
+
+		try
+		{
+			sv = LoadPersonelFromServer( engine.mPin, engine.mContext);
+			if(sv.Id != 0)
+			{
+				//MainActivityProxy.get_SvModel().set_CurrentSuperviser(sv);
+				Personel [] workers = sv.LoadWorkers(engine.mContext);
+				MainEngine.Synchronization( sv, workers, sv.pointArray, sv.get_PersonelPoints(), engine.mContext);
+
+				MsgFromBackground(Act.SyncOk);
+				result = true;
+			} else {
+				MsgFromBackground(Act.SyncError);
+			}
+		}
+		catch( Exception e)
+		{
+			HttpHelper.ExceptionHandler( e );
+		}
+
+		this.result = new Object[]{result, sv};
+	}}
 }
