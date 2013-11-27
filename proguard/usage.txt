@@ -988,13 +988,13 @@ com.ifree.Database.Checkin:
     public static final int NUM_COLUMN_SUPERVISERID
     public static final java.lang.String TABLE_NAME
     private java.util.Date _dateObj
-    115:119:private static com.ifree.Database.Checkin getCheckin(android.database.Cursor)
-    218:223:public java.util.Date get_DateObj()
+    119:123:private static com.ifree.Database.Checkin getCheckin(android.database.Cursor)
+    227:232:public java.util.Date get_DateObj()
 com.ifree.Database.DbConnector:
     private static final java.lang.String DATABASE_NAME
     private static final int DATABASE_VERSION
     78:79:public void exec(java.lang.String)
-    324:360:public com.ifree.Database.DbConnector$RowInfo[] GetColumnInfoArray(java.lang.String)
+    325:361:public com.ifree.Database.DbConnector$RowInfo[] GetColumnInfoArray(java.lang.String)
 com.ifree.Database.DbConnector$RowInfo
 com.ifree.Database.Personel:
     public static final java.lang.String COLUMN_CARDID
@@ -1051,10 +1051,10 @@ com.ifree.lib.operator:
     22:28:public static java.util.ArrayList Where(java.util.ArrayList,com.ifree.lib.operator$WhereRunnable)
 com.ifree.timeattendance.MainActivity:
     private com.ifree.lib.BroadcastReceiver.UpdateReceiver _updateReceiver
-    294:298:public android.os.PowerManager get_PowerManager()
-    302:306:public android.nfc.NfcManager get_NfcManager()
+    299:303:public android.os.PowerManager get_PowerManager()
+    307:311:public android.nfc.NfcManager get_NfcManager()
 com.ifree.timeattendance.MainActivity$State:
-    349:349:public int toInt()
+    354:354:public int toInt()
 com.ifree.timeattendance.MainEngine_Temp
 com.ifree.timeattendance.Mode:
     3:3:public Mode()

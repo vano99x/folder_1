@@ -1356,6 +1356,7 @@ com.ifree.Database.Checkin -> com.ifree.b.a:
     boolean IsCheckinExistOnServer -> h
     java.util.Calendar _calendarObj -> j
     com.ifree.Database.Personel _personel -> i
+    int __stateCheckinOnServer -> k
     com.ifree.Database.Checkin[] GetAllCheckin(android.content.Context) -> a
     java.util.ArrayList GetLocalCheckins(android.content.Context) -> b
     void Update(com.ifree.Database.Checkin,android.content.Context) -> a
@@ -1365,6 +1366,8 @@ com.ifree.Database.Checkin -> com.ifree.b.a:
     java.util.Calendar get_CalendarObj() -> a
     long save(android.content.Context) -> c
     com.ifree.Database.Personel get_Personel() -> b
+    int get_StateCheckinOnServer() -> c
+    void set_StateCheckinOnServer(java.lang.String) -> a
 com.ifree.Database.DbConnector -> com.ifree.b.b:
     com.ifree.Database.DbConnector instance -> a
     com.ifree.Database.DbConnector$OpenHelper openHelper -> b
@@ -1414,7 +1417,7 @@ com.ifree.Database.Personel -> com.ifree.b.f:
     com.ifree.Database.Personel SelectById(int) -> a
     com.ifree.Database.Personel SelectByCard(long) -> a
     com.ifree.Database.Personel FromCursor(android.database.Cursor) -> a
-    com.ifree.Database.Personel[] ArrayFromStr(java.lang.String,android.content.Context) -> a
+    com.ifree.Database.Personel[] ArrayFromJson(java.lang.String,android.content.Context) -> a
     com.ifree.Database.Personel FromJson(org.json.JSONObject,android.content.Context) -> a
     long save(com.ifree.Database.Personel,android.content.Context) -> a
     java.util.ArrayList getPersonelList(android.database.Cursor) -> b
@@ -1748,7 +1751,8 @@ com.ifree.timeattendance.MainActivityProxy -> com.ifree.timeattendance.MainActiv
     java.lang.String _threadMarker -> p
     boolean isNfcBusy -> q
     android.support.v4.app.FragmentManager _fragmentManager -> u
-    void Begin() -> i
+    com.ifree.Database.Personel __currentSuperviser -> v
+    void Begin() -> j
     void onCreate(android.os.Bundle) -> onCreate
     void onDestroy() -> onDestroy
     void onStart() -> onStart
@@ -1760,7 +1764,9 @@ com.ifree.timeattendance.MainActivityProxy -> com.ifree.timeattendance.MainActiv
     void onBackPressed() -> onBackPressed
     void finish() -> finish
     android.support.v4.app.FragmentManager get_FragmentManager() -> g
-    com.ifree.timeattendance.MainActivityProxy$onClickBackBtn get_onClickBackBtn() -> h
+    com.ifree.Database.Personel get_CurrentSuperviser() -> h
+    void set_CurrentSuperviser(com.ifree.Database.Personel) -> a
+    com.ifree.timeattendance.MainActivityProxy$onClickBackBtn get_onClickBackBtn() -> i
 com.ifree.timeattendance.MainActivityProxy$onClickBackBtn -> com.ifree.timeattendance.e:
     com.ifree.timeattendance.MainActivityProxy _this -> a
     com.ifree.timeattendance.MainActivityProxy this$0 -> b
@@ -1771,9 +1777,8 @@ com.ifree.timeattendance.MainEngine -> com.ifree.timeattendance.f:
     java.lang.String mPin -> k
     int currentMode -> l
     com.ifree.Database.Personel __currentPersonel -> m
-    com.ifree.Database.Personel __currentSuperviser -> n
-    boolean __isIntenetDisable -> o
-    int __currentPointId -> p
+    boolean __isIntenetDisable -> n
+    int __currentPointId -> o
     com.ifree.lib.Event AuthenticateSVCompleteEvent -> a
     com.ifree.lib.Event SaveCheckinCompleteEvent -> b
     com.ifree.lib.Event WorkerFound -> c
@@ -1788,30 +1793,28 @@ com.ifree.timeattendance.MainEngine -> com.ifree.timeattendance.f:
     void MainEngine_Clear() -> c
     void Nulling() -> d
     void MainEngine_ToDefault() -> e
-    com.ifree.timeattendance.MainEngine$onSaveCheckin_CompleteEventHandler get_onSaveCheckin_CompleteEventHandler() -> m
+    com.ifree.timeattendance.MainEngine$onSaveCheckin_CompleteEventHandler get_onSaveCheckin_CompleteEventHandler() -> l
     int getCurrentMode() -> f
     void setCurrentMode(int) -> a
     com.ifree.Database.Personel get_CurrentPersonel() -> g
     void set_CurrentPersonel(com.ifree.Database.Personel) -> a
-    com.ifree.Database.Personel get_CurrentSuperviser() -> h
-    void set_CurrentSuperviser(com.ifree.Database.Personel) -> b
-    boolean get_IsIntenetDisable() -> i
+    boolean get_IsIntenetDisable() -> h
     void set_IsIntenetDisable(boolean) -> a
-    int get_CurrentPointId() -> j
+    int get_CurrentPointId() -> i
     void set_CurrentPointId(int) -> b
     void MsgFromBackground(com.ifree.lib.UIHelper$Act) -> a
     void Synchronization(com.ifree.Database.Personel,com.ifree.Database.Personel[],com.ifree.Database.Point[],com.ifree.Database.PersonelPoint[],android.content.Context) -> b
     com.ifree.Database.Personel LoadPersonelFromServer(java.lang.String,android.content.Context) -> b
-    com.ifree.timeattendance.MainEngine$onBfAuth get_onBfAuth() -> n
+    com.ifree.timeattendance.MainEngine$onBfAuth get_onBfAuth() -> m
     void AuthenticateSV_2(java.lang.String) -> a
     com.ifree.timeattendance.MainEngine$onAuthenticateSV get_onAuthenticateSV(java.lang.String) -> c
-    com.ifree.timeattendance.MainEngine$onClickOkMessageBox get_onClickOkMessageBox() -> o
+    com.ifree.timeattendance.MainEngine$onClickOkMessageBox get_onClickOkMessageBox() -> n
     void OnNfcTagApply(long) -> a
-    com.ifree.timeattendance.MainEngine$onBfComplete get_onBfComplete() -> p
-    void SaveCheckin() -> k
-    com.ifree.timeattendance.MainEngine$onSaveCheckin get_onSaveCheckin() -> q
+    com.ifree.timeattendance.MainEngine$onBfComplete get_onBfComplete() -> o
+    void SaveCheckin() -> j
+    com.ifree.timeattendance.MainEngine$onSaveCheckin get_onSaveCheckin() -> p
     void searchPersonel(java.lang.String) -> b
-    void startSync() -> l
+    void startSync() -> k
     void access$0(com.ifree.timeattendance.MainEngine,com.ifree.lib.UIHelper$Act) -> a
     android.content.Context access$1(com.ifree.timeattendance.MainEngine) -> a
     com.ifree.Database.Personel access$2(java.lang.String,android.content.Context) -> a
@@ -1845,6 +1848,7 @@ com.ifree.timeattendance.Mode -> com.ifree.timeattendance.n:
     int StartWork -> a
     int EndWork -> b
     int Check -> c
+    int Pause -> d
 com.ifree.timeattendance.PersonelListAdapter -> com.ifree.timeattendance.o:
     android.view.View$OnClickListener listener -> a
     android.view.LayoutInflater mInflater -> b
@@ -1878,6 +1882,7 @@ com.ifree.timeattendance.TabModeSelection -> com.ifree.timeattendance.s:
     void onClick_start_button() -> b
     void onClick_end_button() -> c
     void onClick_check_button() -> g
+    void onClick_pause_button() -> h
     void onClick(android.view.View) -> onClick
 com.ifree.timeattendance.TabPersonelInfo -> com.ifree.timeattendance.t:
     android.widget.ImageView _iconMode -> b
