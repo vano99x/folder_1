@@ -86,6 +86,7 @@
     <Content Include="res\drawable\button_auth.xml" />
     <Content Include="res\drawable\button_list.xml" />
     <Content Include="res\drawable\button_mode.xml" />
+    <Content Include="res\drawable\facilityinfo_listview_divider.xml" />
     <Content Include="res\drawable\loading_spinner.xml" />
     <Content Include="res\drawable\pin_edit_ctrl_style.xml">
       <SubType>Designer</SubType>
@@ -107,7 +108,10 @@
     <Content Include="res\layout\main.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="res\layout\p_facility_info.xml" />
+    <Content Include="res\layout\p_facility_info.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\p_facility_info_item.xml" />
     <Content Include="res\layout\_2_main_menu.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -162,11 +166,11 @@
     <Content Include="res\values\styles.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="src\com\ifree\CheckinList\CheckinAdapter.java" />
-    <Content Include="src\com\ifree\CheckinList\CheckinAdapter2.java" />
-    <Content Include="src\com\ifree\CheckinList\CheckinAdapter3.java" />
-    <Content Include="src\com\ifree\CheckinList\CheckinFilter.java" />
-    <Content Include="src\com\ifree\CheckinList\TabCheckinList.java" />
+    <Content Include="src\com\Tabs\CheckinList\CheckinAdapter.java" />
+    <Content Include="src\com\Tabs\CheckinList\CheckinAdapter2.java" />
+    <Content Include="src\com\Tabs\CheckinList\CheckinAdapter3.java" />
+    <Content Include="src\com\Tabs\CheckinList\CheckinFilter.java" />
+    <Content Include="src\com\Tabs\CheckinList\TabCheckinList.java" />
     <Content Include="src\com\ifree\Database\Checkin.java" />
     <Content Include="src\com\ifree\Database\DbConnector.java" />
     <Content Include="src\com\ifree\Database\EntityBase.java" />
@@ -233,7 +237,19 @@
     <Content Include="src\com\ifree\timeattendance\Models\ISupervisorModel.java" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\com\ifree\FacilityInfo\TabFacilityInfo.java" />
+    <Content Include="src\com\Tabs\FacilityInfo\TabFacilityInfo.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\ifree\Database\FacilityInfoEntity.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\Tabs\FacilityInfo\FacilityInfoAdapter.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\Tabs\FacilityInfo\FacilityInfoFilter.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\com\ifree\lib\Common\DateTime.java" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

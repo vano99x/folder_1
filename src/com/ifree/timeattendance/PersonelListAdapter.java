@@ -54,7 +54,6 @@ public class PersonelListAdapter extends BaseAdapter
 
 		try
 		{
-
 			TextView     textView = (TextView)    paramView.findViewById(R.id.txtName);
 			LinearLayout baseView = (LinearLayout)paramView.findViewById(R.id.item);
 			baseView.setOnClickListener(this.listener);
@@ -62,6 +61,13 @@ public class PersonelListAdapter extends BaseAdapter
 			if (this.personelArray != null)
 			{
 				Personel p = this.personelArray[paramInt];
+
+				//if(p.CardId == null)
+				//{
+				//int aaa = 9;
+				//int aaa2 = 9-2;
+				//}
+
 				textView.setText(p.LastName + " " + p.FirstName + " " + p.ThirdName);
 				baseView.setTag(new Object[]{ R.id.PersonelListItem_Id, p});
 			}

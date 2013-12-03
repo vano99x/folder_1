@@ -2,7 +2,7 @@
 <LinearLayout android:id="@id/MainMenu_Id" xmlns:android="http://schemas.android.com/apk/res/android" 
 	          android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
 <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
-			  android:paddingTop="40.0dip" >
+			  android:paddingTop="5.0dip" >
 <!--//
 	<Button 
 		android:id="@id/MainMenu_StartBtn_Id" 
@@ -28,7 +28,7 @@
 <TextView android:text="@string/MainMenu_CheckinListBtn_Text" style="@style/CommonButtonStyle2" />
 </RelativeLayout>
 
-<LinearLayout android:orientation="horizontal" android:layout_marginTop="15.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent" >
+<LinearLayout android:orientation="horizontal" android:layout_marginTop="15.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" >
 	<Button 
 		android:id="@id/MainMenu_ReferenceBtn_Id" 
 		android:background="@drawable/button_mode" 
@@ -49,6 +49,10 @@
 		android:layout_width="150.0dip" android:layout_height="wrap_content" 
 	/>
 </LinearLayout>
+	
+<RelativeLayout android:id="@id/MainMenu_FacilityInfoBtn_Id" style="@style/WrapperButtonStyle2" android:layout_marginTop="15.0dip" >
+<TextView android:text="@string/MainMenu_FacilityInfoBtn_Text" style="@style/CommonButtonStyle2" />
+</RelativeLayout>
 
 </LinearLayout>
 </LinearLayout>

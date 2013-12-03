@@ -1,4 +1,4 @@
-﻿package com.ifree.CheckinList;
+﻿package com.Tabs.CheckinList;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -73,17 +73,17 @@ public class CheckinAdapter3 extends BaseAdapter implements Filterable
 		return paramInt;
 	}
 
-	private SimpleDateFormat _dateFormat;
-	private SimpleDateFormat get_DateFormat()
+	private static SimpleDateFormat _dateFormat;
+	private static SimpleDateFormat get_DateFormat()
 	{
-		if( this._dateFormat == null )
+		if( CheckinAdapter3._dateFormat == null )
 		{
-			this._dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm");
+			CheckinAdapter3._dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm");
 		}
-		return this._dateFormat;
+		return CheckinAdapter3._dateFormat;
 	}
 
-	private String GetTextForItem(Checkin checkin)
+	private static String GetTextForItem(Checkin checkin)
 	{
 		long dt = Long.parseLong(checkin.DateTime);
 		Date date = new Date(dt);

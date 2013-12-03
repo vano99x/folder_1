@@ -1,4 +1,4 @@
-package com.ifree.CheckinList;
+package com.Tabs.CheckinList;
 
 import android.widget.Filter;
 import java.util.Date;
@@ -20,6 +20,7 @@ import com.ifree.lib.*;
 			//this._checkinAdapter3._context.DatePickerCallBack = 
 		}
 
+		@Override
 		protected FilterResults performFiltering(CharSequence constraint)
 		{
 			FilterResults result = new FilterResults();
@@ -57,6 +58,23 @@ import com.ifree.lib.*;
 
 			return result;
 		}
+
+		@Override
+		protected void publishResults(CharSequence charSequence, FilterResults filterResults)
+		{
+			//clear();
+			//for (Checkin ch : (List<Checkin>) filterResults.values)
+			//{
+			//    //add(ch);
+			//}
+			List<Checkin> list = (List<Checkin>) filterResults.values;
+
+			this._checkinAdapter3.items.clear();
+			this._checkinAdapter3.items.addAll(list);
+			this._checkinAdapter3.notifyDataSetChanged();
+		}
+
+
 
 		////@Override
 		//protected FilterResults performFiltering(CharSequence constraint)
@@ -114,21 +132,4 @@ import com.ifree.lib.*;
 
 		//    return result;
 		//}
-
-
-		//@Override
-
-		protected void publishResults(CharSequence charSequence, FilterResults filterResults)
-		{
-			//clear();
-			//for (Checkin ch : (List<Checkin>) filterResults.values)
-			//{
-			//    //add(ch);
-			//}
-			List<Checkin> list = (List<Checkin>) filterResults.values;
-
-			this._checkinAdapter3.items.clear();
-			this._checkinAdapter3.items.addAll(list);
-			this._checkinAdapter3.notifyDataSetChanged();
-		}
 	}

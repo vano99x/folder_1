@@ -59,13 +59,13 @@ public class Point //extends EntityBase
 		//return null;
 	}
 
-	public static Point getInstance(JSONObject paramJSONObject)
+	public static Point getInstance(JSONObject jo)
 	{
 		Point localPoint = new Point();
 		try
 		{
-			localPoint.Id = paramJSONObject.getInt("Id");
-			localPoint.Name = paramJSONObject.getString("Name");
+			localPoint.Id = jo.getInt("Id");
+			localPoint.Name = jo.getString("Name");
 			return localPoint;
 		}
 		catch (Exception localException)

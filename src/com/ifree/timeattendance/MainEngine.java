@@ -6,10 +6,7 @@ import android.content.SharedPreferences;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
-import com.ifree.Database.Checkin;
-import com.ifree.Database.Personel;
-import com.ifree.Database.PersonelPoint;
-import com.ifree.Database.Point;
+import com.ifree.Database.*;
 import java.io.IOException;
 
 import java.net.URL;
@@ -125,11 +122,7 @@ public class MainEngine
 
 	//*********************************************************************************************
 	//       Event Handler
-	private onSaveCheckin_CompleteEventHandler get_onSaveCheckin_CompleteEventHandler()
-	{
-		onSaveCheckin_CompleteEventHandler o = new onSaveCheckin_CompleteEventHandler();
-		return o;
-	}
+	private onSaveCheckin_CompleteEventHandler get_onSaveCheckin_CompleteEventHandler() { onSaveCheckin_CompleteEventHandler o = new onSaveCheckin_CompleteEventHandler(); return o; }
 	class onSaveCheckin_CompleteEventHandler extends RunnableWithArgs { public void run()
 	{
 		//UIHelper.Instance().Toast(" in onSaveCheckin" + UIHelper.Instance().currentState.toString(), 3);
@@ -441,19 +434,14 @@ public class MainEngine
 		MsgFromBackground(Act.StartOperation);
 
 		Checkin ch = new Checkin(
-			MainActivityProxy.get_SvModel().get_CurrentSuperviser().Id,				// SupervicerId
-			engine.get_CurrentPersonel().Id,					// Id
-			engine.get_CurrentPersonel().CardId,				// CardId
+			MainActivityProxy.get_SvModel().get_CurrentSuperviser().Id, // SupervicerId
+			engine.get_CurrentPersonel().Id,							// WorkerId
+			engine.get_CurrentPersonel().CardId,						// CardId
 			//engine.get_CurrentPersonel().IsSupervisor,
 			engine.getCurrentMode(),							// Mode
 			engine.get_CurrentPointId(),						// PointId
 			String.valueOf(System.currentTimeMillis()) // DateTime
 		);
-
-		//Checkin [] ch2 = Checkin.GetCheckinByPersonelCode( this.currentPersonel.PersonelCode, this.mContext);
-		//Personel p = Personel.checkPin((String)arg1, MainEngine.this.mContext);
-		//Checkin [] checkinArr = Checkin.GetAllCheckin( this.mContext);
-
 
 		if( engine.get_IsIntenetDisable() == false )
 		{
@@ -565,5 +553,65 @@ public class MainEngine
 		}
 
 		this.result = new Object[]{result, sv};
+	}}
+
+	//************************************************************************************************
+	// 6 Facility Info
+
+	private onGFIComplete get_onGFIComplete() { onGFIComplete o = new onGFIComplete(); o.arg1 = this; return o; }
+	class   onGFIComplete extends RunnableWithArgs { public void run() // ---> call in ui thread
+	{
+		//UIHelper.Instance().tabFacilityInfo.SetFacilityInfo();
+		Object[] resultArr = (Object[])this.result;
+		boolean result = ((Boolean)resultArr[0]).booleanValue();
+		if(result) {
+			UIHelper.Instance().tabFacilityInfo.SetFacilityInfo((FacilityInfoEntity)resultArr[1]);
+		}
+	}}
+	
+	public void GetFacilityInfo(String pin, String t1, String t2)
+	{
+		BackgroundFunc bf = BackgroundFunc.get_BackgroundFunc( get_onGFI(pin,t1,t2), this );
+		bf.BackgroundFuncComplete.Add(get_onGFIComplete());
+		new Thread(bf,"-onGFI-").start();
+	}
+
+	private onGFI get_onGFI(String pin,String t1,String t2) { onGFI o = new onGFI(); o.arg1 = this; o.arg2 = pin; o.arg3 = t1; o.arg4 = t2; return o; }
+	class onGFI extends RunnableWithArgs { public void run()
+	{
+		MainEngine engine = (MainEngine)this.arg1;
+		String pin        = (String)this.arg2;
+		String time1      = (String)this.arg3;
+		String time2      = (String)this.arg4;
+
+		boolean result = false;
+		MsgFromBackground( Act.StartOperation );
+		FacilityInfoEntity fie = null;
+
+		try
+		{
+			URL url = HttpHelper.GetFacilityInfoURL( pin, time1, time2 );
+			String data = HttpHelper.httpGet(url);
+			JSONObject json = new JSONObject(data);
+
+			fie = FacilityInfoEntity.FromJson(json, data);//, engine.mContext
+			//if(fie != null)
+			//{
+			//fie.Pin = pin;
+			//}
+
+			if(fie != null) {
+				MsgFromBackground(Act.FacilityInfoRequestOk);
+				result = true;
+			} else {
+				MsgFromBackground(Act.FacilityInfoRequestError);
+			}
+		}
+		catch( Exception e)
+		{
+			HttpHelper.ExceptionHandler( e );
+		}
+
+		this.result = new Object[]{result, fie};
 	}}
 }

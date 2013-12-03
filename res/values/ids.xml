@@ -76,6 +76,7 @@
 	<item type="id" name="MainMenu_CheckinListBtn_Id" />
 	<item type="id" name="MainMenu_ReferenceBtn_Id" />
 	<item type="id" name="MainMenu_UpdateBtn_Id" />
+	<item type="id" name="MainMenu_FacilityInfoBtn_Id" />
 	
 	<item type="id" name="Reference_Id" />
 	<item type="id" name="Reference_TextView_Id" />
@@ -113,8 +114,17 @@
 	<item type="id" name="LoadingProgressBar_ListView_Item_RootId" />
 	<item type="id" name="LoadingProgressBar_ListView_Item_Text" />
 	
-	<item type="id" name="OperationalEnvironment_RootId" />
-	<item type="id" name="OperationalEnvironment_ListView_Id" />
+	<item type="id" name="FacilityInfo_RootId" />
+	<item type="id" name="FacilityInfo_FilterLeftBtn_Id" />
+	<item type="id" name="FacilityInfo_FilterRightBtn_Id" />
+	<item type="id" name="FacilityInfo_ClientName_Id" />
+	<item type="id" name="FacilityInfo_ListView_Id" />
+	<item type="id" name="FacilityInfoItem_FacilityName_Id" />
+	<item type="id" name="FacilityInfoItem_RequestCount_Id" />
+	<item type="id" name="FacilityInfoItem_GrantedCount_Id" />
+	<item type="id" name="FacilityInfoItem_HoursWorked_Id" />
+	<item type="id" name="FacilityInfoItem_FinesSum_Id" />
+	<item type="id" name="FacilityInfoItem_BonusesSum_Id" />
 	
 </resources>
 

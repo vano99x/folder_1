@@ -1,4 +1,4 @@
-﻿package com.ifree.CheckinList;
+﻿package com.Tabs.CheckinList;
 
 import android.content.Context;
 import android.view.View;
@@ -18,7 +18,8 @@ import java.util.Arrays;
 import java.util.ArrayList;
 
 import com.ifree.lib.*;
-import com.ifree.timeattendance.MainEngine;
+import com.ifree.lib.Common.*;
+import com.ifree.timeattendance.*;
 import com.ifree.lib.DatePicker.MyDatePicker;
 import com.ifree.Database.Checkin;
 import com.ifree.lib.tabui.Tab;
@@ -27,7 +28,7 @@ import com.example.test6.R;
 public class TabCheckinList extends Tab implements View.OnClickListener
 {
 	private ListView listView;
-	com.ifree.timeattendance.MainActivityProxy _mainActivity;
+	private MainActivityProxy _mainActivity;
 
 	public int _year1;
 	public int _month1;
@@ -92,12 +93,7 @@ public class TabCheckinList extends Tab implements View.OnClickListener
 
 	//*********************************************************************************************
 	//*      Event Handler
-	private onSelectedDateChanged get_onSelectedDateChanged()
-	{
-		onSelectedDateChanged sd = new onSelectedDateChanged();
-		sd.arg1 = this;
-		return sd;
-	}
+	private onSelectedDateChanged get_onSelectedDateChanged() { onSelectedDateChanged o = new onSelectedDateChanged(); o.arg1 = this; return o; }
 	class onSelectedDateChanged extends RunnableWithArgs { public void run()
 	{
 		TabCheckinList _this = (TabCheckinList)this.arg1;
@@ -105,9 +101,10 @@ public class TabCheckinList extends Tab implements View.OnClickListener
 		Object[] resultArr = (Object[])this.result;
 
 		String pickerName = (String)resultArr[0];
-		int year          = (Integer)resultArr[1];
-		int monthOfYear   = (Integer)resultArr[2];
-		int dayOfMonth    = (Integer)resultArr[3];
+		DateTime dt          = (DateTime)resultArr[1];
+		int year          = dt.Year;
+		int monthOfYear   = dt.Month;
+		int dayOfMonth    = dt.Second;
 
 		if(pickerName.equals("left"))
 		{

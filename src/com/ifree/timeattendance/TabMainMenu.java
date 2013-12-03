@@ -43,6 +43,10 @@ public class TabMainMenu extends Tab implements View.OnClickListener
 		Button updateBtn = (Button)this.root.findViewById(R.id.MainMenu_UpdateBtn_Id);
 		updateBtn.setOnClickListener(this);
 		updateBtn.setTag(R.id.MainMenu_UpdateBtn_Id);
+
+		RelativeLayout facilityInfoBtn = (RelativeLayout)this.root.findViewById(R.id.MainMenu_FacilityInfoBtn_Id);
+		facilityInfoBtn.setOnClickListener(this);
+		facilityInfoBtn.setTag(R.id.MainMenu_FacilityInfoBtn_Id);
 	}
 
 
@@ -90,6 +94,11 @@ public class TabMainMenu extends Tab implements View.OnClickListener
 				get_onClickMessageBox_No());
 		//}
 	}
+
+	public void onClick_FacilityInfoBtn()
+	{
+		UIHelper.Instance().switchState(MainActivity.State.FACILITY_INFO);
+	}
 	
 	//private File _file;
 	private
@@ -129,6 +138,9 @@ public class TabMainMenu extends Tab implements View.OnClickListener
 		        break;}
 		        case R.id.MainMenu_UpdateBtn_Id:{
 		            onClick_UpdateProgramm();
+		        break;}
+		        case R.id.MainMenu_FacilityInfoBtn_Id:{
+		            onClick_FacilityInfoBtn();
 		        break;}
 		    }
 		}

@@ -1,4 +1,4 @@
-﻿package com.ifree.CheckinList;
+﻿package com.Tabs.CheckinList;
 
 import android.content.Context;
 import android.view.LayoutInflater;

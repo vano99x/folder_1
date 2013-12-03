@@ -138,8 +138,8 @@ public class HttpHelper
 		HttpURLConnection con = null;
 		try
 		{
-			URL url = new URL(fileURL);                                                            //MalformedURLException
-			con = (HttpURLConnection)(url.openConnection());                                       //IOException
+			URL url = new URL(fileURL);                      //MalformedURLException
+			con = (HttpURLConnection)(url.openConnection()); //IOException
 
 			if(messageReceiver != null) {
 				messageReceiver.AddMessage("open connection");
@@ -230,6 +230,15 @@ public class HttpHelper
 	public static String getPhotoAddress(int paramInt)
 	{
 		return "http://" + AkmeHost + "/avatar?id=" + Integer.toString(paramInt) + "&hash=true";
+	}
+
+	public static URL GetFacilityInfoURL(String pin, String startDate, String endDate) throws java.net.MalformedURLException
+	{
+		return new URL("http://"+
+			"93.153.172.26/get_statistics?" +
+			"pin="        + pin             +"&"+
+			"start_date=" + startDate       +"&"+ //"start_date=26.10.2013&"+
+			"end_date="   + endDate);              //"end_date=27.10.2013");
 	}
 
 	public static boolean CheckInternetAndShowMessage(com.ifree.timeattendance.MainEngine engine, Context сontext)

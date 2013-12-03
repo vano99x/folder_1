@@ -11,42 +11,39 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Button;
 import android.support.v4.app.FragmentManager;
+import java.util.Calendar;
 
 import com.ifree.lib.*;
+import com.ifree.lib.Common.*;
 
 import com.example.test6.R;
 
 public class MyDatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener , View.OnClickListener
 {
-	DatePicker _datePicker;
-	FragmentManager _fragmentManager;
-	String _name;
+	private DatePicker _datePicker;
+	private FragmentManager _fragmentManager;
+	private String _name;
+	public  Event<RunnableWithArgs> SelectedDateChanged;
 
 	public MyDatePicker()
 	{
 		this._datePicker = null;
 		this._name = null;
 	}
-
 	public void Init(String name, FragmentManager fragmentManager)
 	{
 		this._name = name;
 		this._fragmentManager = fragmentManager;
-
 		this.SelectedDateChanged = new Event<RunnableWithArgs>();
 	}
-
-    public View onCreateView(
-			LayoutInflater inflater, 
-			ViewGroup container,
-            Bundle savedInstanceState
-		)
+    public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
         this.getDialog().getWindow().requestFeature(android.view.Window.FEATURE_NO_TITLE); // !!!
 
         View view = inflater.inflate(R.layout.ctrl_date_picker, container);
 		//this.setStyle( STYLE_NORMAL, android.R.style.Theme_Holo_Light_Dialog);
         this._datePicker = (DatePicker) view.findViewById(R.id.DatePicker);
+		this._datePicker.updateDate( get_CurrentDateTime().Year, get_CurrentDateTime().Month, get_CurrentDateTime().Day);
 
 		Button ok = (Button)view.findViewById(R.id.MyDatePickerView_OkId);
 		ok.setOnClickListener(this);
@@ -59,42 +56,74 @@ public class MyDatePicker extends DialogFragment implements DatePickerDialog.OnD
         return view;
     }
 
-	public Event<RunnableWithArgs> SelectedDateChanged;
 
-//@Override
-//  public Dialog onCreateDialog(Bundle savedInstanceState)
-//  {
-//    // Use the current date as the default date in the picker
-//    final Calendar c = Calendar.getInstance();
-//    int year = c.get(Calendar.YEAR);
-//    int month = c.get(Calendar.MONTH);
-//    int day = c.get(Calendar.DAY_OF_MONTH);
-
-//    // Create a new instance of DatePickerDialog and return it
-//    return new DatePickerDialog(getActivity(), this, year, month, day);
-//  }
-
-  public void onDateSet(DatePicker view, int year, int month, int day)
+/*@Override
+  public Dialog onCreateDialog(Bundle savedInstanceState)
   {
-//    pYear = year;
-//    pDay = day;
-//    pMonth = month;
-  }
+    // Use the current date as the default date in the picker
+    final Calendar c = Calendar.getInstance();
+    int year = c.get(Calendar.YEAR);
+    int month = c.get(Calendar.MONTH);
+    int day = c.get(Calendar.DAY_OF_MONTH);
+
+    // Create a new instance of DatePickerDialog and return it
+    return new DatePickerDialog(getActivity(), this, year, month, day);
+  }*/
+
+
+
+	//*********************************************************************************************
+	//*      public
+	public void onDateSet(DatePicker view, int year, int month, int day)
+	{
+//    pYear = year; //    pDay = day; //    pMonth = month;
+	}
 
 	public void Show()
 	{
 		this.show( this._fragmentManager, "fragment_edit_name");
 	}
 
+
+
+	//*********************************************************************************************
+	//*      property
+	public DateTime _currentDateTime;
+	public DateTime get_CurrentDateTime()
+	{
+		if(this._datePicker == null)
+		{
+			return this._currentDateTime;
+		}
+		else
+		{
+			int year  = this._datePicker.getYear();
+			int month = this._datePicker.getMonth();
+			int day   = this._datePicker.getDayOfMonth();
+
+			return new DateTime(year,month,day,0,0,0);
+		}
+	}
+	public void set_CurrentDateTime(DateTime value)
+	{
+		this._currentDateTime = value;
+	}
+
+
+
 	//*********************************************************************************************
 	//*      Ctrl Handler
 	public void onClick_okBtn()
 	{
-		int year  = this._datePicker.getYear();
-		int month = this._datePicker.getMonth();
-		int day   = this._datePicker.getDayOfMonth();
 
-		SelectedDateChanged.RunEvent( new Object[]{ this._name, year, month, day});
+		//Calendar dateTime = Calendar.getInstance();
+		//dateTime.set( year, month, day,  0,  0,  0);
+
+		DateTime dt = get_CurrentDateTime();
+		SelectedDateChanged.RunEvent( new Object[]{ dt });
+
+		//SelectedDateChanged.RunEvent( new Object[]{ this._name, year, month, day, dateTime});
+
 
 		this.dismiss();
 	}

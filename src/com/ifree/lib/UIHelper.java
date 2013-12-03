@@ -15,7 +15,8 @@ import android.widget.Toast;
 import android.os.Handler;
 
 import com.ifree.timeattendance.*;
-import com.ifree.CheckinList.*;
+import com.Tabs.CheckinList.*;
+import com.Tabs.FacilityInfo.*;
 
 import com.ifree.timeattendance.MainActivityProxy;
 import com.ifree.lib.tabui.Tab;
@@ -48,7 +49,7 @@ public class UIHelper implements IMessageReceiver
 	public  TabPersonelInfo  tabPersonelInfo;
 	public  TabPersonelList  tabPersonelList;
 	private TabCheckinList   tabCheckinList;
-	private TabCheckinList   tabOpEnv;
+	public  TabFacilityInfo  tabFacilityInfo;
 
 	private TabItem[]         __tabItemArray;
 	//private HttpMessage       _myRunnable;
@@ -88,11 +89,11 @@ public class UIHelper implements IMessageReceiver
 		this.svBox = new SvBox( this.context, this.rootView);
 		//svBox.HideNameBlock();
 
-		this.tabPin             = new TabPin(            this.context, this.rootView, R.layout._1_pin,               R.id.PagePin);
+		this.tabPin             = new TabPin(            this.context, this.rootView, R.layout._1_pin,                 R.id.PagePin);
 		this.tabMainMenu        = new TabMainMenu(       this.context, this.rootView, R.layout._2_main_menu,              R.id.MainMenu_Id);
 		this.tabReference        = new TabReference(       this.context, this.rootView, R.layout._5_reference,              R.id.Reference_Id);
 		this.tabPointsList      = new TabPointsList(     this.context, this.rootView, R.layout._3_points_list_2,       R.id.PagePointsList);
-		this.tabCheckinList     = new TabCheckinList(    this.context, this.rootView, R.layout._4_checkin_list,      R.id.PageCheckinList);
+		this.tabCheckinList     = new TabCheckinList(    this.context, this.rootView, R.layout._4_checkin_list,        R.id.PageCheckinList);
 		this.tabModeSelection   = new TabModeSelection(  this.context, this.rootView, R.layout.page_mode_selection,    R.id.PageModeSelection);
 		this.tabWait            = new TabWait(           this.context, this.rootView, R.layout.page_wait2,             R.id.PageWait);
 		//this.tabDataTransmition = new TabDataTransmition(this.context, this.rootView, R.layout.page_data_transmition2, R.id.PageDataTransmition);
@@ -101,7 +102,7 @@ public class UIHelper implements IMessageReceiver
 		this.tabPersonelInfo    = new TabPersonelInfo(   this.context, this.rootView, R.layout.page_personel_info,     R.id.PagePersonelInfo);
 		this.tabPersonelList    = new TabPersonelList(   this.context, this.rootView, R.layout.page_personel_list,     R.id.PagePersonelList);
 		//this.tabSync            = new TabSync(           this.context, this.rootView, R.layout.page_sync,              R.id.PageSync);
-		this.tabPersonelList    = new TabPersonelList(   this.context, this.rootView, R.layout.page_personel_list,     R.id.PagePersonelList);
+		this.tabFacilityInfo    = new TabFacilityInfo(   this.context, this.rootView, R.layout.p_facility_info,        R.id.FacilityInfo_RootId);
 
 		this.SetToDefaultState();
 	}
@@ -118,6 +119,7 @@ public class UIHelper implements IMessageReceiver
 		tabPersonelInfo.Clear();
 		tabPersonelList.Clear();
 		tabCheckinList.Clear();
+		tabFacilityInfo.Clear();
 
 		this.Nulling();
 	}
@@ -133,6 +135,7 @@ public class UIHelper implements IMessageReceiver
 		tabPersonelInfo = null;
 		tabPersonelList = null;
 		tabCheckinList = null;
+		tabFacilityInfo = null;
 
 		this.context = null;
 		this.rootView = null;
@@ -154,18 +157,6 @@ public class UIHelper implements IMessageReceiver
 	{
 		this.currentState = State.NULL;
 		this.HideAll();
-		//this.tabPin.setListener((TabActionListener)this.context);
-		//this.tabModeSelection.setListener((TabActionListener)this.context);
-		//this.tabPointsList.setListener((TabActionListener)this.context);
-		//this.tabWait.setListener((TabActionListener)this.context);
-		//////this.tabDataTransmition.setListener(this.context);
-		//////this.tabErrorReading.setListener(this.context);
-		//////this.tabErrorConnection.setListener(this.context);
-		//this.tabPersonelInfo.setListener((TabActionListener)this.context);
-		//this.tabPersonelList.setListener((TabActionListener)this.context);
-		//this.tabMainMenu.setListener((TabActionListener)this.context);
-		//////this.tabSync.setListener(this.context);
-		//this.tabCheckinList.setListener((TabActionListener)this.context);
 
 		int sizeInDp = 53;
 		float scale = this.context.getResources().getDisplayMetrics().density;
@@ -196,6 +187,7 @@ public class UIHelper implements IMessageReceiver
 		this.tabReference.Hide();
 		//this.tabSync.hide();
 		this.tabCheckinList.Hide();
+		this.tabFacilityInfo.Hide();
 	}
 
 	
@@ -239,6 +231,7 @@ public class UIHelper implements IMessageReceiver
 			int intPersonelInfo      = State.PERSONEL_INFO.ordinal();
 			int intCHECKIN_LIST      = State.CHECKIN_LIST.ordinal();
 			int intReference      = State.REFERENCE.ordinal();
+			int intFACILITY_INFO      = State.FACILITY_INFO.ordinal();
 
 			__tabItemArray = new TabItem[] { 
 				new TabItem(intPin,          tabPin),            new TabItem(intMenu,             tabMainMenu),
@@ -246,7 +239,8 @@ public class UIHelper implements IMessageReceiver
 				new TabItem(intWaitMode,     tabWait),           new TabItem(intPersonelListMode, tabPersonelList),
 				new TabItem(intPersonelInfo, tabPersonelInfo), 
 				new TabItem(intCHECKIN_LIST, tabCheckinList), 
-				new TabItem(intReference, tabReference)
+				new TabItem(intReference, tabReference), 
+				new TabItem(intFACILITY_INFO, tabFacilityInfo)
 			};
 		}
 		return __tabItemArray;
@@ -272,6 +266,7 @@ public class UIHelper implements IMessageReceiver
 		int intPersonelInfo      = State.PERSONEL_INFO.ordinal();
 		int intCHECKIN_LIST      = State.CHECKIN_LIST.ordinal();
 		int intReference      = State.REFERENCE.ordinal();
+		int intFACILITY_INFO      = State.FACILITY_INFO.ordinal();
 
 		TabItem[] myArray = get_TabItemArray();
 
@@ -322,6 +317,10 @@ public class UIHelper implements IMessageReceiver
 		{
 			this.tabCheckinList.Show();
 		}
+		else if(intParamState == intFACILITY_INFO)
+		{
+			this.tabFacilityInfo.Show();
+		}
 
 
 
@@ -353,7 +352,8 @@ public class UIHelper implements IMessageReceiver
 
 			case POINTS_LIST:
 			case CHECKIN_LIST:
-			case REFERENCE:{
+			case REFERENCE:
+			case FACILITY_INFO:{
 				switchState(State.MAIN_MENU);
 			break;}
 
@@ -383,7 +383,8 @@ public class UIHelper implements IMessageReceiver
 		ServerAuthOk, LocalAuthOk, ServerAuthError, LocalAuthError, 
 		SyncOk, SyncError, CheckinSuccess, CheckinSaveLocal, CheckinFailed,
 		LoadNewVersionFailed, LoadNewVersionSuccess, CanNotCreateFileForLoading,
-		NfcDisabled; }
+		NfcDisabled,
+		FacilityInfoRequestOk, FacilityInfoRequestError; }
 	private HttpMessage get_HttpMessage(Act act)
 	{
 		return this.get_HttpMessage( act, null, -1);
@@ -482,6 +483,14 @@ public class UIHelper implements IMessageReceiver
 
 					case NfcDisabled:{
 						_ui.Toast("Nfc датчик отключён");
+					break;}
+
+
+					case FacilityInfoRequestOk:{
+						_ui.Toast("Оперативная обстановка доступна!" );
+					break;}
+					case FacilityInfoRequestError:{
+						_ui.Toast("Оперативная обстановка не доступна!" );
 					break;}
 				}
 			}
