@@ -19,11 +19,11 @@
 		android:layout_width="wrap_content"
 		android:layout_height="45.0dip"
 		/>
-<!--//9f2d58//-->
+<!--//9f2d58
+		android:background="#2793E6"//-->
 	<TextView
 		android:id="@id/CheckinListItem_StateId"
 		android:text="-1"
-		android:background="#2793E6"
 		
 		android:maxLines="2"
 		android:singleLine="false"

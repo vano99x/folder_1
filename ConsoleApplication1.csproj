@@ -46,6 +46,7 @@
     <Folder Include="Properties\" />
     <Folder Include="res\drawable-ldpi\" />
     <Folder Include="res\raw\" />
+    <Folder Include="src\ta\timeattendance\Services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="gen\com\example\test6\BuildConfig.java" />
@@ -92,6 +93,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="res\drawable\style_button.xml" />
+    <Content Include="res\drawable\style_button_2.xml" />
     <Content Include="res\drawable\style_button_bg.xml" />
     <Content Include="res\drawable\waiting_spinner.xml" />
     <Content Include="res\drawable\wait_animation_list.xml" />
@@ -106,6 +108,12 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="res\layout\main.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\p_settings.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="res\layout\panel_button.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="res\layout\p_facility_info.xml">
@@ -166,90 +174,120 @@
     <Content Include="res\values\styles.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="src\com\Tabs\CheckinList\CheckinAdapter.java" />
-    <Content Include="src\com\Tabs\CheckinList\CheckinAdapter2.java" />
-    <Content Include="src\com\Tabs\CheckinList\CheckinAdapter3.java" />
-    <Content Include="src\com\Tabs\CheckinList\CheckinFilter.java" />
-    <Content Include="src\com\Tabs\CheckinList\TabCheckinList.java" />
-    <Content Include="src\com\ifree\Database\Checkin.java" />
-    <Content Include="src\com\ifree\Database\DbConnector.java" />
-    <Content Include="src\com\ifree\Database\EntityBase.java" />
-    <Content Include="src\com\ifree\Database\Personel.java" />
-    <Content Include="src\com\ifree\Database\PersonelPoint.java" />
-    <Content Include="src\com\ifree\Database\Point.java" />
-    <Content Include="src\com\ifree\lib\BackgroundFunc.java" />
-    <Content Include="src\com\ifree\lib\BroadcastReceiver\UpdateReceiver.java" />
-    <Content Include="src\com\ifree\lib\Controls\LoadingProgressBarAdapter.java" />
-    <Content Include="src\com\ifree\lib\DateHelper.java" />
-    <Content Include="src\com\ifree\lib\DatePicker\aaa.java" />
-    <Content Include="src\com\ifree\lib\DatePicker\aaa2.java" />
-    <Content Include="src\com\ifree\lib\DatePicker\MyDatePicker.java" />
-    <Content Include="src\com\ifree\lib\Event.java" />
-    <Content Include="src\com\ifree\lib\HttpHelper.java" />
-    <Content Include="src\com\ifree\lib\NFCHelper.java" />
-    <Content Include="src\com\ifree\lib\operator.java" />
-    <Content Include="src\com\ifree\lib\RunnableWithArgs.java" />
-    <Content Include="src\com\ifree\lib\BroadcastReceiver\ScreenReceiver.java" />
-    <Content Include="src\com\ifree\lib\tabui\Tab.java" />
-    <Content Include="src\com\ifree\lib\TALog.java" />
-    <Content Include="src\com\ifree\lib\NfcThread.java" />
-    <Content Include="src\com\ifree\lib\UIHelper.java" />
-    <Content Include="src\com\ifree\timeattendance\ListPointsAdapter.java" />
-    <Content Include="src\com\ifree\timeattendance\MainActivityProxy.java" />
-    <Content Include="src\com\ifree\timeattendance\MainActivity.java" />
-    <Content Include="src\com\ifree\timeattendance\MainEngine.java" />
-    <Content Include="src\com\ifree\timeattendance\Mode.java" />
-    <Content Include="src\com\ifree\timeattendance\PersonelListAdapter.java" />
-    <Content Include="src\com\ifree\timeattendance\TabMainMenu.java" />
-    <Content Include="src\com\ifree\timeattendance\TabModeSelection.java" />
-    <Content Include="src\com\ifree\timeattendance\TabPersonelInfo.java" />
-    <Content Include="src\com\ifree\timeattendance\TabPersonelList.java" />
-    <Content Include="src\com\ifree\timeattendance\TabPin.java" />
-    <Content Include="src\com\ifree\timeattendance\TabPointsList.java" />
-    <Content Include="src\com\ifree\timeattendance\TabReference.java" />
-    <Content Include="src\com\ifree\timeattendance\TabWait.java" />
+    <Content Include="src\ta\lib\BackgroundFuncHelper.java" />
+    <Content Include="src\ta\timeattendance\Models\PointModel.java" />
+    <Content Include="src\ta\Tabs\CheckinList\CheckinAdapter.java" />
+    <Content Include="src\ta\Tabs\CheckinList\CheckinAdapter2.java" />
+    <Content Include="src\ta\Tabs\CheckinList\CheckinAdapter3.java" />
+    <Content Include="src\ta\Tabs\CheckinList\CheckinFilter.java" />
+    <Content Include="src\ta\Tabs\CheckinList\TabCheckinList.java" />
+    <Content Include="src\ta\Database\Checkin.java" />
+    <Content Include="src\ta\Database\DbConnector.java" />
+    <Content Include="src\ta\Database\EntityBase.java" />
+    <Content Include="src\ta\Database\Personel.java" />
+    <Content Include="src\ta\Database\PersonelPoint.java" />
+    <Content Include="src\ta\Database\Point.java" />
+    <Content Include="src\ta\lib\BackgroundFunc.java" />
+    <Content Include="src\ta\lib\BroadcastReceiver\UpdateReceiver.java" />
+    <Content Include="src\ta\lib\Controls\LoadingProgressBarAdapter.java" />
+    <Content Include="src\ta\lib\DateHelper.java" />
+    <Content Include="src\ta\lib\DatePicker\aaa.java" />
+    <Content Include="src\ta\lib\DatePicker\aaa2.java" />
+    <Content Include="src\ta\lib\DatePicker\MyDatePicker.java" />
+    <Content Include="src\ta\lib\Event_old.java" />
+    <Content Include="src\ta\lib\HttpHelper.java" />
+    <Content Include="src\ta\lib\NFCHelper.java" />
+    <Content Include="src\ta\lib\operator.java" />
+    <Content Include="src\ta\lib\RunnableWithArgs.java" />
+    <Content Include="src\ta\lib\BroadcastReceiver\ScreenReceiver.java" />
+    <Content Include="src\ta\lib\tabui\Tab.java" />
+    <Content Include="src\ta\lib\TALog.java" />
+    <Content Include="src\ta\lib\NfcThread.java" />
+    <Content Include="src\ta\lib\UIHelper.java" />
+    <Content Include="src\ta\timeattendance\ListPointsAdapter.java" />
+    <Content Include="src\ta\timeattendance\MainActivityProxy.java" />
+    <Content Include="src\ta\timeattendance\MainActivity.java" />
+    <Content Include="src\ta\timeattendance\MainEngine.java" />
+    <Content Include="src\ta\timeattendance\Mode.java" />
+    <Content Include="src\ta\timeattendance\PersonelListAdapter.java" />
+    <Content Include="src\ta\timeattendance\TabMainMenu.java" />
+    <Content Include="src\ta\timeattendance\TabModeSelection.java" />
+    <Content Include="src\ta\timeattendance\TabPersonelInfo.java" />
+    <Content Include="src\ta\timeattendance\TabPersonelList.java" />
+    <Content Include="src\ta\timeattendance\TabPin.java" />
+    <Content Include="src\ta\timeattendance\TabPointsList.java" />
+    <Content Include="src\ta\timeattendance\TabReference.java" />
+    <Content Include="src\ta\timeattendance\TabWait.java" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\com\ifree\lib\Controls\SvBox.java" />
+    <Content Include="src\ta\lib\Controls\SvBox.java" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\com\ifree\lib\UpdateManager.java" />
+    <Content Include="src\ta\lib\UpdateManager.java" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\com\ifree\lib\Controls\LoadingProgressBar.java" />
+    <Content Include="src\ta\lib\Controls\LoadingProgressBar.java" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\com\ifree\lib\IMessageReceiver.java" />
+    <Content Include="src\ta\lib\IMessageReceiver.java" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\com\ifree\lib\BroadcastReceiver\Test1.java" />
+    <Content Include="src\ta\lib\BroadcastReceiver\Test1.java" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\com\ifree\timeattendance\Models\SupervisorModel.java" />
+    <Content Include="src\ta\timeattendance\Models\SupervisorModel.java" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\com\ifree\timeattendance\Models\Bootstrapper.java" />
+    <Content Include="src\ta\timeattendance\Models\Bootstrapper.java" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\com\ifree\timeattendance\Models\TypeItem.java" />
+    <Content Include="src\ta\timeattendance\Models\TypeItem.java" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\com\ifree\timeattendance\Models\ISupervisorModel.java" />
+    <Content Include="src\ta\timeattendance\Models\ISupervisorModel.java" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\com\Tabs\FacilityInfo\TabFacilityInfo.java" />
+    <Content Include="src\ta\Tabs\FacilityInfo\TabFacilityInfo.java" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\com\ifree\Database\FacilityInfoEntity.java" />
+    <Content Include="src\ta\Database\FacilityInfoEntity.java" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\com\Tabs\FacilityInfo\FacilityInfoAdapter.java" />
+    <Content Include="src\ta\Tabs\FacilityInfo\FacilityInfoAdapter.java" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\com\Tabs\FacilityInfo\FacilityInfoFilter.java" />
+    <Content Include="src\ta\Tabs\FacilityInfo\FacilityInfoFilter.java" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\com\ifree\lib\Common\DateTime.java" />
+    <Content Include="src\ta\lib\Common\DateTime.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\lib\Controls\PanelButton.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\Tabs\Settings\TabSettings.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\Tabs\Settings\CheckpointAdapter.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\timeattendance\Models\IPointModel.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\lib\Controls\WrapperCtrl.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\lib\Event.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\lib\DatePicker\SelectedDateEventArgs.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\Database\CheckinSender.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\Tabs\Settings\CurrentVersionServices.java" />
+    <Content Include="src\ta\Tabs\Settings\ICurrentVersionServices.java" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

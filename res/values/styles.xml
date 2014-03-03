@@ -74,8 +74,8 @@
 	
 	<style name="WrapperButtonStyle1">
 		<item name="android:background">@drawable/button_mode</item>
-		<item name="android:paddingTop">20.0dip</item>
-		<item name="android:paddingBottom">20.0dip</item>
+		<item name="android:paddingTop">15.0dip</item>
+		<item name="android:paddingBottom">15.0dip</item>
 		<item name="android:layout_width">fill_parent</item>
 		<item name="android:layout_height">wrap_content</item>
 	</style>
@@ -154,6 +154,22 @@
 		<item name="android:layout_width">wrap_content</item>
 		<!--//60.0dip//-->
 		<item name="android:layout_height">wrap_content</item>
+	</style>
+	
+	
+	
+	<style name="PnBtn_Button_Style">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:background">@drawable/style_button_2</item>
+		<item name="android:textColor">#f5c210</item>
+		<item name="android:paddingLeft">3.0dip</item>
+		<item name="android:paddingRight">3.0dip</item>
+	</style>
+	<style name="PnBtn_Space_Style">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_weight">1</item>
 	</style>
 
 </resources>
