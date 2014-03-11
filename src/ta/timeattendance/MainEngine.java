@@ -36,8 +36,9 @@ public class MainEngine
 	private String mPin;
 	private int currentMode;
 
-	private Personel __currentPersonel;
+	private Personel __currentWorker;
 	private int __currentPointId;
+	private ISupervisorModel __svModel;
 	private IPointModel __pointModel;
 
 	//*********************************************************************************************
@@ -82,6 +83,7 @@ public class MainEngine
 		this.SaveCheckinCompleteEvent.Add(get_onSaveChkn());
 
 		//***   Models ***
+		this.__svModel = Bootstrapper.Resolve( ISupervisorModel.class );
 		this.__pointModel = Bootstrapper.Resolve( IPointModel.class );
 	}
 	public void MainEngine_Clear()
@@ -95,7 +97,7 @@ public class MainEngine
 		this.mPin = null;
 		this.currentMode = 1;
 
-		this.__currentPersonel = null;
+		this.__currentWorker = null;
 		//this.__isIntenetDisable = false;
 		this.__currentPointId = -1;
 
@@ -128,23 +130,27 @@ public class MainEngine
 	private onSaveChkn get_onSaveChkn() { onSaveChkn o = new onSaveChkn(); return o; }
 	class onSaveChkn extends RunnableWithArgs<Object,Boolean> { public void run()
 	{
-		switch(UIHelper.Instance().currentState)
+		if(this.result)
 		{
-			case PERSONEL_INFO:{
-				//UIHelper.Instance().switchState(State.WAIT_MODE);
-				UIHelper.Instance().tabPersonelInfo.UpdateData();
-			break;}
-			case WAIT_MODE:{
-				boolean result = this.result;
-				if(result)
-				{
+			switch(UIHelper.Instance().currentState)
+			{
+				case PERSONEL_INFO:{
+					//UIHelper.Instance().switchState(State.WAIT_MODE);
 					UIHelper.Instance().tabPersonelInfo.IsShowCheckiedWorker = true;
-					UIHelper.Instance().switchState(State.PERSONEL_INFO);
-				}
-			break;}
-			default:{
-				// ...
-			break;}
+					UIHelper.Instance().tabPersonelInfo.UpdateData();
+				break;}
+				case WAIT_MODE:{
+					boolean result = this.result;
+					if(result)
+					{
+						UIHelper.Instance().tabPersonelInfo.IsShowCheckiedWorker = true;
+						UIHelper.Instance().switchState(State.PERSONEL_INFO);
+					}
+				break;}
+				default:{
+					// ...
+				break;}
+			}
 		}
 	}}
 
@@ -206,11 +212,11 @@ public class MainEngine
 	
 	public Personel get_CurrentWorker()
 	{
-		return this.__currentPersonel;
+		return this.__currentWorker;
 	}
 	public void set_CurrentWorker(Personel p)
 	{
-		this.__currentPersonel = p;
+		this.__currentWorker = p;
 	}
 	
 	//private boolean __isIntenetDisable;
@@ -281,9 +287,9 @@ public class MainEngine
 	private onBfAuth get_onBfAuth() { onBfAuth o = new onBfAuth(); o.arg1 = this; return o; }
 	class onBfAuth extends RunnableWithArgs<Personel,Boolean> { public void run()
 	{
-		boolean result = this.result; //MainEngine _this = (MainEngine)this.arg1;
+		boolean result = this.result;   MainEngine _this = (MainEngine)this.arg1;
 		if(result) {
-			MainActivityProxy.get_SvModel().set_CurrentSuperviser(this.arg);
+			_this.__svModel.set_CurrentSuperviser(this.arg);
 		}
 	}}
 
@@ -404,7 +410,7 @@ public class MainEngine
 		boolean result = false;
 		Checkin ch = null;
 
-		MsgFromBackground(Act.StartOperation);
+		//MsgFromBackground(Act.StartOperation);
 
 		Point p = engine.__pointModel.get_CurrentPoint();
 		if(p == null)
@@ -415,14 +421,24 @@ public class MainEngine
 		else
 		{
 			ch = new Checkin(
-				MainActivityProxy.get_SvModel().get_CurrentSuperviser().Id, // SupervicerId
+				engine.__svModel.get_CurrentSuperviser().Id, // SupervicerId
 				engine.get_CurrentWorker().Id,							// WorkerId
 				engine.get_CurrentWorker().CardId,						// CardId
-				//engine.get_CurrentWorker().IsSupervisor,
 				engine.getCurrentMode(),							// Mode
 				p.Id, //engine.get_CurrentPointId(),
 				String.valueOf(System.currentTimeMillis()) // DateTime
 			);
+
+			ch.IsCheckinExistOnServer = false;
+			ch.save( engine.mContext );
+			//MsgFromBackground( Act.CheckinSaveLocal );
+			result = true;
+
+		}
+
+		this.arg = ch;
+		this.result = result;
+	}}
 
 			/*if(HttpHelper.IsInternetAvailable(engine.mContext))
 			{
@@ -465,19 +481,6 @@ public class MainEngine
 				}
 			}
 			else*/
-			{
-				ch.IsCheckinExistOnServer = false;
-				ch.save( engine.mContext );
-			
-				MsgFromBackground( Act.CheckinSaveLocal );
-				result = true;
-			}
-		}
-
-		this.arg = ch;
-		this.result = result;
-	}}
-
 
 	//************************************************************************************************
 	// 4 search worker
@@ -501,10 +504,10 @@ public class MainEngine
 	private onSyncComplete get_onSyncComplete() { onSyncComplete o = new onSyncComplete(); o.arg1 = this; return o; }
 	class   onSyncComplete extends RunnableWithArgs<Personel,Boolean> { public void run() // ---> call in ui thread
 	{
-		boolean result = this.result;
+		boolean result = this.result;   MainEngine _this = (MainEngine)this.arg1;
 		if(result) {
 			Personel p = this.arg;
-			MainActivityProxy.get_SvModel().set_CurrentSuperviser(p);
+			_this.__svModel.set_CurrentSuperviser(p);
 		}
 	}}
 

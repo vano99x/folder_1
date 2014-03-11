@@ -31,6 +31,7 @@ public class MainActivity
 	private ViewGroup rootView;
 
 	private IAppService __appService;
+	private ISupervisorModel __svModel;
 	private NfcThread _nfcThread;
 	public  android.nfc.Tag __tagFromIntent;
 
@@ -206,10 +207,10 @@ public class MainActivity
 
 		// 3 Db
 		DbConnector.CreateInstance( context );
+		try{
 		//DbConnector.getInstance().exec("DROP TABLE IF EXISTS Checkin");
 		//DbConnector.getInstance(this).exec("DROP TABLE IF EXISTS Personel");
 		//DbConnector.getInstance(this).exec("DROP TABLE IF EXISTS Checkin");
-		try{
 			//DbConnector.getInstance().exec("DROP TABLE IF EXISTS SettingSv");
 		}catch(Exception e){
 			Exception ex = e;
@@ -236,6 +237,7 @@ public class MainActivity
 
 		Bootstrapper.Init();
 		this.__appService = Bootstrapper.Resolve( IAppService.class );
+		this.__svModel = Bootstrapper.Resolve( ISupervisorModel.class );
 		//_2();
 	}
 	public void MainActivity_Clear()
@@ -263,6 +265,8 @@ public class MainActivity
 		NFCHelper.Instance().Clear(); NFCHelper.DeleteInstance();
 		}
 
+		this.__appService.LogoutRunEvent();
+		Bootstrapper.Clear();
 		this.Nulling();
 	}
 	private void Nulling()
@@ -287,7 +291,7 @@ public class MainActivity
 		if( this._isRunning == false )
 		{
 			this._isRunning = true;
-			if(MainActivityProxy.get_SvModel().get_CurrentSuperviser() == null){
+			if(this.__svModel.get_CurrentSuperviser() == null){
 				UIHelper.Instance().switchState(State.PIN);
 			}else{
 				UIHelper.Instance().switchState(State.MODE_SELECTION);

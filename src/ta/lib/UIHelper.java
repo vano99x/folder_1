@@ -342,16 +342,13 @@ public class UIHelper implements IMessageReceiver
 		{
 			case PIN:
 			case MODE_SELECTION:{ //case FLAG_MAIN_MENU:{
+				Builder b = new android.app.AlertDialog.Builder(this.context);
+				MainActivityProxy ma = (MainActivityProxy)this.context;
 
-		        Builder b = new android.app.AlertDialog.Builder(this.context);
-
-		        MainActivityProxy ma = (MainActivityProxy)this.context;
-
-		        Object o1 = b.setMessage("Вы действительно хотите выйти?");
-		        Object o2 = b.setNegativeButton("Нет", null).setPositiveButton("Да", ma.get_onClickBackBtn() );
-		        Object o3 = b.create();
+				Object o1 = b.setMessage("Вы действительно хотите выйти?");
+				Object o2 = b.setNegativeButton("Нет", null).setPositiveButton("Да", ma.get_onClickBackBtn() );
+				Object o3 = b.create();
 				Object o4 = b.show();
-
 			break;}
 
 			case CHECKIN_LIST:

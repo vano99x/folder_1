@@ -13,14 +13,14 @@ public class SupervisorModel implements ISupervisorModel
 		//_counter++;
 		this.CurrentSuperviserApplied = new CurrentSuperviserAppliedEventClass();
 		this.__appService = Bootstrapper.Resolve( IAppService.class );
-		this.__appService.get_Closing().Add(get_onClosing());
+		this.__appService.get_Logout().Add(get_onLogout());
 	}
 
 
 
 	//*********************************************************************************************
 	//**     Event Handler
-	private       onCls get_onClosing() { onCls o = new onCls(); o.arg1 = this; return o; }
+	private       onCls get_onLogout() { onCls o = new onCls(); o.arg1 = this; return o; }
 	private class onCls extends RunnableWithArgs<Object,Object> { public void run()
 	{
 		SupervisorModel _this = (SupervisorModel)this.arg1;
@@ -36,6 +36,7 @@ public class SupervisorModel implements ISupervisorModel
 	@Override
 	public void SvChanged_EventAdd(RunnableWithArgs runnable)
 	{
+		int aaa = 9;
 		CurrentSuperviserApplied.Add(runnable);
 	}
 

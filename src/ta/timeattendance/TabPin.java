@@ -2,7 +2,6 @@ package ta.timeattendance;
 
 import android.content.Context;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.*;
 import ta.timeattendance.*;
@@ -12,13 +11,10 @@ import ta.lib.tabui.*;
 import ta.timeattendance.Models.*;
 import ta.timeattendance.R;
 
-
-
 public class TabPin extends Tab implements View.OnClickListener
 {
 	MainEngine _engine;
 	private String mPin;
-	private Button continue_button;
 	private EditText mPinEditText;
 	private boolean _isBisy;
 
@@ -31,8 +27,8 @@ public class TabPin extends Tab implements View.OnClickListener
 		this._isBisy = false;
 
 		// ctrls
-		this.continue_button = ((Button)this.root.findViewById(R.id.continue_button));
-		this.continue_button.setOnClickListener(this);
+		View continue_button = this.root.findViewById(R.id.continue_button);
+		continue_button.setOnClickListener(this);
 		continue_button.setTag(R.id.continue_button);
 
 		this.mPinEditText = ((EditText)this.root.findViewById(R.id.pin_edit));
@@ -41,7 +37,8 @@ public class TabPin extends Tab implements View.OnClickListener
 		//this._engine.Clearing.Add(get_onClearing());
 
 		this.__svModel = Bootstrapper.Resolve( ISupervisorModel.class );
-		this.__svModel.SvChanged_EventAdd(get_onAuthSV());
+		onAuthSV aaa = get_onAuthSV();
+		this.__svModel.SvChanged_EventAdd(aaa);
 	}
 
 
@@ -85,7 +82,7 @@ public class TabPin extends Tab implements View.OnClickListener
 			}
 			else
 			{
-				UIHelper.Instance().hideKeyboard(); //TALog.Log("doAction mEngine = " + this.mEngine);
+				UIHelper.Instance().hideKeyboard();
 				this._engine.AuthenticateSV( this.mPin );
 			}
 
@@ -97,7 +94,7 @@ public class TabPin extends Tab implements View.OnClickListener
 	public void onClick(View ctrl)
 	{
 		Object tag = ctrl.getTag();
-		Integer integer = ta.lib.operator.as(Integer.class, tag);
+		Integer integer = operator.as(Integer.class, tag);
 
 		if( integer != null)
 		{

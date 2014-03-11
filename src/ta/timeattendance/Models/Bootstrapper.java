@@ -43,11 +43,12 @@ ISettingSvModel - ISupervisorModel
 		
 		RunControllers();
 	}
-
 	private void RunControllers()
 	{
 		Resolve( ta.timeattendance.Models.ISettingSvModel.class, this );
 	}
+
+
 
 	private static Bootstrapper _instance;
 	private static Bootstrapper Instance()
@@ -58,12 +59,26 @@ ISettingSvModel - ISupervisorModel
 		}
 		return Bootstrapper._instance;
 	}
+	public static void Clear()
+	{
+		Bootstrapper.Instance()._Clear();
+		Bootstrapper._instance = null;
+	}
+	private void _Clear()
+	{
+		int count = this._typeItems.size();
+		for( int i = 0; i < count; i++)
+		{
+			this._typeItems.get(i).Clear();
+		}
+	}
+
+
 
 	public static <T> T Resolve(Class<T> _interface)
 	{
 		return Resolve(_interface, Bootstrapper.Instance());
 	}
-
 	public static <T> T Resolve(Class<T> _interface, Bootstrapper bs)
 	{
 		String temp = _interface.getName();

@@ -23,10 +23,8 @@ public class TabSettings extends Tab implements View.OnClickListener
 	private MainEngine _engine;
 	private CheckpointAdapter _checkpointAdapter;
 	private ta.timeattendance.MainActivityProxy _mainActivity;
-	//private ListView _listView;
 	private TextView  _labelCurrentVersion;
 
-	//private IPointModel __pointModel;
 	private ICurrentVersionServices __currentVersionServices;
 
 
@@ -41,32 +39,18 @@ public class TabSettings extends Tab implements View.OnClickListener
 		//referenceBtn.setOnClickListener(this);
 		//referenceBtn.setTag(new Object[]{R.id.Settings_ReferenceBtn_Id});
 		
-		Button updateBtn = (Button)this.root.findViewById(R.id.Settings_UpdateBtn_Id);
+		View updateBtn = this.root.findViewById(R.id.Settings_UpdateBtn_Id);
 		updateBtn.setOnClickListener(this);
 		updateBtn.setTag(new Object[]{R.id.Settings_UpdateBtn_Id});
 		
-		Button pointsListBtn = (Button)this.root.findViewById(R.id.Settings_PointsListBtn_Id);
+		View pointsListBtn = this.root.findViewById(R.id.Settings_PointsListBtn_Id);
 		pointsListBtn.setOnClickListener(this);
 		pointsListBtn.setTag(new Object[]{R.id.Settings_PointsListBtn_Id});
-
-		//this._listView = (ListView)this.root.findViewById(R.id.Settings_ListView_Id);
-		//this.__pointModel = Bootstrapper.Resolve( IPointModel.class );
 
 		_labelCurrentVersion = (TextView)this.root.findViewById(R.id.Settings_CurrentVersionTextView_Id);
 		this.__currentVersionServices = Bootstrapper.Resolve( ICurrentVersionServices.class );
 		this.__currentVersionServices.get_CurrentVersionLoaded().Add(get_onCurrentVersionLoaded());
 	}
-
-
-	/*private void createListRouteAdapter(Point[] pointArray)
-	{
-		if (this._checkpointAdapter != null)
-		{
-			this._checkpointAdapter = null;
-		}
-		this._checkpointAdapter = new CheckpointAdapter(this.context, pointArray, this);
-		this._listView.setAdapter(this._checkpointAdapter);
-	}*/
 
 	//*********************************************************************************************
 	//**     Event Handler
@@ -107,12 +91,6 @@ public class TabSettings extends Tab implements View.OnClickListener
 		UIHelper.Instance().switchState(MainActivity.State.FLAG_POINTS_LIST);
 	}
 
-	/*public void PointsListItem_Selected(Point point)
-	{
-		this.__pointModel.set_CurrentPoint(point);
-		UIHelper.Instance().switchState(MainActivity.State.MODE_SELECTION);
-	}*/
-
 
 
 	//*********************************************************************************************
@@ -129,19 +107,8 @@ public class TabSettings extends Tab implements View.OnClickListener
 	{
 		super.Show();
 		//___old___//Point [] pointArr   = Point.getBySuperviser( superviser.Id, this.context);
-		//Personel superviser = MainActivityProxy.get_SvModel().get_CurrentSuperviser();
-		//superviser.get_Points(true, get_onLoadComplete(), this.context);
 		LoadAndShowCurrentVersion();
 	}
-
-	/*private onLC get_onLoadComplete() { onLC o = new onLC(); o.arg1 = this; return o; }
-	class onLC extends RunnableWithArgs { public void run()
-	{
-		TabSettings _this = (TabSettings)this.arg1;
-		Personel superviser = MainActivityProxy.get_SvModel().get_CurrentSuperviser();
-		Point [] pointArr = superviser.get_Points(false,null,null);
-		_this.createListRouteAdapter(pointArr);
-	}}*/
 
 	public void onClick(View paramView)
 	{

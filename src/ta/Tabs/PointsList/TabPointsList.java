@@ -23,6 +23,8 @@ public class TabPointsList extends Tab implements View.OnClickListener
 	private ListView _listView;
 	private TextView mLableEmptyList;
 	private TextView mLableHead;
+
+	private ISupervisorModel __svModel;
 	private IPointModel __pointModel;
 
 	public TabPointsList(Context context, ViewGroup paramViewGroup, int int1, int int2)
@@ -33,7 +35,8 @@ public class TabPointsList extends Tab implements View.OnClickListener
 		_listView =        (ListView)this.root.findViewById(R.id.PagePointsList_ListView_Id);
 		mLableEmptyList = (TextView)this.root.findViewById(R.id.PagePointsList_EmptyListTextView_Id);
 		mLableHead =      (TextView)this.root.findViewById(R.id.PagePointsList_HeadTextView_Id);
-
+		
+		this.__svModel = Bootstrapper.Resolve( ISupervisorModel.class );
 		this.__pointModel = Bootstrapper.Resolve( IPointModel.class );
 	}
 
@@ -74,7 +77,7 @@ public class TabPointsList extends Tab implements View.OnClickListener
 		super.Show(); //TALog.Log("engine = " + localMainEngine);
 		UpdateCtrlData();
 
-		Personel superviser = MainActivityProxy.get_SvModel().get_CurrentSuperviser();
+		Personel superviser = this.__svModel.get_CurrentSuperviser();
 		superviser.get_Points(true, get_onLoadComplete(), this.context);
 	}
 
@@ -82,7 +85,7 @@ public class TabPointsList extends Tab implements View.OnClickListener
 	class onLC extends RunnableWithArgs { public void run()
 	{
 		TabPointsList _this = (TabPointsList)this.arg1;
-		Personel superviser = MainActivityProxy.get_SvModel().get_CurrentSuperviser();
+		Personel superviser = _this.__svModel.get_CurrentSuperviser();
 		Point [] pointArr = superviser.get_Points(false,null,null);
 		_this.createListRouteAdapter(pointArr);
 	}}

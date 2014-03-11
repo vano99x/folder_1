@@ -36,7 +36,7 @@ public class BackgroundFunc<TArg,TRes> extends RunnableWithArgs<Object,Object>
 
 	public void run()
 	{
-		String message = null;
+		//String message = null;
 		final RunnableWithArgs<TArg,TRes> targetFunc  = (RunnableWithArgs<TArg,TRes>)this.arg1;
 		//Object eventHolder = this.arg2; //final String eventName = (String)this.arg3;
 		//try {
@@ -52,10 +52,10 @@ public class BackgroundFunc<TArg,TRes> extends RunnableWithArgs<Object,Object>
 		//}
 		targetFunc.run();
 
-		if(message == null)
-		{
-			message = "SUCCESS";
-		}
+		//if(message == null)
+		//{
+		//	message = "SUCCESS";
+		//}
 
 		//this.result = new Object[]{message};
 		//BackgroundFuncComplete.RunEvent(new Object[]{message});

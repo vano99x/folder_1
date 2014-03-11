@@ -25,6 +25,7 @@ import ta.lib.Common.*;
 import ta.timeattendance.*;
 import ta.lib.DatePicker.MyDatePicker;
 import ta.lib.DatePicker.SelectedDateEventArgs;
+import ta.timeattendance.Models.*;
 import ta.Database.*;
 import ta.lib.tabui.Tab;
 import ta.timeattendance.R;
@@ -37,6 +38,7 @@ public class TabFacilityInfo extends Tab implements View.OnClickListener
 	private TextView _clientNameTv;
 
 	public  FacilityInfoEntity _facilityInfoEntity;
+	private ISupervisorModel __svModel;
 
 	public TabFacilityInfo(
 		MainActivityProxy context, ViewGroup paramViewGroup, int paramInt1, int paramInt2)
@@ -57,7 +59,7 @@ public class TabFacilityInfo extends Tab implements View.OnClickListener
 		filterRightBtn.setOnClickListener(this);
 		filterRightBtn.setTag(R.id.FacilityInfo_FilterRightBtn_Id);
 
-		//
+		this.__svModel = Bootstrapper.Resolve( ISupervisorModel.class );
 	}
 	
 	//*********************************************************************************************
@@ -125,7 +127,7 @@ public class TabFacilityInfo extends Tab implements View.OnClickListener
 
 	private void Load(DateTime leftDt, DateTime rightDt)
 	{
-		String pin = MainActivityProxy.get_SvModel().get_CurrentSuperviser().Pin;
+		String pin = this.__svModel.get_CurrentSuperviser().Pin;
 
 		String leftTimeStr  = leftDt.ToDateString();
 		String rightTimeStr = rightDt.ToDateString();

@@ -2,36 +2,34 @@ package ta.timeattendance;
 
 import android.content.Context;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.EditText;
+
 import ta.Database.Personel;
 import ta.lib.tabui.Tab;
-//import com.ifree.lib.tabui.TabActionListener;
-
 import ta.lib.*;
-
 import ta.timeattendance.R;
 
 public class TabPersonelList extends Tab implements View.OnClickListener
 {
-	public final String ACTION_PERSONEL_SELECT = "PERSONEL_SELECT";
 	MainEngine _engine;
 	private PersonelListAdapter listAdapter;
 	private ListView listView;
 	private TextView mLableEmptyList;
 	private EditText txtSearch;
 
-	public TabPersonelList(Context paramContext, ViewGroup paramViewGroup, int paramInt1, int paramInt2)
+	public TabPersonelList(Context paramContext, ViewGroup paramViewGroup, int i1, int i2)
 	{
-		super(paramContext, paramViewGroup, paramInt1, paramInt2);
+		super(paramContext, paramViewGroup, i1, i2);
 		this._engine = MainEngine.getInstance();
 
 		listView        = (ListView)this.root.findViewById(R.id.PagePersonelList_ListView_Id);
 		mLableEmptyList = (TextView)this.root.findViewById(R.id.lable_empty_list);
-		txtSearch       = (EditText)this.root.findViewById(R.id.txt_lastname);//continue_button
+		txtSearch       = (EditText)this.root.findViewById(R.id.txt_lastname);
 
-		Button searchBtn = ((Button)this.root.findViewById(R.id.SearchButton_Id));
+		View searchBtn = this.root.findViewById(R.id.SearchButton_Id);
 		searchBtn.setOnClickListener(this);
 		searchBtn.setTag(new Object[]{R.id.SearchButton_Id});
 		
@@ -47,7 +45,7 @@ public class TabPersonelList extends Tab implements View.OnClickListener
 	class onWorkerFound extends RunnableWithArgs<Personel[],Object> { public void run()
 	{
 		TabPersonelList _this = (TabPersonelList)this.arg1;
-		
+
 		Personel[] arrPersonel = this.arg;
 
 		_this.changeList(arrPersonel);
@@ -100,7 +98,6 @@ public class TabPersonelList extends Tab implements View.OnClickListener
 
 	private void PersonelListItem_Selected(Personel personel)
 	{
-		//this._engine.ShowTabPersonelInfo( p );
 		this._engine.set_CurrentWorker( personel );
 		UIHelper.Instance().tabPersonelInfo.IsShowCheckiedWorker = false;
 		UIHelper.Instance().switchState(ta.timeattendance.MainActivity.State.PERSONEL_INFO);
@@ -108,34 +105,26 @@ public class TabPersonelList extends Tab implements View.OnClickListener
 
 	public void onClick(View ctrl)
 	{
-		//Object localObject = ctrl.getTag();
-		//if (localObject != null)
-		//{
-		//    Personel localPersonel = (Personel)localObject;
-		//    this.listener.doAction(this, "PERSONEL_SELECT", localPersonel);
-		//}
-
 		Object tag = ctrl.getTag();
-		//Integer integer = com.ifree.lib.operator.as(Integer.class, tag);
 		Object [] arr = (Object[])tag;
 		Integer integer = (Integer)arr[0];
 
 		if( integer != null)
 		{
-		    switch(integer)
-		    {
-		        case R.id.SearchButton_Id:{
-		            SearchButton_Click();
-		        break;}
-		        case R.id.PersonelListItem_Id:{
-		            PersonelListItem_Selected((Personel)arr[1]);
-		        break;}
-		    }
+			switch(integer)
+			{
+				case R.id.SearchButton_Id:{
+					SearchButton_Click();
+				break;}
+				case R.id.PersonelListItem_Id:{
+					PersonelListItem_Selected((Personel)arr[1]);
+				break;}
+			}
 		}
 	}
 }
 
 /* Location:           C:\Users\vano99\Desktop\jd-gui-0.3.5.windows\TandAOffline_dex2jar.jar
- * Qualified Name:     com.ifree.timeattendance.TabPersonelList
+ * Qualified Name:     timeattendance.TabPersonelList
  * JD-Core Version:    0.6.2
  */

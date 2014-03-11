@@ -37,4 +37,9 @@ public class TypeItem
 		}
 		return result;
 	}
+
+	public void Clear()
+	{
+		this._obj = null;
+	}
 }

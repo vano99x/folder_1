@@ -66,7 +66,7 @@ public class MainActivityProxy extends FragmentActivity
 		}
 		else if( MainActivityProxy.ma.get_Index() == this._index )
 		{
-		    MainActivityProxy.ma.Start(_threadMarker);
+			MainActivityProxy.ma.Start(_threadMarker);
 		}
 	}
 
@@ -100,7 +100,6 @@ public class MainActivityProxy extends FragmentActivity
 		if(MainActivityProxy.ma != null && MainActivityProxy.ma.get_Index() == this._index)
 		{
 			int aaa = 9;
-			int aaa2 = aaa - 2;
 			if(ActivityState == "Stop")
 			{
 				ActivityState = "Destroy";
@@ -135,7 +134,6 @@ public class MainActivityProxy extends FragmentActivity
 		if(MainActivityProxy.ma != null && MainActivityProxy.ma.get_Index() == this._index)
 		{
 			int aaa = 9;
-			int aaa2 = aaa - 2;
 			if(ActivityState == "Pause")
 			{
 				ActivityState = "Stop";
@@ -214,14 +212,12 @@ public class MainActivityProxy extends FragmentActivity
 	@Override
 	public void onBackPressed()
 	{
-		String str = UIHelper.Instance().currentState.toString();
 		UIHelper.Instance().onBackPressed();
 	}
 	@Override
 	public void finish()
 	{
 		super.finish();
-		//MainActivityProxy.get_SvModel().set_CurrentSuperviser(null);
 		UIHelper.Instance().currentState = MainActivity.State.PIN;
 	}
 
@@ -236,17 +232,6 @@ public class MainActivityProxy extends FragmentActivity
 		}
 		return _fragmentManager;
 	}
-
-	private static ISupervisorModel __svModel;
-	public static ISupervisorModel get_SvModel()
-	{
-		if(MainActivityProxy.__svModel == null)
-		{
-			MainActivityProxy.__svModel = Bootstrapper.Resolve( ISupervisorModel.class );
-		}
-		return MainActivityProxy.__svModel;
-	}
-	//public static void set_SvModel(ISupervisorModel p) { MainActivityProxy.__svModel = p; }
 
 
 
@@ -269,6 +254,5 @@ public class MainActivityProxy extends FragmentActivity
 	{
 		MainActivityProxy._count = 0;
 		MainActivityProxy.ma = null;
-		MainActivityProxy.__svModel = null;
 	}
 }
