@@ -14,8 +14,8 @@ import ta.lib.operator.*;
 
 public class DbConnector
 {
-	private static final String DATABASE_NAME = "ta.db";
-	private static final int DATABASE_VERSION = 1;
+	//private static final String DATABASE_NAME = "ta.db";
+	//private static final int DATABASE_VERSION = 1;
 	private static DbConnector instance = null;
 	private OpenHelper openHelper;
 	private SQLiteDatabase mDataBase;
@@ -29,6 +29,7 @@ public class DbConnector
 
 		CheckTable(openHelper, "Checkin",  openHelper.CheckinColumnItems());
 		CheckTable(openHelper, "Personel", openHelper.PersonelColumnItems());
+		CheckTable(openHelper, "SettingSv", openHelper.SettingSvColumnItems());
 
 		int aaa = 9;
 	}
@@ -141,6 +142,16 @@ public class DbConnector
 			};
 			return arr;
 		}
+		public ColumnItem [] SettingSvColumnItems()
+		{
+			ColumnItem [] arr = new ColumnItem[]
+			{
+				new ColumnItem("Id",      "INTEGER", null),
+				new ColumnItem("PointId", "INTEGER", null)
+			};
+			return arr;
+		}
+
 		public String CreateSql( String tableName, ColumnItem [] arr)
 		{
 			//ColumnItem [] arr = CheckinColumnItems();
@@ -258,6 +269,7 @@ public class DbConnector
 			boolean Remove = false;
 			boolean isConteins = false;
 
+			// check existing in db declared coluns
 			int count = entityPropArr.length;
 			for( int i = 0; i < count; i++)
 			{

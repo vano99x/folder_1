@@ -46,7 +46,6 @@
     <Folder Include="Properties\" />
     <Folder Include="res\drawable-ldpi\" />
     <Folder Include="res\raw\" />
-    <Folder Include="src\ta\timeattendance\Services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="gen\com\example\test6\BuildConfig.java" />
@@ -120,12 +119,10 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="res\layout\p_facility_info_item.xml" />
-    <Content Include="res\layout\_2_main_menu.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="res\layout\ctrl_date_picker.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="res\layout\p_points_list_2.xml" />
     <Content Include="res\layout\_4_checkin_list.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -142,9 +139,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="res\layout\page_wait2.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="res\layout\_3_points_list_2.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="res\layout\sv_box.xml">
@@ -175,6 +169,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="src\ta\lib\BackgroundFuncHelper.java" />
+    <Content Include="src\ta\timeattendance\MainActivity.java" />
     <Content Include="src\ta\timeattendance\Models\PointModel.java" />
     <Content Include="src\ta\Tabs\CheckinList\CheckinAdapter.java" />
     <Content Include="src\ta\Tabs\CheckinList\CheckinAdapter2.java" />
@@ -204,18 +199,16 @@
     <Content Include="src\ta\lib\TALog.java" />
     <Content Include="src\ta\lib\NfcThread.java" />
     <Content Include="src\ta\lib\UIHelper.java" />
-    <Content Include="src\ta\timeattendance\ListPointsAdapter.java" />
+    <Content Include="src\ta\Tabs\PointsList\ListPointsAdapter.java" />
     <Content Include="src\ta\timeattendance\MainActivityProxy.java" />
-    <Content Include="src\ta\timeattendance\MainActivity.java" />
     <Content Include="src\ta\timeattendance\MainEngine.java" />
     <Content Include="src\ta\timeattendance\Mode.java" />
     <Content Include="src\ta\timeattendance\PersonelListAdapter.java" />
-    <Content Include="src\ta\timeattendance\TabMainMenu.java" />
     <Content Include="src\ta\timeattendance\TabModeSelection.java" />
-    <Content Include="src\ta\timeattendance\TabPersonelInfo.java" />
+    <Content Include="src\ta\Tabs\PersonelInfo\TabPersonelInfo.java" />
     <Content Include="src\ta\timeattendance\TabPersonelList.java" />
     <Content Include="src\ta\timeattendance\TabPin.java" />
-    <Content Include="src\ta\timeattendance\TabPointsList.java" />
+    <Content Include="src\ta\Tabs\PointsList\TabPointsList.java" />
     <Content Include="src\ta\timeattendance\TabReference.java" />
     <Content Include="src\ta\timeattendance\TabWait.java" />
   </ItemGroup>
@@ -288,6 +281,21 @@
   <ItemGroup>
     <Content Include="src\ta\Tabs\Settings\CurrentVersionServices.java" />
     <Content Include="src\ta\Tabs\Settings\ICurrentVersionServices.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\Tabs\CheckinList\ISendChekinService.java" />
+    <Content Include="src\ta\Tabs\CheckinList\SendChekinService.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\timeattendance\Services\AppService.java" />
+    <Content Include="src\ta\timeattendance\Services\IAppService.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\Database\SettingSv.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\timeattendance\Models\ISettingSvModel.java" />
+    <Content Include="src\ta\timeattendance\Models\SettingSvModel.java" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -138,7 +138,16 @@ public class Personel //extends EntityBase
 		{
 			if(this.pointArray == null)
 			{
-				BackgroundFunc.Go( new GetPointsBFClass(), get_onLP(context), get_onLPComplete(loadComplete), "-onLP-");
+				// 1 - load from local db
+				Point [] pointArr   = Point.getBySuperviser( this.Id, context);
+				if(pointArr == null || pointArr.length == 0)
+				{
+					// 2 - request from web services
+					BackgroundFunc.Go( new GetPointsBFClass(), get_onLP(context), get_onLPComplete(loadComplete), "-onLP-");
+				} else {
+					this.pointArray = pointArr;
+					loadComplete.run();
+				}
 			}else{
 				loadComplete.run();
 			}
@@ -149,7 +158,7 @@ public class Personel //extends EntityBase
 			return this.pointArray;
 		}
 	}
-	
+
 	private onLPComplete get_onLPComplete(RunnableWithArgs loadComplete) { onLPComplete o = new onLPComplete(); o.arg1 = this; o.arg2 = loadComplete; return o; }
 	class   onLPComplete extends RunnableWithArgs<JSONArray,Boolean> { public void run()
 	{
@@ -375,7 +384,7 @@ public class Personel //extends EntityBase
 		}
 
 		return db.insert("Personel", cv);
-	}
+	}/**/
 
 
 	private static ArrayList<Personel> getPersonelList(Cursor cursor)

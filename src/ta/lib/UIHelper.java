@@ -25,6 +25,8 @@ import ta.lib.Controls.*;
 import ta.timeattendance.MainActivity;
 import ta.timeattendance.MainActivity.State;
 import ta.lib.RunnableWithArgs;
+import ta.Tabs.PersonelInfo.TabPersonelInfo;
+import ta.Tabs.PointsList.TabPointsList;
 
 import android.support.v4.app.FragmentActivity;
 
@@ -37,14 +39,13 @@ public class UIHelper implements IMessageReceiver
 	private MainActivityProxy context;
 	private ViewGroup         rootView;
 	public  State             currentState;
-	private Handler           __respondHandler;
 
 	//public  PanelButton           svBox;
 	//public  WrapperCtrl<PanelButton> panelButton;
 	public  TabPin           tabPin;
 	//public  TabMainMenu      tabMainMenu;
 	public  TabReference      tabReference;
-	//private TabPointsList    tabPointsList;
+	private TabPointsList    tabPointsList;
 	private TabModeSelection tabModeSelection;
 	private TabWait          tabWait;
 	public  TabPersonelInfo  tabPersonelInfo;
@@ -85,7 +86,7 @@ public class UIHelper implements IMessageReceiver
 
 		this.context = context;
 		this.rootView = root;
-		this.get_RespondHandler(); // create handler
+		MainActivity.get_RespondHandler(); // create handler
 
 		//*****************************************************************************************
 		//this.svBox = new SvBox( this.context, this.rootView);
@@ -95,9 +96,8 @@ public class UIHelper implements IMessageReceiver
 		//svBox.HideNameBlock();
 
 		this.tabPin             = new TabPin(            this.context, this.rootView, R.layout._1_pin,                 R.id.PagePin);
-		//this.tabMainMenu        = new TabMainMenu(       this.context, this.rootView, R.layout._2_main_menu,              R.id.MainMenu_Id);
 		this.tabReference        = new TabReference(       this.context, this.rootView, R.layout._5_reference,              R.id.Reference_Id);
-		//this.tabPointsList      = new TabPointsList(     this.context, this.rootView, R.layout._3_points_list_2,       R.id.PagePointsList);
+		this.tabPointsList      = new TabPointsList(     this.context, this.rootView, R.layout.p_points_list_2,       R.id.PagePointsList);
 		this.tabCheckinList     = new TabCheckinList(    this.context, this.rootView, R.layout._4_checkin_list,        R.id.PageCheckinList);
 		this.tabModeSelection   = new TabModeSelection(  this.context, this.rootView, R.layout.page_mode_selection,    R.id.PageModeSelection);
 		this.tabWait            = new TabWait(           this.context, this.rootView, R.layout.page_wait2,             R.id.PageWait);
@@ -115,13 +115,12 @@ public class UIHelper implements IMessageReceiver
 	}
 	public void UIHelper_Clear()
 	{
-		this.__respondHandler.removeCallbacksAndMessages(null);
 		//svBox.Clear();
 		//panelButton.Clear();
 		tabPin.Clear();
 		//tabMainMenu.Clear();
 		tabReference.Clear();
-		//tabPointsList.Clear();
+		tabPointsList.Clear();
 		tabModeSelection.Clear();
 		tabWait.Clear();
 		tabPersonelInfo.Clear();
@@ -139,7 +138,7 @@ public class UIHelper implements IMessageReceiver
 		tabPin = null;
 		//tabMainMenu = null;
 		tabReference = null;
-		//tabPointsList = null;
+		tabPointsList = null;
 		tabModeSelection = null;
 		tabWait = null;
 		tabPersonelInfo = null;
@@ -151,7 +150,6 @@ public class UIHelper implements IMessageReceiver
 		this.context = null;
 		this.rootView = null;
 		this.currentState = State.NULL;
-		this.__respondHandler = null;
 
 		this.__tabItemArray = null;
 		//this._myRunnable = null;
@@ -188,7 +186,7 @@ public class UIHelper implements IMessageReceiver
 		//this.panelButton.Hide();
 		this.tabPin.Hide();
 		this.tabModeSelection.Hide();
-		//this.tabPointsList.Hide();
+		this.tabPointsList.Hide();
 		this.tabWait.Hide();
 		//this.tabDataTransmition.hide();
 		//this.tabErrorReading.hide();
@@ -206,21 +204,6 @@ public class UIHelper implements IMessageReceiver
 	
 	//*********************************************************************************************
 	//       properties
-	public Handler get_RespondHandler()
-	{
-		if(this.__respondHandler == null)
-		{
-			try
-			{
-				this.__respondHandler = new Handler();
-			}
-			catch(Exception e)
-			{
-				Exception ex = e;
-			}
-		}
-		return this.__respondHandler;
-	}
 
 
 
@@ -251,7 +234,7 @@ public class UIHelper implements IMessageReceiver
 		{
 			int intPin               = State.PIN.ordinal();
 			//int intMenu              = State.FLAG_MAIN_MENU.ordinal();
-			//int intPointsList        = State.POINTS_LIST.ordinal();
+			int intPointsList        = State.FLAG_POINTS_LIST.ordinal();
 			int intSelection         = State.MODE_SELECTION.ordinal();
 			int intWaitMode          = State.WAIT_MODE.ordinal();
 			int intPersonelListMode  = State.PERSONEL_LIST_MODE.ordinal();
@@ -264,7 +247,7 @@ public class UIHelper implements IMessageReceiver
 			__tabItemArray = new TabItem[] { 
 				new TabItem(intPin,          tabPin),
 				//new TabItem(intMenu,             tabMainMenu),
-				//new TabItem(intPointsList,   tabPointsList),
+				new TabItem(intPointsList,   tabPointsList),
 				new TabItem(intSelection,        tabModeSelection),
 				new TabItem(intWaitMode,     tabWait),
 				new TabItem(intPersonelListMode, tabPersonelList),
@@ -287,7 +270,7 @@ public class UIHelper implements IMessageReceiver
 
 		int intPin              = State.PIN.ordinal();
 		//int intMenu             = State.FLAG_MAIN_MENU.ordinal();
-		//int intPointsList       = State.POINTS_LIST.ordinal();
+		int intPointsList       = State.FLAG_POINTS_LIST.ordinal();
 		int intSelection        = State.MODE_SELECTION.ordinal();
 		int intWaitMode         = State.WAIT_MODE.ordinal();
 		int intPersonelListMode = State.PERSONEL_LIST_MODE.ordinal();
@@ -319,9 +302,9 @@ public class UIHelper implements IMessageReceiver
 		else if(intParamState == intReference) {
 			this.tabReference.Show();
 		}
-		//else if(intParamState == intPointsList) {
-		//	this.tabPointsList.Show();
-		//}
+		else if(intParamState == intPointsList) {
+			this.tabPointsList.Show();
+		}
 		else if(intParamState == intSelection) {
 			this.tabModeSelection.Show();
 		}
@@ -371,16 +354,12 @@ public class UIHelper implements IMessageReceiver
 
 			break;}
 
-			//case POINTS_LIST:
 			case CHECKIN_LIST:
 			case REFERENCE:
 			case FACILITY_INFO:{
 				switchState(State.MODE_SELECTION);//switchState(State.FLAG_MAIN_MENU);
 			break;}
 
-			//case MODE_SELECTION:{
-			//	switchState(State.POINTS_LIST);
-			//break;}
 			case WAIT_MODE:{
 				switchState(State.MODE_SELECTION);
 			break;}
@@ -389,6 +368,9 @@ public class UIHelper implements IMessageReceiver
 			break;}
 			case FLAG_SETTINGS:{
 				switchState(State.MODE_SELECTION);
+			break;}
+			case FLAG_POINTS_LIST:{
+				switchState(State.FLAG_SETTINGS);
 			break;}
 			case PERSONEL_INFO:{
 				switchState(State.WAIT_MODE);
@@ -529,7 +511,7 @@ public class UIHelper implements IMessageReceiver
 	}}
 	private void WaitUpdateUI(Runnable r)
 	{
-		this.get_RespondHandler().post(r);
+		MainActivity.get_RespondHandler().post(r);
 		//synchronized( _lockObj ) { try { _lockObj.wait(); } catch (InterruptedException e) { } }
 	}
 	public void MsgFromBackground(Act act)
@@ -744,7 +726,7 @@ public class UIHelper implements IMessageReceiver
 	}}
 	public void RunAndWait(Runnable runnable)//, Object obj
 	{
-	    Thread t = new Thread(get_RunnableAndNotify(runnable),"-RunAndWait-");//, obj
+		Thread t = new Thread(get_RunnableAndNotify(runnable),"-RunAndWait-");//, obj
 		t.start();
 
 		//synchronized( obj )
@@ -791,7 +773,7 @@ public class UIHelper implements IMessageReceiver
 	{
 		this.showScreenRunnable = get_onShowScreen(state);
 
-		this.get_RespondHandler().postDelayed(this.showScreenRunnable, paramLong);
+		MainActivity.get_RespondHandler().postDelayed(this.showScreenRunnable, paramLong);
 	}
 	private onShowScreen get_onShowScreen(State state)
 	{

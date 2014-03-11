@@ -44,6 +44,8 @@ public class MainActivityProxy extends FragmentActivity
 
 	private void Begin()
 	{
+		//Thread t = Thread.currentThread();
+		//t.
 		this._threadMarker = Thread.currentThread().toString();
 
 		if( MainActivityProxy.ma == null || MainActivityProxy.ma.get_Index() < this._index )
@@ -51,10 +53,10 @@ public class MainActivityProxy extends FragmentActivity
 			if( MainActivityProxy.ma != null )
 			{
 				try{
-				MainActivityProxy oldActivity = MainActivityProxy.ma.get_FragmentActivity();
-				MainActivityProxy.ma.MainActivity_Clear();
-				oldActivity.finish();
-				MainActivityProxy.ma = null;
+					MainActivityProxy oldActivity = MainActivityProxy.ma.get_FragmentActivity();
+					MainActivityProxy.ma.MainActivity_Clear();
+					oldActivity.finish();
+					MainActivityProxy.ma = null;
 				}catch(Exception e){
 					Exception ex = e;
 				}
@@ -194,7 +196,12 @@ public class MainActivityProxy extends FragmentActivity
 			//MainActivityProxy.ma.set_TagFromIntent( null );
 			//TALog.Log("fromHistory");
 		} else {
-			if( (UIHelper.Instance().currentState == MainActivity.State.WAIT_MODE) && !this.isNfcBusy )
+			if(
+				(
+					UIHelper.Instance().currentState == MainActivity.State.WAIT_MODE ||
+					UIHelper.Instance().currentState == MainActivity.State.PERSONEL_INFO
+				)
+				&& !this.isNfcBusy )
 			{
 				this.isNfcBusy = true;
 				MainActivityProxy.ma.set_TagFromIntent(
@@ -214,7 +221,7 @@ public class MainActivityProxy extends FragmentActivity
 	public void finish()
 	{
 		super.finish();
-		MainActivityProxy.get_SvModel().set_CurrentSuperviser(null);
+		//MainActivityProxy.get_SvModel().set_CurrentSuperviser(null);
 		UIHelper.Instance().currentState = MainActivity.State.PIN;
 	}
 
@@ -249,7 +256,11 @@ public class MainActivityProxy extends FragmentActivity
 	class onClickBackBtn implements DialogInterface.OnClickListener { public MainActivityProxy _this;public void onClick( 
 		DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt)
 	{
-		_this.finish();
+		try{
+			_this.finish();
+		}catch(Exception e ){
+			Exception ex = e;
+		}
 	}}
 
 

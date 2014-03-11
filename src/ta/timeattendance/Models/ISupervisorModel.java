@@ -8,5 +8,5 @@ public interface ISupervisorModel
 	Personel get_CurrentSuperviser();
 	void set_CurrentSuperviser(Personel p);
 
-	void OnSvAppliedEvt(RunnableWithArgs runnable);
+	void SvChanged_EventAdd(RunnableWithArgs runnable);
 }

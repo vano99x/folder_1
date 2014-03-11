@@ -2,13 +2,30 @@
 
 import ta.lib.*;
 import ta.Database.*;
+import ta.timeattendance.Services.*;
 
 public class SupervisorModel implements ISupervisorModel
 {
+	private IAppService __appService;
+	//private static int _counter;
 	public SupervisorModel()
 	{
+		//_counter++;
 		this.CurrentSuperviserApplied = new CurrentSuperviserAppliedEventClass();
+		this.__appService = Bootstrapper.Resolve( IAppService.class );
+		this.__appService.get_Closing().Add(get_onClosing());
 	}
+
+
+
+	//*********************************************************************************************
+	//**     Event Handler
+	private       onCls get_onClosing() { onCls o = new onCls(); o.arg1 = this; return o; }
+	private class onCls extends RunnableWithArgs<Object,Object> { public void run()
+	{
+		SupervisorModel _this = (SupervisorModel)this.arg1;
+		_this.__currentSuperviser = null;
+	}}
 
 
 
@@ -17,7 +34,7 @@ public class SupervisorModel implements ISupervisorModel
 	class   CurrentSuperviserAppliedEventClass extends Event<Personel,Object> {}
 	private CurrentSuperviserAppliedEventClass CurrentSuperviserApplied;
 	@Override
-	public void OnSvAppliedEvt(RunnableWithArgs runnable)
+	public void SvChanged_EventAdd(RunnableWithArgs runnable)
 	{
 		CurrentSuperviserApplied.Add(runnable);
 	}
@@ -35,14 +52,15 @@ public class SupervisorModel implements ISupervisorModel
 	@Override
 	public void set_CurrentSuperviser(Personel p)
 	{
-		this.__currentSuperviser = p;
-
-		if(this.__currentSuperviser == null)
+		if(p != null)
 		{
-		}
-		else
-		{
+			this.__currentSuperviser = p;
 			this.CurrentSuperviserApplied.RunEvent( this.__currentSuperviser );
 		}
+	}
+	
+	static
+	{
+		//_counter = 0;
 	}
 }

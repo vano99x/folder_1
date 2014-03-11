@@ -22,7 +22,7 @@ public class CurrentVersionServices implements ICurrentVersionServices
 
 
 	class CurrentVersionLoadedEventClass extends Event<String,Boolean> {}
-	public CurrentVersionLoadedEventClass CurrentVersionLoaded;
+	private CurrentVersionLoadedEventClass CurrentVersionLoaded;
 	public CurrentVersionLoadedEventClass get_CurrentVersionLoaded(){ return this.CurrentVersionLoaded; }
 
 

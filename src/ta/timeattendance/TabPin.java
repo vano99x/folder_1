@@ -41,7 +41,7 @@ public class TabPin extends Tab implements View.OnClickListener
 		//this._engine.Clearing.Add(get_onClearing());
 
 		this.__svModel = Bootstrapper.Resolve( ISupervisorModel.class );
-		this.__svModel.OnSvAppliedEvt(get_onAuthSV());
+		this.__svModel.SvChanged_EventAdd(get_onAuthSV());
 	}
 
 

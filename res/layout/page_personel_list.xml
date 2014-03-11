@@ -6,7 +6,6 @@
 >
 
     <TextView 
-		android:id="@id/lable_head" 
 		android:text="@string/msg_enter_lastname" 
 		android:textSize="8.0pt" android:textStyle="bold" android:textColor="#ffffff" 
 		android:layout_width="fill_parent" android:layout_height="60.0px" 

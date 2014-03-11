@@ -35,7 +35,7 @@ public class NfcThread implements Runnable
 			{
 				int aaa1 = 9;
 				int aaa2 = aaa1 - 2;
-		
+
 				if(
 					(ma.__tagFromIntent != null)
 					//&& (isBusy == false)

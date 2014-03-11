@@ -1,6 +1,7 @@
 ﻿package ta.lib;
 
 import java.lang.reflect.*;
+import android.os.Handler;
 
 public class BackgroundFunc<TArg,TRes> extends RunnableWithArgs<Object,Object>
 {
@@ -38,17 +39,18 @@ public class BackgroundFunc<TArg,TRes> extends RunnableWithArgs<Object,Object>
 		String message = null;
 		final RunnableWithArgs<TArg,TRes> targetFunc  = (RunnableWithArgs<TArg,TRes>)this.arg1;
 		//Object eventHolder = this.arg2; //final String eventName = (String)this.arg3;
-		try {
-			UIHelper.Instance().RunAndWait( targetFunc );
-		}
+		//try {
+		//	UIHelper.Instance().RunAndWait( targetFunc );
+		//}
 		//catch(NoSuchFieldException nsfe)  { Exception e = nsfe; message = e.getMessage(); }
 		//catch(NoSuchMethodException nsme) { Exception e = nsme; }
 		//catch(IllegalAccessException iae) { Exception e = iae;  message = e.getMessage(); }
-		catch(Exception ite)//InvocationTargetException
-		{
-			Exception e = ite;
-			message = e.getMessage();
-		}
+		//catch(Exception ite)//InvocationTargetException
+		//{
+		//	Exception e = ite;
+		//	message = e.getMessage();
+		//}
+		targetFunc.run();
 
 		if(message == null)
 		{
@@ -57,7 +59,9 @@ public class BackgroundFunc<TArg,TRes> extends RunnableWithArgs<Object,Object>
 
 		//this.result = new Object[]{message};
 		//BackgroundFuncComplete.RunEvent(new Object[]{message});
-		UIHelper.Instance().get_RespondHandler().post(new Runnable()
+		try {
+		Handler aaa = ta.timeattendance.MainActivity.get_RespondHandler();
+		aaa.post(new Runnable()
 		{
 			public void run()
 			{
@@ -65,6 +69,11 @@ public class BackgroundFunc<TArg,TRes> extends RunnableWithArgs<Object,Object>
 				BackgroundFunc.this.BackgroundFuncComplete.RunEvent(targetFunc.arg,targetFunc.result);
 			}
 		});
+		}
+		catch(Exception e)
+		{
+			Exception ex = e;
+		}
 	}
 
 	public class  BackgroundFuncCompleteEventClass extends Event<TArg,TRes> {}

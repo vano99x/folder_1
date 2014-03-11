@@ -18,8 +18,10 @@ public class Point extends EntityBase
 	public int Id;
 	public String Name;
 
-	private Point()
+	public Point()
 	{
+		this.Id = -1;
+		this.Name = null;
 	}
 	private Point(int paramInt, String paramString)
 	{

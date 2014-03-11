@@ -10,13 +10,43 @@ import ta.lib.operator.*;
 public class Bootstrapper
 {
 	private ArrayList<TypeItem> _typeItems;
+/*
+ISupervisorModel - ...
 
+IPointModel - ISupervisorModel
+IPointModel - IAppService
+IPointModel - ISettingSvModel
+
+ICurrentVersionServices - ...
+
+ISendChekinService - ...
+
+IAppService - ...
+
+ISettingSvModel - ISupervisorModel
+*/
+	public static void Init()
+	{
+		Bootstrapper.Instance();
+	}
 	private Bootstrapper()
 	{
 		_typeItems = new ArrayList<TypeItem>(9);
 		_typeItems.add(new TypeItem("ISupervisorModel", SupervisorModel.class, true));
 		_typeItems.add(new TypeItem("IPointModel",      PointModel.class,      true));
-		_typeItems.add(new TypeItem("ICurrentVersionServices",      ta.Tabs.Settings.CurrentVersionServices.class,      true));
+		_typeItems.add(new TypeItem("ICurrentVersionServices", ta.Tabs.Settings.CurrentVersionServices.class, true));
+		_typeItems.add(new TypeItem("ISendChekinService",      ta.Tabs.CheckinList.SendChekinService.class,   true));
+		_typeItems.add(new TypeItem("IAppService",             ta.timeattendance.Services.AppService.class,   true));
+		_typeItems.add(new TypeItem("ISettingSvModel",         ta.timeattendance.Models.SettingSvModel.class,   true));
+		
+		Bootstrapper._instance = this;
+		
+		RunControllers();
+	}
+
+	private void RunControllers()
+	{
+		Resolve( ta.timeattendance.Models.ISettingSvModel.class, this );
 	}
 
 	private static Bootstrapper _instance;
@@ -31,6 +61,11 @@ public class Bootstrapper
 
 	public static <T> T Resolve(Class<T> _interface)
 	{
+		return Resolve(_interface, Bootstrapper.Instance());
+	}
+
+	public static <T> T Resolve(Class<T> _interface, Bootstrapper bs)
+	{
 		String temp = _interface.getName();
 		int index = temp.lastIndexOf(".");
 		if(index != -1 )
@@ -41,7 +76,7 @@ public class Bootstrapper
 
 		T instance = null;
 
-		ArrayList<TypeItem> items = Bootstrapper.Instance()._typeItems;
+		ArrayList<TypeItem> items = bs._typeItems;
 
 		ArrayList<TypeItem> typeItems = 
 			operator.Where(

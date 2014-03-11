@@ -7,12 +7,12 @@
     <string name="action_settings">Settings</string>
 
 
-	<string name="MainMenu_StartBtn_Text">Отслеживание</string>
-	<string name="MainMenu_SyncBtn_Text">Синхронизация</string>
-	<string name="MainMenu_CheckinListBtn_Text">Список событий</string>
-	<string name="MainMenu_ReferenceBtn_Text">Справка</string>
-	<string name="MainMenu_UpdateBtn_Text">Обновление</string>
-	<string name="MainMenu_FacilityInfoBtn_Text">Оперативная обстановка</string>
+	<string name="StartBtn_Text">Отслеживание</string>
+	<string name="SyncBtn_Text">Синхронизация</string>
+	<string name="CheckinListBtn_Text">Список событий</string>
+	<string name="ReferenceBtn_Text">Справка</string>
+	<string name="UpdateBtn_Text">Обновление</string>
+	<string name="FacilityInfoBtn_Text">Оперативная обстановка</string>
 	
     <string name="lable_wait_mode">Приложите телефон</string>
     <string name="lable_data_transmission">"Пожалуйста,

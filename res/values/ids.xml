@@ -11,20 +11,10 @@
 	
 	
 	<item type="id" name="PageModeSelection" />
-	<item type="id" name="lable_head" />
 	<item type="id" name="PageModeSelection_start_button" />
 	<item type="id" name="PageModeSelection_end_button" />
 	<item type="id" name="PageModeSelection_check_button" />
 	<item type="id" name="PageModeSelection_pause_button" />
-	
-	
-	<item type="id" name="PagePointsList" />
-	<item type="id" name="PagePointsList_ListView_Id" />
-	<item type="id" name="lable_empty_list" />
-	<item type="id" name="route_block" />
-	<item type="id" name="txtName" />
-	<item type="id" name="checkin_btn" />
-	<item type="id" name="PointsListItem_Id" />
 	
 	
 	<item type="id" name="PageWait" />
@@ -65,18 +55,11 @@
 	
 	<item type="id" name="PagePersonelList" />
 	<item type="id" name="PagePersonelList_ListView_Id" />
+	<item type="id" name="lable_empty_list" />
 	<item type="id" name="txt_lastname" />
 	<item type="id" name="SearchButton_Id" />
 	<item type="id" name="PersonelListItem_Id" />
 	
-	
-	<item type="id" name="MainMenu_Id" />
-	<item type="id" name="MainMenu_StartBtn_Id" />
-	<item type="id" name="MainMenu_SyncBtn_Id" />
-	<item type="id" name="MainMenu_CheckinListBtn_Id" />
-	<item type="id" name="MainMenu_ReferenceBtn_Id" />
-	<item type="id" name="MainMenu_UpdateBtn_Id" />
-	<item type="id" name="MainMenu_FacilityInfoBtn_Id" />
 	
 	<item type="id" name="Reference_Id" />
 	<item type="id" name="Reference_TextView_Id" />
@@ -114,9 +97,11 @@
 	
 	<item type="id" name="PnBtn_RootId" />
 	<item type="id" name="PnBtn_SyncBtn_Id" />
+	<item type="id" name="PnBtn_SyncImg_Id" />
 	<item type="id" name="PnBtn_CheckinListBtn_Id" />
 	<item type="id" name="PnBtn_SettingsBtn_Id" />
 	<item type="id" name="PnBtn_FacilityInfoBtn_Id" />
+	<item type="id" name="PnBtn_ReferenceBtn_Id" />
 
 	<item type="id" name="LoadingProgressBar_RootId" />
 	<item type="id" name="LoadingProgressBar_Title" />
@@ -137,10 +122,21 @@
 	<item type="id" name="FacilityInfoItem_BonusesSum_Id" />
 	
 	<item type="id" name="Settings_RootId" />
-	<item type="id" name="Settings_ListView_Id" />
-	<item type="id" name="Settings_ReferenceBtn_Id" />
+	<!--//<item type="id" name="Settings_ListView_Id" />//-->
+	<!--//<item type="id" name="Settings_ReferenceBtn_Id" />//-->
 	<item type="id" name="Settings_UpdateBtn_Id" />
+	<item type="id" name="Settings_PointsListBtn_Id" />
 	<item type="id" name="Settings_CurrentVersionTextView_Id" />
+
+
+	<item type="id" name="PagePointsList" />
+	<item type="id" name="PagePointsList_ListView_Id" />
+	<item type="id" name="PagePointsList_HeadTextView_Id" />
+	<item type="id" name="PagePointsList_EmptyListTextView_Id" />
+	<item type="id" name="route_block" />
+	<item type="id" name="txtName" />
+	<item type="id" name="checkin_btn" />
+	<item type="id" name="PointsListItem_Id" />
 	
 </resources>
 

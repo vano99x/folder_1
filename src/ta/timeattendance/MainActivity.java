@@ -3,17 +3,20 @@ package ta.timeattendance;
 import android.content.Context;
 import android.nfc.NfcManager;
 import android.nfc.Tag;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.view.ViewGroup;
+import android.content.Intent;
+import android.net.Uri;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import ta.lib.*;
 import ta.Database.*;
+import ta.timeattendance.Models.*;
+import ta.timeattendance.Services.*;
 import ta.timeattendance.R;
-import android.content.Intent;
-import android.net.Uri;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -22,10 +25,12 @@ import android.util.Log;
 
 public class MainActivity
 {
+	private static Handler __respondHandler;
 	private MainActivityProxy __fragmentActivity;
 	private MainEngine mEngine;
 	private ViewGroup rootView;
 
+	private IAppService __appService;
 	private NfcThread _nfcThread;
 	public  android.nfc.Tag __tagFromIntent;
 
@@ -198,8 +203,17 @@ public class MainActivity
 		this.Nulling();                 //TALog.Log("===========MainActivity=================");
 		this.set_FragmentActivity( fa );//TALog.Log("===========onCreate=================");
 		MainActivityProxy context = this.get_FragmentActivity();
+
+		// 3 Db
+		DbConnector.CreateInstance( context );
+		//DbConnector.getInstance().exec("DROP TABLE IF EXISTS Checkin");
 		//DbConnector.getInstance(this).exec("DROP TABLE IF EXISTS Personel");
 		//DbConnector.getInstance(this).exec("DROP TABLE IF EXISTS Checkin");
+		try{
+			//DbConnector.getInstance().exec("DROP TABLE IF EXISTS SettingSv");
+		}catch(Exception e){
+			Exception ex = e;
+		}
 		
 		// 1 context
 		context.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE);
@@ -213,17 +227,15 @@ public class MainActivity
 		//MainEngine.CreateAAA(context);
 		this.mEngine = MainEngine.getInstance();
 
-		// 3 Db
-		DbConnector.CreateInstance( context );
-		//DbConnector.getInstance().exec("DROP TABLE IF EXISTS Checkin");
-
 		// 4 UI
 		UIHelper.CreateInstance( context, this.rootView );
 		//int paddingTop = UIHelper.Instance().tabPin.getRoot().getPaddingTop();
 
 		this._nfcThread = new NfcThread(this, this.mEngine);
 		this.mEngine.SaveCheckinCompleteEvent.Add(get_onSaveCheckin_Handler());
-		
+
+		Bootstrapper.Init();
+		this.__appService = Bootstrapper.Resolve( IAppService.class );
 		//_2();
 	}
 	public void MainActivity_Clear()
@@ -293,6 +305,7 @@ public class MainActivity
 		if(NFCHelper.Instance() != null) {
 			NFCHelper.Instance().Clear(); NFCHelper.DeleteInstance();
 		}
+		this.__appService.ClosingRunEvent();
 		this._isRunning = false;
 	}
 	
@@ -374,6 +387,14 @@ public class MainActivity
 		}
 		return this.__nfcManager;
 	}
+	public static Handler get_RespondHandler()
+	{
+		if(__respondHandler == null)
+		{
+			__respondHandler = new Handler();
+		}
+		return __respondHandler;
+	}
 
 /*
 @Override
@@ -392,7 +413,7 @@ public void onConfigurationChanged(Configuration newConfig)
 		NULL(              "NULL",               0),
 		PIN(               "PIN",                1),
 		//FLAG_MAIN_MENU(         "FLAG_MAIN_MENU",          2),
-		//POINTS_LIST(       "POINTS_LIST",        3),
+		FLAG_POINTS_LIST(       "FLAG_POINTS_LIST",        3),
 		MODE_SELECTION(    "MODE_SELECTION",     4),
 		WAIT_MODE(         "WAIT_MODE",          5),
 		PERSONEL_LIST_MODE("PERSONEL_LIST_MODE", 6),

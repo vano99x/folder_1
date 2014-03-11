@@ -158,13 +158,23 @@
 	
 	
 	
-	<style name="PnBtn_Button_Style">
+	<!--//<style name="PnBtn_Button_Style">
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:background">@drawable/style_button_2</item>
 		<item name="android:textColor">#f5c210</item>
 		<item name="android:paddingLeft">3.0dip</item>
 		<item name="android:paddingRight">3.0dip</item>
+	</style>//-->
+	<style name="PnBtn_B2">
+		<item name="android:layout_width">62.0dip</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:orientation">horizontal</item>
+		<!--//<item name="android:background">#f00</item>//-->
+	</style>
+	<style name="PnBtn_B2_Img">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
 	</style>
 	<style name="PnBtn_Space_Style">
 		<item name="android:layout_width">wrap_content</item>

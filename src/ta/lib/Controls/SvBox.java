@@ -18,6 +18,7 @@ public class SvBox extends Tab implements View.OnClickListener
 {
 	MainEngine _engine;
 	private TextView     _labelPoint;
+	//private String     _pointName;
 	//private LinearLayout _NameBlock;
 	private TextView     _labelLastName;
 	private TextView     _labelName;
@@ -32,6 +33,7 @@ public class SvBox extends Tab implements View.OnClickListener
 		this._engine = MainEngine.getInstance();
 
 		this._labelPoint      = (TextView)    this.root.findViewById(R.id.SvBox_Point);
+		//this._pointName = null;
 		//this._NameBlock       = (LinearLayout)this.root.findViewById(R.id.SvBox_NameBlockId);
 		this._labelLastName   = (TextView)    this.root.findViewById(R.id.SvBox_LastName);
 		this._labelName       = (TextView)    this.root.findViewById(R.id.SvBox_Name);
@@ -52,7 +54,7 @@ public class SvBox extends Tab implements View.OnClickListener
 		//this._engine.Closing.Add(get_onClosing());
 
 		this.__svModel = Bootstrapper.Resolve( ISupervisorModel.class );
-		this.__svModel.OnSvAppliedEvt(get_onAuthSV());
+		this.__svModel.SvChanged_EventAdd(get_onAuthSV());
 		this.__pointModel = Bootstrapper.Resolve( IPointModel.class );
 		this.__pointModel.set_CurrentPointApplied(get_onSetCurPt());
 	}
@@ -60,14 +62,6 @@ public class SvBox extends Tab implements View.OnClickListener
 
 	//*********************************************************************************************
 	//*      public func
-	//public void ShowNameBlock()
-	//{
-	//Tab.Show(this._NameBlock);
-	//}
-	//public void HideNameBlock()
-	//{
-	//Tab.Hide(this._NameBlock);
-	//}
 
 	//*********************************************************************************************
 	//**     Event Handler
@@ -75,8 +69,9 @@ public class SvBox extends Tab implements View.OnClickListener
 	class   onSetCurPt extends RunnableWithArgs<Point,Boolean> { public void run()
 	{
 		SvBox _this = (SvBox)this.arg1;
-		Point p = this.arg;
-		SvBox.UpdateTextView( _this._labelPoint,  p.Name);
+		//Point p = this.arg;
+		//_this._pointName = p.Name;
+		UpdatePointTextView();
 	}}
 
 	private onAuthSV get_onAuthSV() { onAuthSV a = new onAuthSV(); a.arg1 = this; return a; }
@@ -87,12 +82,11 @@ public class SvBox extends Tab implements View.OnClickListener
 			SvBox _this = (SvBox)this.arg1;
 			Personel p = this.arg;
 
-			//_this.ShowNameBlock();
 			SvBox.UpdateTextView( _this._labelLastName,  p.LastName);
 			SvBox.UpdateTextView( _this._labelName,      p.FirstName);
 			SvBox.UpdateTextView( _this._labelThirdName, p.ThirdName);
 			
-			SvBox.UpdateTextView( _this._labelPoint, "Выберите точку в настройках!");
+			_this.UpdatePointTextView();
 		}
 	}}
 
@@ -118,6 +112,22 @@ public class SvBox extends Tab implements View.OnClickListener
 			if(Tab.IsShow(ctrl)) {
 				Tab.Hide(ctrl);
 			}
+		}
+	}
+	private void UpdatePointTextView()
+	{
+		String ctrlStr = this._labelPoint.getText().toString();
+		String str = null;
+
+		Point point = this.__pointModel.get_CurrentPoint();
+		if( point == null || point.Name == null ){
+			str = "Выберите точку в настройках!";
+		}else{
+			str = point.Name;
+		}
+
+		if(ctrlStr == null || ! ctrlStr.equals(str)){
+			SvBox.UpdateTextView( this._labelPoint, str);
 		}
 	}
 
@@ -149,14 +159,22 @@ public class SvBox extends Tab implements View.OnClickListener
 
 	//*********************************************************************************************
 	//       Control Handler
-
 	//private void CheckBoxInternet_CheckedOrUnchecked(View ctrl)
 	//{
 	//boolean isChecked = ((CheckBox)ctrl).isChecked();
 	//this._engine.set_IsIntenetDisable(isChecked);
 	//}
 
+
+
 	//*********************************************************************************************
+	//**     Code behind override
+	//@Override
+	//public void Show()
+	//{
+	//super.Show();
+	//UpdateCtrlData();
+	//}
 	public void onClick(View ctrl)
 	{
 		Object tag = ctrl.getTag();

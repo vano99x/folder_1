@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.*;
 
-import java.util.TimerTask;
 import java.util.ArrayList;
 
 import org.json.JSONObject;
@@ -129,11 +128,11 @@ public class MainEngine
 	private onSaveChkn get_onSaveChkn() { onSaveChkn o = new onSaveChkn(); return o; }
 	class onSaveChkn extends RunnableWithArgs<Object,Boolean> { public void run()
 	{
-		//UIHelper.Instance().Toast(" in onSaveCheckin" + UIHelper.Instance().currentState.toString(), 3);
 		switch(UIHelper.Instance().currentState)
 		{
 			case PERSONEL_INFO:{
-				UIHelper.Instance().switchState(State.WAIT_MODE);
+				//UIHelper.Instance().switchState(State.WAIT_MODE);
+				UIHelper.Instance().tabPersonelInfo.UpdateData();
 			break;}
 			case WAIT_MODE:{
 				boolean result = this.result;
@@ -253,7 +252,7 @@ public class MainEngine
 		Point.sync(         points,            context);
 		PersonelPoint.sync( ppoints,           context);
 
-		CheckinSender.SendCheckinArray(context);
+		//CheckinSender.SendCheckinArray(context);
 	}
 
 	private static Personel LoadPersonelFromServer( String pin, Context context)
@@ -425,7 +424,7 @@ public class MainEngine
 				String.valueOf(System.currentTimeMillis()) // DateTime
 			);
 
-			if(HttpHelper.IsInternetAvailable(engine.mContext))
+			/*if(HttpHelper.IsInternetAvailable(engine.mContext))
 			{
 				try
 				{
@@ -465,7 +464,7 @@ public class MainEngine
 					result = false;
 				}
 			}
-			else
+			else*/
 			{
 				ch.IsCheckinExistOnServer = false;
 				ch.save( engine.mContext );

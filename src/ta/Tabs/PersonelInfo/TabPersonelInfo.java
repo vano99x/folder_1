@@ -1,4 +1,4 @@
-package ta.timeattendance;
+package ta.Tabs.PersonelInfo;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -17,6 +17,8 @@ import android.widget.Button;
 
 import ta.lib.*;
 import ta.timeattendance.*;
+import ta.timeattendance.Models.*;
+import ta.Tabs.CheckinList.*;
 
 import ta.timeattendance.R;
 
@@ -34,15 +36,16 @@ public class TabPersonelInfo extends Tab implements View.OnClickListener
 
 	private Button _checkin_btn;
 	private LinearLayout _block_exit_tracked;
-
 	public boolean IsShowCheckiedWorker;
+
+	private ISendChekinService __sendChekinService;
 
 	public TabPersonelInfo(Context paramContext, ViewGroup paramViewGroup, int paramInt1, int paramInt2)
 	{
 		super(paramContext, paramViewGroup, paramInt1, paramInt2);
 		this.IsShowCheckiedWorker = false;
 
-		_iconMode =          (ImageView)this.root.findViewById(R.id.iconMode);
+		_iconMode =       (ImageView)this.root.findViewById(R.id.iconMode);
 		_labelMode =      (TextView)this.root.findViewById(R.id.mode);
 
 		_labelLastName   = (TextView)this.root.findViewById(R.id.last_name);
@@ -57,15 +60,26 @@ public class TabPersonelInfo extends Tab implements View.OnClickListener
 
 		_block_exit_tracked = (LinearLayout)this.root.findViewById(R.id.block_exit_tracked);
 		
-		
-		//// subscribe on event
-//		MainEngine.getInstance().SaveCheckinCompleteEvent.Add(get_onSaveCheckinCompleteEventHandler());
+		this.__sendChekinService = Bootstrapper.Resolve( ISendChekinService.class );
+		int aaa = 9;
 	}
 	
 	@Override
 	public void Show()
 	{
 		super.Show();
+		UpdateData();
+		//this.__sendChekinService.SendCheckin();
+		ISendChekinService aaa = this.__sendChekinService;
+		aaa.SendCheckin();
+	}
+
+
+
+	//*********************************************************************************************
+	//**     private func
+	public void UpdateData()
+	{
 		MainEngine engine = MainEngine.getInstance();
 		Personel p = engine.get_CurrentWorker();
 		if( p != null && p.Id != -1 )
@@ -173,18 +187,18 @@ public class TabPersonelInfo extends Tab implements View.OnClickListener
 	{
 		int aaa = 9;
 		Object tag = paramView.getTag();
+		Integer integer = operator.as(Integer.class, tag);
 		
 		MainEngine engine = MainEngine.getInstance();
-		Integer integer = operator.as(Integer.class, tag);
 
 		if( engine != null && integer != null)
 		{
-		    switch(integer)
-		    {
-		        case R.id.checkin_btn:{
+			switch(integer)
+			{
+				case R.id.checkin_btn:{
 					engine.SaveCheckin();
-		        break;}
-		    }
+				break;}
+			}
 		}
 	}
 }

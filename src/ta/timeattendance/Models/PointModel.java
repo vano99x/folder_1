@@ -6,9 +6,12 @@ import ta.Database.*;
 
 public class PointModel implements IPointModel
 {
+	private ISupervisorModel __svModel;
+
 	public PointModel()
 	{
 		this.CurrentPointApplied = new CurrentPointAppliedEventClass();
+		this.__svModel = Bootstrapper.Resolve( ISupervisorModel.class );
 	}
 
 
@@ -24,6 +27,9 @@ public class PointModel implements IPointModel
 	}
 
 
+
+	//*********************************************************************************************
+	//**     Event Handler
 
 	//*********************************************************************************************
 	//**     Property

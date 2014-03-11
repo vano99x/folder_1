@@ -5,7 +5,6 @@
 			  android:paddingTop="15.0dip" >
 	
 	<TextView 
-		android:id="@id/lable_head" 
 		android:text="@string/msg_select_mode"
 		style="@style/TitleShadow1"
 		android:textSize="13.0pt" android:textColor="#fff" android:gravity="center_horizontal" 

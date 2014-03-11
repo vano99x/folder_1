@@ -23,7 +23,11 @@ public class TypeItem
 		{
 			if(_obj == null)
 			{
-				try{   _obj = type.newInstance();   }catch(Exception e){}
+				try{
+					_obj = type.newInstance();
+				}catch(Exception e){
+					Exception ex = e;
+				}
 			}
 			result = _obj;
 		}

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.ViewGroup;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import ta.lib.*;
 import ta.lib.tabui.Tab;
@@ -15,10 +16,10 @@ public class PanelButton extends Tab implements View.OnClickListener
 {
 	private MainEngine _engine;
 	private UIHelper   _uiHelper;
-	private Button _SyncBtn;
-	private Button _CheckinListBtn;
-	private Button _SettingsBtn;
-	private Button _FacilityInfoBtn;
+	//private Button _SyncBtn;
+	//private Button _CheckinListBtn;
+	//private Button _SettingsBtn;
+	//private Button _FacilityInfoBtn;
 
 	public PanelButton(Context mainActivity, ViewGroup rootView, int paramInt1, int paramInt2, UIHelper uiHelper)
 	{
@@ -27,20 +28,30 @@ public class PanelButton extends Tab implements View.OnClickListener
 		this._uiHelper = uiHelper;
 		this._uiHelper.set_CurrentStateChanged(get_CurrentStateChanged());
 
-		this._SyncBtn =         (Button)this.root.findViewById(R.id.PnBtn_SyncBtn_Id);
-		this._CheckinListBtn =  (Button)this.root.findViewById(R.id.PnBtn_CheckinListBtn_Id);
-		this._SettingsBtn =     (Button)this.root.findViewById(R.id.PnBtn_SettingsBtn_Id);
-		this._FacilityInfoBtn = (Button)this.root.findViewById(R.id.PnBtn_FacilityInfoBtn_Id);
+		View _SyncBtn =    this.root.findViewById(R.id.PnBtn_SyncBtn_Id);
+		//ImageView iv =    (ImageView)this.root.findViewById(R.id.PnBtn_SyncImg_Id);
+		//try{
+		//iv.setImageResource(R.drawable._2);
+		//}catch(Exception e){
+		//Exception ex = e;
+		//}
 
-		this._SyncBtn.setOnClickListener(this);
-		this._CheckinListBtn.setOnClickListener(this);
-		this._SettingsBtn.setOnClickListener(this);
-		this._FacilityInfoBtn.setOnClickListener(this);
+		View _CheckinListBtn =  this.root.findViewById(R.id.PnBtn_CheckinListBtn_Id);
+		View _SettingsBtn =     this.root.findViewById(R.id.PnBtn_SettingsBtn_Id);
+		View _FacilityInfoBtn = this.root.findViewById(R.id.PnBtn_FacilityInfoBtn_Id);
+		View _ReferenceBtn    = this.root.findViewById(R.id.PnBtn_ReferenceBtn_Id);
 
-		this._SyncBtn.setTag(        R.id.PnBtn_SyncBtn_Id);
-		this._CheckinListBtn.setTag( R.id.PnBtn_CheckinListBtn_Id);
-		this._SettingsBtn.setTag(    R.id.PnBtn_SettingsBtn_Id);
-		this._FacilityInfoBtn.setTag(R.id.PnBtn_FacilityInfoBtn_Id);
+		_SyncBtn.setOnClickListener(this);
+		_CheckinListBtn.setOnClickListener(this);
+		_SettingsBtn.setOnClickListener(this);
+		_FacilityInfoBtn.setOnClickListener(this);
+		_ReferenceBtn.setOnClickListener(this);
+
+		_SyncBtn.setTag(        R.id.PnBtn_SyncBtn_Id);
+		_CheckinListBtn.setTag( R.id.PnBtn_CheckinListBtn_Id);
+		_SettingsBtn.setTag(    R.id.PnBtn_SettingsBtn_Id);
+		_FacilityInfoBtn.setTag(R.id.PnBtn_FacilityInfoBtn_Id);
+		_ReferenceBtn.setTag(   R.id.PnBtn_ReferenceBtn_Id);
 
 		this.Hide();
 	}
@@ -96,6 +107,11 @@ public class PanelButton extends Tab implements View.OnClickListener
 		UIHelper.Instance().switchState(MainActivity.State.FACILITY_INFO);
 	}
 
+	public void onClick_ReferenceBtn()
+	{
+		UIHelper.Instance().switchState(MainActivity.State.REFERENCE);
+	}
+
 	//*********************************************************************************************
 	//**     Code behind override
 	public void onClick(View ctrl)
@@ -118,6 +134,9 @@ public class PanelButton extends Tab implements View.OnClickListener
 				break;}
 				case R.id.PnBtn_FacilityInfoBtn_Id:{
 					onClick_FacilityInfoBtn();
+				break;}
+				case R.id.PnBtn_ReferenceBtn_Id:{
+					onClick_ReferenceBtn();
 				break;}
 			}
 		}
