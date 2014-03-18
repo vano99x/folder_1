@@ -25,7 +25,6 @@ public class HttpHelper
 {
 	static int TIMEOUT = 15000;//final 
 	//static final int BUFFER_SIZE = 0x40000;
-
 	public static String AkmeHost = "akme";//final 
 
 	private static void FromConnectionToStream(OutputStream outputstream, HttpURLConnection connection, IMessageReceiver messageReceiver)
@@ -203,12 +202,13 @@ public class HttpHelper
 
 	public static final String getSearchURL(String mPin)
 	{
-		return HttpHelper.getSearchURL( mPin, null);
-	}
-	public static final String getSearchURL (String mPin, String paramString)
-	{
+		//return HttpHelper.getSearchURL( mPin, null);
 		return "http://93.153.172.26/get_employee?resp_man=" + mPin;
 	}
+	//public static final String getSearchURL (String mPin, String paramString)
+	//{
+		//return "http://93.153.172.26/get_employee?resp_man=" + mPin;
+	//}
 
 	public static final String getCheckinURL(Checkin paramCheckin)
 	{
@@ -224,7 +224,7 @@ public class HttpHelper
 		return str;
 	}
 
-	public static final String getCheckinURL2(Checkin paramCheckin)
+	public static final String getEOFurl(Checkin paramCheckin)
 	{
 		String str = "http://akme.telemetry.i-free.ru/Api/sync/checkin?id=4&WorkerId=5&cardId=2999600235&status=3&pointId=4&date=1382632193964";
 		return str;
@@ -270,27 +270,30 @@ public class HttpHelper
 
 		if(
 			( ste = operator.as(SocketTimeoutException.class, e)) != null
-		)
-		{
-				UIHelper.Instance().MsgFromBackground( Act.TimeoutException );
+		){
+			UIHelper.Instance().MsgFromBackground( Act.TimeoutException );
 		}
 		else if(
 			( uhe = operator.as(UnknownHostException.class, e)) != null
-		)
-		{
-				String message = uhe.getMessage();
-				if( message.equals(HttpHelper.AkmeHost) ) {
-					UIHelper.Instance().MsgFromBackground(Act.ServerNotAvailable);
-				}else{
-					UIHelper.Instance().MsgFromBackground(Act.ServerNotRespond);
-				}
+		){
+			String message = uhe.getMessage();
+			if( message.equals(HttpHelper.AkmeHost) ) {
+				UIHelper.Instance().MsgFromBackground(Act.ServerNotAvailable);
+			}else{
+				UIHelper.Instance().MsgFromBackground(Act.ServerNotRespond);
+			}
 		}
 		else if(
-			( ce  = operator.as(java.net.ConnectException.class, e))     != null ||
+			( ce  = operator.as(java.net.ConnectException.class, e))     != null
+		){
+			UIHelper.Instance().MsgFromBackground(Act.ServerNotAvailable);
+		}
+		else if(
 			( fnf = operator.as(java.io.FileNotFoundException.class, e)) != null
-		)
-		{
-				UIHelper.Instance().MsgFromBackground(Act.ServerNotAvailable);
+		){
+			//int aaa = 9;
+			UIHelper.Instance().MsgFromBackground(Act.ServerNotAvailable);
+			//UIHelper.Instance().MsgExceptionFromBackground(e);
 		}
 		else
 		{

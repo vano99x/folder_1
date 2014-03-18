@@ -298,19 +298,23 @@ public class MainActivity
 			}
 
 			NFCHelper.CreateInstance( this.get_FragmentActivity() );
+			this.__appService.RunningRunEvent();
 		}
 	}
 	public void Stop()
 	{
-		if( MainEngine.getInstance() != null ) {
-			MainEngine.getInstance().MainEngine_ToDefault();
-		}
+		if( this._isRunning == true )
+		{
+			this._isRunning = false;
+			if( MainEngine.getInstance() != null ) {
+				MainEngine.getInstance().MainEngine_ToDefault();
+			}
 
-		if(NFCHelper.Instance() != null) {
-			NFCHelper.Instance().Clear(); NFCHelper.DeleteInstance();
+			if(NFCHelper.Instance() != null) {
+				NFCHelper.Instance().Clear(); NFCHelper.DeleteInstance();
+			}
+			this.__appService.ClosingRunEvent();
 		}
-		this.__appService.ClosingRunEvent();
-		this._isRunning = false;
 	}
 	
 	//===== 3 =====================================================================================

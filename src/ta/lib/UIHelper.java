@@ -478,7 +478,7 @@ public class UIHelper implements IMessageReceiver
 						_ui.Toast("Сервет не отвечает!" );
 					break;}
 					case ServerNotAvailable:{
-						_ui.Toast("отсутствует подключение к интернету,\nиспользуйте автономную работу" );
+						_ui.Toast("отсутствует подключение к интернету" );
 						// инета нет , чекин сохр локально, исп автоном работу
 					break;}
 					case UnhandledException:{
@@ -536,15 +536,19 @@ public class UIHelper implements IMessageReceiver
 	//}
 	public static String ExceptionToMsg(Exception e)
 	{
-				String res = e.getClass().getName();
-				int index = res.lastIndexOf(".");
-				if(index != -1 )
-				{
-					String target = ".";
-					String replacement = "";
-					res = res.substring(index).replace(target, replacement);
-					res = "\t-"+res+"-" + "\n" + e.getMessage();
-				}
+		String res = e.getClass().getName();
+		int index = res.lastIndexOf(".");
+		if(index != -1 )
+		{
+			String target = ".";
+			String replacement = "";
+			res = res.substring(index).replace(target, replacement);
+			res = 
+				"*********\n" +
+				"\t-"+res+"-\n" + 
+				"*********\n" +
+				e.getMessage();
+		}
 		return res;
 	}
 

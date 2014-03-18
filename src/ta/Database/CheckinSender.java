@@ -20,21 +20,22 @@ public class CheckinSender
 			java.lang.IndexOutOfBoundsException,
 			java.lang.IllegalAccessError,
 			java.lang.IllegalStateException,
-			java.lang.NullPointerException
+			java.lang.NullPointerException/**/
 	{
 		if( CheckinSender._lock.tryLock() )
 		{
 			try
 			{
-				if(_isBusy == false)
+				if(CheckinSender._isBusy == false)
 				{
-					_isBusy = true; //android.os.MessageQueue
+					CheckinSender._isBusy = true; //android.os.MessageQueue
 
 					ArrayList<Checkin> ch = Checkin.GetLocalCheckins(context);
 					String respond = null;
 					for(Checkin item : ch)
 					{
 						String strUrl = HttpHelper.getCheckinURL( item );
+						//String strUrl = HttpHelper.getEOFurl( item );
 						respond = HttpHelper.httpGet(new URL(strUrl));
 						if( respond != null && !respond.isEmpty() )
 						{
@@ -49,10 +50,12 @@ public class CheckinSender
 							Checkin.Update( item, context );
 						}
 					}
-					_isBusy = false;
+					CheckinSender._isBusy = false;
 				}
 			}
-			finally{
+			finally
+			{
+				CheckinSender._isBusy = false;
 				CheckinSender._lock.unlock();
 			}
 		}

@@ -2,8 +2,10 @@
 <LinearLayout
 	android:id="@id/PnBtn_RootId" 
 	android:orientation="horizontal"
+	android:gravity="center_vertical"
+	android:background="@color/backW8"
 	android:layout_width="fill_parent" android:layout_height="wrap_content"
-	xmlns:android="http://schemas.android.com/apk/res/android" android:gravity="center_vertical"
+	xmlns:android="http://schemas.android.com/apk/res/android"
 >
 <!--// <Button android:id="@id/PnBtn_SyncBtn_Id" android:text="Синхрон" style="@style/PnBtn_Button_Style" /> //-->
 		<LinearLayout android:id="@id/PnBtn_SyncBtn_Id" style="@style/PnBtn_B2" >

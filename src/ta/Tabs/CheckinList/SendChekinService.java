@@ -10,6 +10,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import ta.lib.*;
 import ta.Database.*;
+import ta.timeattendance.Models.*;
+import ta.timeattendance.Services.*;
 import ta.timeattendance.MainEngine;
 
 public class SendChekinService implements ISendChekinService
@@ -17,6 +19,8 @@ public class SendChekinService implements ISendChekinService
 	private MainEngine _engine;
 	private static ScheduledExecutorService _scheduled;
 	private static final Lock _lock;
+	private IAppService __appService;
+	private boolean __isShowErrorMsb;
 
 	static // static ctor
 	{
@@ -26,7 +30,13 @@ public class SendChekinService implements ISendChekinService
 	
 	public SendChekinService()
 	{
+		this.__isShowErrorMsb = false;
 		this._engine = MainEngine.getInstance();
+		this.__appService = Bootstrapper.Resolve( IAppService.class );
+		this.__appService.get_Closing().Add(get_onClosing());
+		this.__appService.get_Running().Add(get_onRunning());
+		this.__appService.get_Logout().Add(get_onLogout());
+
 		if(_scheduled != null)
 		{
 			_scheduled.shutdown();
@@ -49,8 +59,32 @@ public class SendChekinService implements ISendChekinService
 			}
 		};
 
-		_scheduled.scheduleAtFixedRate(task, 0L, 600L, TimeUnit.SECONDS);
+		_scheduled.scheduleAtFixedRate(task, 5L, 600L, TimeUnit.SECONDS);
 	}
+
+
+
+	//*********************************************************************************************
+	//**     Event Handler
+	private       onCls get_onClosing() { onCls o = new onCls(); o.arg1 = this; return o; }
+	private class onCls extends RunnableWithArgs<Object,Object> { public void run()
+	{
+		SendChekinService _this = (SendChekinService)this.arg1;
+		_this.__isShowErrorMsb = false;
+	}}
+	private       onRn get_onRunning() { onRn o = new onRn(); o.arg1 = this; return o; }
+	private class onRn extends RunnableWithArgs<Object,Object> { public void run()
+	{
+		SendChekinService _this = (SendChekinService)this.arg1;
+		_this.__isShowErrorMsb = true;
+	}}
+	private       onLg get_onLogout() { onLg o = new onLg(); o.arg1 = this; return o; }
+	private class onLg extends RunnableWithArgs<Object,Object> { public void run()
+	{
+		//SendChekinService _this = (SendChekinService)this.arg1;
+		SendChekinService._scheduled.shutdown();
+		SendChekinService._scheduled = null;
+	}}
 
 
 
@@ -92,7 +126,16 @@ public class SendChekinService implements ISendChekinService
 			}
 			catch( Exception e)
 			{
-				HttpHelper.ExceptionHandler( e );
+				if(_this.__isShowErrorMsb)
+				{
+					HttpHelper.ExceptionHandler( e );
+				}
+				else
+				{
+					int aaa = 9;
+					int aaa2 = aaa-2;
+				}
+
 				result = false;
 			}
 		}

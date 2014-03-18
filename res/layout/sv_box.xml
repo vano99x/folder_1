@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <LinearLayout
-	android:id="@id/SvBox_RootId" 
- android:background="#aaa"
+	android:id="@id/SvBox_RootId"
+	android:background="@color/backW8"
 	android:orientation="horizontal" android:layout_gravity="bottom|left"
 	android:layout_width="fill_parent" android:layout_height="wrap_content"
 	xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,7 +18,7 @@
 			android:layout_width="wrap_content" android:layout_height="wrap_content">
 		</CheckBox>//-->
 		<TextView 
-		android:gravity="left" android:background="@color/backW8" 
+		android:gravity="left" 
 			android:id="@id/SvBox_Point"
 			android:textSize="7.0pt" 
 			android:textColor="#f5c210" 
