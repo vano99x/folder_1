@@ -75,7 +75,6 @@ public class TabPointsList extends Tab implements View.OnClickListener
 	public void Show()
 	{
 		super.Show(); //TALog.Log("engine = " + localMainEngine);
-		UpdateCtrlData();
 
 		Personel superviser = this.__svModel.get_CurrentSuperviser();
 		superviser.get_Points(true, get_onLoadComplete(), this.context);
@@ -88,6 +87,8 @@ public class TabPointsList extends Tab implements View.OnClickListener
 		Personel superviser = _this.__svModel.get_CurrentSuperviser();
 		Point [] pointArr = superviser.get_Points(false,null,null);
 		_this.createListRouteAdapter(pointArr);
+
+		_this.UpdateCtrlData();
 	}}
 
 	public void UpdateCtrlData()
