@@ -122,7 +122,9 @@
     <Content Include="res\layout\ctrl_date_picker.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="res\layout\p_points_list_2.xml" />
+    <Content Include="res\layout\p_points_list_2.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="res\layout\_4_checkin_list.xml">
       <SubType>Designer</SubType>
     </Content>
