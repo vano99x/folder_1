@@ -258,13 +258,12 @@ public class MainEngine
 		Point.sync(         points,            context);
 		PersonelPoint.sync( ppoints,           context);
 
-		//CheckinSender.SendCheckinArray(context);
+		CheckinSender.SendCheckinArray(context);
 	}
 
 	private static Personel LoadPersonelFromServer( String pin, Context context)
 		throws MalformedURLException , IOException , JSONException
 	{
-//String str = "http://akme.telemetry.i-free.ru/Api/sync/checkin?id=4&WorkerId=5&cardId=2999600235&status=3&pointId=4&date=1382632193964";
 		String str = HttpHelper.getAuthRequestURL(pin);
 		URL url = new URL(str);
 		String data = HttpHelper.httpGet(url);
