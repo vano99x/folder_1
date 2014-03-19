@@ -63,7 +63,11 @@ public class SettingSvModel implements ISettingSvModel
 
 		SettingSvModel _this = (SettingSvModel)this.arg1;
 		Personel sv = this.arg;
-		Point point = SettingSv.SelectPoint(sv.Id);
-		_this.__pointModel.set_CurrentPoint( point );
+		Point p = _this.__pointModel.get_CurrentPoint();
+		if(p == null)
+		{
+			Point point = SettingSv.SelectPoint(sv.Id);
+			_this.__pointModel.set_CurrentPoint( point );
+		}
 	}}
 }
