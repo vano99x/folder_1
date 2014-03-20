@@ -25,12 +25,6 @@ import ta.timeattendance.Models.*;
 
 public class MainEngine
 {
-	//private static final String KEY_CURRENT_MODE = "timeattendance.currentMode";
-	//private static final String KEY_CURRENT_PIN = "timeattendance.PIN";
-	//private static final String KEY_CURRENT_POINT_ID = "timeattendance.pointID";
-	//private static final String KEY_STATE = "timeattendance.state";
-	//private static final String SETTINGS_PREF_NAME = "com.ifree.timeattendance";
-
 	private static MainEngine _mainEngineObj = null;
 	public Context mContext;
 	private String mPin;
@@ -47,12 +41,8 @@ public class MainEngine
 
 	class  WorkerFoundEventClass extends Event<Personel[],Object> {}
 	public WorkerFoundEventClass WorkerFound;
-	//public Event<Object,Object> Clearing;
-	//public Event<Object,Object> Closing;
 
-	Runnable showPersonelRunnable;
-	Runnable showScreenRunnable;
-	Runnable serverRunnable;
+	//Runnable showPersonelRunnable; Runnable showScreenRunnable; Runnable serverRunnable;
 	//*********************************************************************************************
 	//       instance
 	public static MainEngine getInstance()
@@ -78,8 +68,6 @@ public class MainEngine
 		//this.mSettings = context.getSharedPreferences("com.ifree.timeattendance", 0);
 		this.SaveCheckinCompleteEvent    = new SaveCheckinCompleteEventClass();
 		this.WorkerFound                 = new WorkerFoundEventClass();
-		//this.Clearing                    = new Event<Object,Object>();
-		//this.Closing                     = new Event<Object,Object>();
 		this.SaveCheckinCompleteEvent.Add(get_onSaveChkn());
 
 		//***   Models ***
@@ -103,20 +91,9 @@ public class MainEngine
 
 		this.SaveCheckinCompleteEvent = null;
 		this.WorkerFound = null;
-		//this.Clearing = null;
-		//this.Closing = null;
 
-		this.showPersonelRunnable = null;
-		this.showScreenRunnable = null;
-		this.serverRunnable = null;
+		//this.showPersonelRunnable = null; this.showScreenRunnable = null; this.serverRunnable = null;
 	}
-
-
-
-
-
-	//*********************************************************************************************
-	//       manage state
 	public void MainEngine_ToDefault()
 	{
 		setCurrentMode(1);
@@ -218,25 +195,6 @@ public class MainEngine
 	{
 		this.__currentWorker = p;
 	}
-	
-	//private boolean __isIntenetDisable;
-	//public boolean get_IsIntenetDisable()
-	//{
-	//return this.__isIntenetDisable;
-	//}
-	//public void set_IsIntenetDisable(boolean val)
-	//{
-	//this.__isIntenetDisable = val;
-	//}
-	
-	//public int get_CurrentPointId()
-	//{
-	//return this.__currentPointId;
-	//}
-	//public void set_CurrentPointId(int paramPointId)
-	//{
-	//this.__currentPointId = paramPointId;
-	//}
 
 	private void MsgFromBackground(Act act)
 	{
@@ -264,16 +222,27 @@ public class MainEngine
 	private static Personel LoadPersonelFromServer( String pin, Context context)
 		throws MalformedURLException , IOException , JSONException
 	{
+		Personel p = null;
 		String str = HttpHelper.getAuthRequestURL(pin);
 		URL url = new URL(str);
 		String data = HttpHelper.httpGet(url);
+		//java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
+		//byte[] buffer = new byte[0x100];
+		////baos.write(buffer, 0, 0);
+		//baos.write(0);
+		//byte[] arr = baos.toByteArray();//new byte[0];
+		//String data = new String( arr );
 
-		JSONObject json = new JSONObject(data);
-
-		Personel p = Personel.FromJson( json, context);
-		if(p != null)
+		if(!(data.isEmpty()))//"".equals(data)
 		{
-			p.Pin = pin;
+			//int aaa = 9;
+			//int aaa2 = aaa-2;
+			JSONObject json = new JSONObject(data);
+			p = Personel.FromJson( json, context);
+			if(p != null)
+			{
+				p.Pin = pin;
+			}
 		}
 
 		return p;
@@ -295,8 +264,6 @@ public class MainEngine
 	class AuthenticateSVBFClass extends BackgroundFunc<Personel,Boolean> {}
 	public void AuthenticateSV(final String pinStr)
 	{
-		//boolean result = HttpHelper.CheckInternetAndShowMessage(this, this.mContext);
-		//if(!this.get_IsIntenetDisable() && !result) return;
 		this.mPin = pinStr;
 		BackgroundFunc.Go( new AuthenticateSVBFClass(), get_onAuthenticateSV(this.mPin), get_onBfAuth(), "-Authenticate-");
 	}
@@ -311,7 +278,7 @@ public class MainEngine
 		MsgFromBackground( Act.StartOperation );
 		Personel sv = null;
 
-		if( HttpHelper.IsInternetAvailable(engine.mContext))   //!engine.get_IsIntenetDisable()
+		if( HttpHelper.IsInternetAvailable(engine.mContext))
 		{
 			try
 			{
@@ -322,16 +289,16 @@ public class MainEngine
 					MainEngine.Synchronization( sv, workers, sv.pointArray, sv.get_PersonelPoints(), engine.mContext);
 					MsgFromBackground(Act.ServerAuthOk);
 					result = true;
-				} else {
-					MsgFromBackground(Act.ServerAuthError);
-				}
+				} // else { MsgFromBackground(Act.ServerAuthError); }
 			}
 			catch( Exception e)
 			{
 				HttpHelper.ExceptionHandler( e );
 			}
 		}
-		else
+
+		// if not load from server - load from local db
+		if(!result)
 		{
 			try
 			{
@@ -424,7 +391,7 @@ public class MainEngine
 				engine.get_CurrentWorker().Id,							// WorkerId
 				engine.get_CurrentWorker().CardId,						// CardId
 				engine.getCurrentMode(),							// Mode
-				p.Id, //engine.get_CurrentPointId(),
+				p.Id,
 				String.valueOf(System.currentTimeMillis()) // DateTime
 			);
 

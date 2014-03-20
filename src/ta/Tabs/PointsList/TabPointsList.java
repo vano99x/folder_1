@@ -110,12 +110,12 @@ public class TabPointsList extends Tab implements View.OnClickListener
 
 		if( integer != null)
 		{
-		    switch(integer)
-		    {
-		        case R.id.PointsListItem_Id:{
-		            PointsListItem_Selected((Point)arr[1]);
-		        break;}
-		    }
+			switch(integer)
+			{
+				case R.id.PointsListItem_Id:{
+					PointsListItem_Selected((Point)arr[1]);
+				break;}
+			}
 		}
 	}
 }

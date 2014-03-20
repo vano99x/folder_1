@@ -46,23 +46,20 @@
 //-->
 <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
 	android:orientation="horizontal" android:background="@color/backW8" android:layout_marginTop="49.0dip" >
-	<TextView android:textColor="#4b83c4" android:text="Отправлено" 
-		android:layout_width="wrap_content" android:layout_height="wrap_content" />
-	<TextView android:textColor="#4b83c4" android:background="#46b525" 
+	<TextView android:textColor="#fff" android:background="#46b525" 
 		android:paddingRight="9.0dip" android:paddingLeft="9.0dip"
 		android:id="@id/PageCheckinList_SendTextView_Id" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+	<TextView android:textColor="#4b83c4" android:textSize="12.0dip" android:text="Отправлено" android:layout_width="wrap_content" android:layout_height="wrap_content" />
 	
-	<TextView android:textColor="#4b83c4" android:text="Не отправлялось" 
-		android:layout_width="wrap_content" android:layout_height="wrap_content" />
-	<TextView android:textColor="#4b83c4" android:background="#f5d50b" 
+	<TextView android:textColor="#fff" android:background="#f5d50b" 
 		android:paddingRight="9.0dip" android:paddingLeft="9.0dip"
 		android:id="@id/PageCheckinList_NotSendTextView_Id" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+	<TextView android:textColor="#4b83c4" android:textSize="12.0dip" android:text="Не отправлялось" android:layout_width="wrap_content" android:layout_height="wrap_content" />
 	
-	<TextView android:textColor="#4b83c4" android:text="Ошика" 
-		android:layout_width="wrap_content" android:layout_height="wrap_content" />
-	<TextView android:textColor="#4b83c4" android:background="#ff0000" 
+	<TextView android:textColor="#fff" android:background="#ff0000" 
 		android:paddingRight="9.0dip" android:paddingLeft="9.0dip"
 		android:id="@id/PageCheckinList_SendErrorTextView_Id" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+	<TextView android:textColor="#4b83c4" android:textSize="12.0dip" android:text="Ошибка" android:layout_width="wrap_content" android:layout_height="wrap_content" />
 </LinearLayout>
 
 	<LinearLayout 

@@ -131,24 +131,14 @@ public class SvBox extends Tab implements View.OnClickListener
 		}
 	}
 
-	//private onClearing get_onClearing()
-	//{
-	//onClearing o = new onClearing();
-	//o.arg1 = this;
-	//return o;
-	//}
+	//private onClearing get_onClearing() { onClearing o = new onClearing(); o.arg1 = this; return o; }
 	//class onClearing extends RunnableWithArgs { public void run()
 	//{
 	//SvBox _this = (SvBox)this.arg1;
 	//_this.HideNameBlock();
 	//}}
 
-	//private onClosing get_onClosing()
-	//{
-	//    onClosing a = new onClosing();
-	//    a.arg1 = this;
-	//    return a;
-	//}
+	//private onClosing get_onClosing() { onClosing a = new onClosing(); a.arg1 = this; return a; }
 	//class onClosing extends RunnableWithArgs { public void run()
 	//{
 	//    SvBox _this = (SvBox)this.arg1;

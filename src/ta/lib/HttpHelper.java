@@ -83,7 +83,7 @@ public class HttpHelper
 			   java.lang.IllegalStateException,
 			   java.lang.NullPointerException
 	{
-		String str = null;
+		String resultStr = null;
 		HttpURLConnection huc = null;
 		ByteArrayOutputStream baos = null;
 		try{
@@ -111,7 +111,7 @@ public class HttpHelper
 		//baos.flush();
 		HttpHelper.FromConnectionToStream(baos, huc, null);
 
-		str = new String(baos.toByteArray());
+		resultStr = new String(baos.toByteArray());
 		//TALog.Log("=RESPOND=GET=");
 		//TALog.Log(str);
 
@@ -126,7 +126,7 @@ public class HttpHelper
 			if(huc != null)
 				huc.disconnect();
 		}
-		return str;
+		return resultStr;
 	}
 
 	public static boolean DownloadFile(String fileURL, File directory) throws java.net.MalformedURLException, java.io.IOException, java.io.FileNotFoundException, java.net.ProtocolException, java.lang.IndexOutOfBoundsException
