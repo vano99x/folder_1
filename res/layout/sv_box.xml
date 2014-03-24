@@ -17,8 +17,8 @@
 			android:textSize="7.0pt" android:textColor="#f5c210"
 			android:layout_width="wrap_content" android:layout_height="wrap_content">
 		</CheckBox>//-->
-		<TextView 
-		android:gravity="left" 
+		<TextView
+		android:gravity="left" android:minHeight="37.0dip"
 			android:id="@id/SvBox_Point"
 			android:textSize="7.0pt" 
 			android:textColor="#f5c210" 

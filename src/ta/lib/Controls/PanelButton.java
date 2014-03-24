@@ -3,8 +3,13 @@
 import android.content.Context;
 import android.view.ViewGroup;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.Bitmap;
 
 import ta.lib.*;
 import ta.lib.tabui.Tab;
@@ -28,7 +33,7 @@ public class PanelButton extends Tab implements View.OnClickListener
 		this._uiHelper = uiHelper;
 		this._uiHelper.set_CurrentStateChanged(get_CurrentStateChanged());
 
-		View _SyncBtn =    this.root.findViewById(R.id.PnBtn_SyncBtn_Id);
+		LinearLayout _SyncBtn =    (LinearLayout)this.root.findViewById(R.id.PnBtn_SyncBtn_Id);
 		//ImageView iv =    (ImageView)this.root.findViewById(R.id.PnBtn_SyncImg_Id);
 		//try{
 		//iv.setImageResource(R.drawable._2);
@@ -36,10 +41,10 @@ public class PanelButton extends Tab implements View.OnClickListener
 		//Exception ex = e;
 		//}
 
-		View _CheckinListBtn =  this.root.findViewById(R.id.PnBtn_CheckinListBtn_Id);
-		View _SettingsBtn =     this.root.findViewById(R.id.PnBtn_SettingsBtn_Id);
-		View _FacilityInfoBtn = this.root.findViewById(R.id.PnBtn_FacilityInfoBtn_Id);
-		View _ReferenceBtn    = this.root.findViewById(R.id.PnBtn_ReferenceBtn_Id);
+		LinearLayout _CheckinListBtn =  (LinearLayout)this.root.findViewById(R.id.PnBtn_CheckinListBtn_Id);
+		LinearLayout _SettingsBtn =     (LinearLayout)this.root.findViewById(R.id.PnBtn_SettingsBtn_Id);
+		LinearLayout _FacilityInfoBtn = (LinearLayout)this.root.findViewById(R.id.PnBtn_FacilityInfoBtn_Id);
+		LinearLayout _ReferenceBtn    = (LinearLayout)this.root.findViewById(R.id.PnBtn_ReferenceBtn_Id);
 
 		_SyncBtn.setOnClickListener(this);
 		_CheckinListBtn.setOnClickListener(this);
@@ -53,8 +58,53 @@ public class PanelButton extends Tab implements View.OnClickListener
 		_FacilityInfoBtn.setTag(R.id.PnBtn_FacilityInfoBtn_Id);
 		_ReferenceBtn.setTag(   R.id.PnBtn_ReferenceBtn_Id);
 
-		this.Hide();
+		//this.Hide();
+		int w = 62;
+		this.ScaleBtn( _SyncBtn, w);
+		this.ScaleBtn( _CheckinListBtn, w);
+		this.ScaleBtn( _SettingsBtn, w);
+		this.ScaleBtn( _FacilityInfoBtn, w);
+		this.ScaleBtn( _ReferenceBtn, w);
 	}
+
+
+
+	void ScaleBtn(ViewGroup v, int targetSize)
+	{
+		ImageView iv = (ImageView)v.getChildAt(0);
+		Drawable drawing = iv.getDrawable();
+		Bitmap bitmap = ((BitmapDrawable)drawing).getBitmap();
+		float width  = (float)bitmap.getWidth();
+		float height = (float)bitmap.getHeight();
+
+		float xScale = targetSize / width;
+		float yScale = targetSize / height;
+
+		float scale = 0;
+		//scale = ((xScale <= yScale) ? xScale : yScale);
+		if(xScale < yScale)
+			scale = xScale;
+		else
+			scale = yScale;
+
+		int newWidth  = (int)(width  * scale);
+		int newHeight = (int)(height * scale);
+
+		//Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, false);
+		////BitmapDrawable result = new BitmapDrawable(this.context.getResources(),scaledBitmap);
+		////BitmapDrawable result = new BitmapDrawable(scaledBitmap);
+		//iv.setImageBitmap(scaledBitmap);
+		////iv.setImageDrawable(result);
+		////newWidth = scaledBitmap.getWidth();
+		////newHeight = scaledBitmap.getHeight();
+
+		LayoutParams param = iv.getLayoutParams();
+		param.width =  newWidth;
+		param.height = newHeight;
+		//iv.setLayoutParams(param);
+	}
+
+
 
 	//*********************************************************************************************
 	//**     Event Handler

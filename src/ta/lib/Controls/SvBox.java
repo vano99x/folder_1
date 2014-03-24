@@ -82,38 +82,15 @@ public class SvBox extends Tab implements View.OnClickListener
 			SvBox _this = (SvBox)this.arg1;
 			Personel p = this.arg;
 
-			SvBox.UpdateTextView( _this._labelLastName,  p.LastName);
-			SvBox.UpdateTextView( _this._labelName,      p.FirstName);
-			SvBox.UpdateTextView( _this._labelThirdName, p.ThirdName);
+			Tab.UpdateTextView( _this._labelLastName,  p.LastName);
+			Tab.UpdateTextView( _this._labelName,      p.FirstName);
+			Tab.UpdateTextView( _this._labelThirdName, p.ThirdName);
 			
 			_this.UpdatePointTextView();
 		}
 	}}
 
 
-
-	//*********************************************************************************************
-	//**     private func
-	private static void UpdateTextView(TextView ctrl, String text)
-	{
-		boolean aaa1 = text != null;
-		boolean aaa2 = !("".equals(text));
-		//int     aaa3 = text.length();
-
-		if(aaa1 && aaa2)
-		{
-			if( ! Tab.IsShow(ctrl)) {
-				Tab.Show(ctrl);
-			}
-			ctrl.setText(  text);
-		}
-		else
-		{
-			if(Tab.IsShow(ctrl)) {
-				Tab.Hide(ctrl);
-			}
-		}
-	}
 	private void UpdatePointTextView()
 	{
 		String ctrlStr = this._labelPoint.getText().toString();
@@ -127,7 +104,7 @@ public class SvBox extends Tab implements View.OnClickListener
 		}
 
 		if(ctrlStr == null || ! ctrlStr.equals(str)){
-			SvBox.UpdateTextView( this._labelPoint, str);
+			Tab.UpdateTextView( this._labelPoint, str);
 		}
 	}
 

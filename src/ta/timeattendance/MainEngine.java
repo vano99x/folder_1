@@ -329,7 +329,7 @@ public class MainEngine
 	private onClickOkMessageBox get_onClickOkMessageBox() { onClickOkMessageBox o = new onClickOkMessageBox(); o._this = this; return o; } 
 	class onClickOkMessageBox implements OnClickListener { public MainEngine _this;public void onClick(DialogInterface di, int paramAnonymousInt)
 	{
-		_this.SaveCheckinCompleteEvent.RunEvent(false);
+		_this.SaveCheckinCompleteEvent.RunEvent(null,false);
 	}}
 	public void OnNfcTagApply(final long cardId) // ---> call in bg thread
 	{

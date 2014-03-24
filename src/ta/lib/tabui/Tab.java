@@ -6,6 +6,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
+import android.widget.TextView;
 
 public abstract class Tab
 {
@@ -22,7 +23,14 @@ public abstract class Tab
 	{
 		this.context = mainActivity;
 		this.parent  = rootView;
-		this.tabView = LayoutInflater.from(mainActivity).inflate( paramInt1, this.parent, true);
+		
+		//try{
+			this.tabView = LayoutInflater.from(mainActivity).inflate( paramInt1, this.parent, true);
+		//}catch(Exception e){
+		//int aaa = 9;
+		//int aaa2 = aaa-2; Exception ex = e;
+		//}
+		
 		this.root    = ((ViewGroup)rootView.findViewById(paramInt2));
 	}
 	public void Clear()
@@ -33,19 +41,6 @@ public abstract class Tab
 		this.tabView = null;
 		this.parent  = null;
 		this.context = null;
-	}
-
-	public static void Show(View ctrl)
-	{
-		ctrl.setVisibility(View.VISIBLE);
-	}
-	public static void Hide(View ctrl)
-	{
-		ctrl.setVisibility(View.GONE);
-	}
-	public static boolean IsShow(View ctrl)
-	{
-		return ctrl.getVisibility() == View.VISIBLE;
 	}
 
 	public void Show()
@@ -61,6 +56,53 @@ public abstract class Tab
 	public ViewGroup getRoot()
 	{
 		return this.root;
+	}
+
+
+
+	//*********************************************************************************************
+	//*      public static
+	public static void Show(View ctrl)
+	{
+		if( ! Tab.IsShow(ctrl)) {
+			ctrl.setVisibility(View.VISIBLE);
+		}
+	}
+	public static void Hide(View ctrl)
+	{
+		if(Tab.IsShow(ctrl)) {
+			ctrl.setVisibility(View.GONE);
+		}
+	}
+	public static boolean IsShow(View ctrl)
+	{
+		return ctrl.getVisibility() == View.VISIBLE;
+	}
+
+	public static void UpdateTextView(TextView ctrl, String text)
+	{
+		if(ctrl == null)
+			return;
+
+		boolean aaa1 = text != null;
+		boolean aaa2 = false;//!("".equals(text));
+		if(aaa1) {
+			aaa2 = !(text.isEmpty());
+		} //int aaa3 = text.length();
+
+		if(aaa1 && aaa2)
+		{
+			if( ! Tab.IsShow(ctrl)) {
+				Tab.Show(ctrl);
+			}
+			ctrl.setText(text);
+		}
+		else
+		{
+			if(Tab.IsShow(ctrl)) {
+				Tab.Hide(ctrl);
+			}
+		}
 	}
 
 	//public void setListener(TabActionListener paramTabActionListener)

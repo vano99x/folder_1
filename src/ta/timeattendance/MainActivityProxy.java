@@ -10,10 +10,9 @@ import android.nfc.NfcAdapter;
 import android.nfc.tech.MifareClassic;
 import android.os.Bundle;
 import android.util.Log;
-
+import android.view.View;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentActivity;
-
 import ta.lib.*;
 import ta.lib.tabui.*;
 import ta.Database.*;
@@ -220,6 +219,17 @@ public class MainActivityProxy extends FragmentActivity
 		super.finish();
 		UIHelper.Instance().currentState = MainActivity.State.PIN;
 	}
+	/*@Override
+	public void onWindowFocusChanged (boolean hasFocus){
+		super.onWindowFocusChanged(hasFocus);
+		if(hasFocus){
+			if(MainActivityProxy.ma != null && MainActivityProxy.ma.get_Index() == this._index)
+			{
+				
+				MainActivityProxy.ma.GotFocus();
+			}
+		}
+	}*/
 
 
 

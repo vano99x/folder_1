@@ -9,17 +9,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import ta.Database.Personel;
 import ta.lib.tabui.Tab;
-
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.Button;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
 import ta.lib.*;
 import ta.timeattendance.*;
 import ta.timeattendance.Models.*;
+import ta.timeattendance.Services.*;
 import ta.Tabs.CheckinList.*;
-
 import ta.timeattendance.R;
 
 public class TabPersonelInfo extends Tab implements View.OnClickListener
@@ -30,20 +32,23 @@ public class TabPersonelInfo extends Tab implements View.OnClickListener
 	private TextView  _labelLastName;
 	private TextView  _labelName;
 	private TextView  _labelThirdName;
-	private ImageView _photo;
+	private ImageView _photoImageView;
 
 	private TextView  _hex_number_card;
 
 	private Button _checkin_btn;
 	private LinearLayout _block_exit_tracked;
 	public boolean IsShowCheckiedWorker;
+	public boolean __isResized;
 
+	private IAppService __appService;
 	private ISendChekinService __sendChekinService;
 
 	public TabPersonelInfo(Context paramContext, ViewGroup paramViewGroup, int paramInt1, int paramInt2)
 	{
 		super(paramContext, paramViewGroup, paramInt1, paramInt2);
 		this.IsShowCheckiedWorker = false;
+		this.__isResized = false;
 
 		_iconMode =       (ImageView)this.root.findViewById(R.id.iconMode);
 		_labelMode =      (TextView)this.root.findViewById(R.id.mode);
@@ -51,116 +56,180 @@ public class TabPersonelInfo extends Tab implements View.OnClickListener
 		_labelLastName   = (TextView)this.root.findViewById(R.id.last_name);
 		_labelName       = (TextView)this.root.findViewById(R.id.name);
 		_labelThirdName  = (TextView)this.root.findViewById(R.id.third_name);
-		_photo           = (ImageView)this.root.findViewById(R.id.personel_photo);
+		_photoImageView  = (ImageView)this.root.findViewById(R.id.PagePersonelInfo_PhotoImageView_Id);
 		_hex_number_card = (TextView)this.root.findViewById(R.id.hex_number_card);
+		Tab.UpdateTextView( _hex_number_card, null);
 
 		_checkin_btn = (Button)this.root.findViewById(R.id.checkin_btn);
 		_checkin_btn.setOnClickListener(this);
 		_checkin_btn.setTag(R.id.checkin_btn);
 
 		_block_exit_tracked = (LinearLayout)this.root.findViewById(R.id.block_exit_tracked);
-		
+
+		//this.__appService = Bootstrapper.Resolve( IAppService.class );
+		//this.__appService.get_GotFocus().Add(get_onGotFocus());
+
 		this.__sendChekinService = Bootstrapper.Resolve( ISendChekinService.class );
-		int aaa = 9;
+
+		//this.vto = this.root.getViewTreeObserver();
+		//this.vto = this._photoImageView.getViewTreeObserver();
+		//this.onGlobalLayoutListener = get_onGlobalLayoutListener();
+		//vto.addOnGlobalLayoutListener(this.onGlobalLayoutListener);
 	}
-	
+
+
+
+	//*********************************************************************************************
+	//**     Event Handler
+	//private       onGF get_onGotFocus() { onGF o = new onGF(); o.arg1 = this; return o; }
+	//private class onGF extends RunnableWithArgs<Object,Object> { public void run()
+	//{
+	//}}
+	private ViewTreeObserver vto;
+	private onGll onGlobalLayoutListener;
+	private       onGll get_onGlobalLayoutListener() { onGll o = new onGll(); o.arg1 = this; return o; }
+	private class onGll implements OnGlobalLayoutListener { Object arg1; public void onGlobalLayout()
+	{
+		TabPersonelInfo _this = (TabPersonelInfo)this.arg1;
+		if( ! _this.__isResized){
+			_this.ResizeFoto();
+		}
+
+		// detach
+		//if(_this.vto != null && _this.vto.isAlive()){
+		//	_this.vto.removeOnGlobalLayoutListener(_this.onGlobalLayoutListener);
+		//}
+	}}
+
+
+
 	@Override
 	public void Show()
 	{
 		super.Show();
 		UpdateData();
-		//this.__sendChekinService.SendCheckin();
-		ISendChekinService aaa = this.__sendChekinService;
-		aaa.SendCheckin();
+		this.__sendChekinService.SendCheckin();
+
+		if(this.vto == null || !(this.vto.isAlive()))
+		{
+			this.vto = this._photoImageView.getViewTreeObserver();
+			this.onGlobalLayoutListener = get_onGlobalLayoutListener();
+			vto.addOnGlobalLayoutListener(this.onGlobalLayoutListener);
+		}
 	}
 
 
 
 	//*********************************************************************************************
 	//**     private func
+	private void ResizeFoto()
+	{
+		int parentHeight = this.root.getHeight();
+		if(parentHeight == 0) {
+			return;
+		}
+
+		int count = this.root.getChildCount();
+		int index = count - 1;
+		View lastElement = this.root.getChildAt(index);
+		if(lastElement == null) {
+			return;
+		}
+		
+		String str = (String)lastElement.getTag();
+		if(str == null || !(str.equals("LastElement")) ) {
+			return;
+		}
+
+		int y2 = lastElement.getBottom();
+		if(y2 == 0) {
+			return;
+		}
+
+		//
+		int svBoxHeight = UIHelper.Instance().svBox.getRoot().getHeight();
+		//
+
+		int freeHeight = parentHeight - y2;
+		freeHeight = freeHeight - svBoxHeight;
+
+		int fotoHeight = this._photoImageView.getHeight();
+		LayoutParams param = this._photoImageView.getLayoutParams();
+		param.height = fotoHeight+freeHeight;
+		this._photoImageView.setLayoutParams(param);
+
+		this.__isResized = true;
+	}
+
 	public void UpdateData()
 	{
 		MainEngine engine = MainEngine.getInstance();
 		Personel p = engine.get_CurrentWorker();
-		if( p != null && p.Id != -1 )
+		if( p == null || p.Id == -1 ) {
+			return;
+		}
+
+		this._labelLastName.setText(p.LastName);
+		this._labelName.setText(p.FirstName);
+		this._labelThirdName.setText(p.ThirdName);
+
+		if(p.CardId != null && !(p.CardId.equals("0")))
 		{
-			this._labelLastName.setText(p.LastName);
-			this._labelName.setText(p.FirstName);
-			this._labelThirdName.setText(p.ThirdName);
-			
-			if(p.CardId != null)
-			{
-				long idLong = Long.parseLong(p.CardId);
-				String str = Long.toHexString(idLong);
-				_hex_number_card.setText(str);
-			}
+			long idLong = Long.parseLong(p.CardId);
+			String str = Long.toHexString(idLong);
+			Tab.UpdateTextView( _hex_number_card, str);
+		}else{
+			Tab.UpdateTextView( _hex_number_card, null);
+		}
 
-			p.loadCachedPhoto(this.context);
+		p.loadCachedPhoto(this.context);
 
-			if( p.Photo != null )
-			{
+		if( p.Photo != null )
+		{
 				//Bitmap bitmap = BitmapFactory.decodeByteArray( p.Photo, 0, p.Photo.length );
-				//this._photo.setImageBitmap(bitmap);
+				//this._photoImageView.setImageBitmap(bitmap);
 				Bitmap b = BitmapFactory.decodeByteArray(p.Photo, 0, p.Photo.length);
 				float origWidth = b.getWidth();
 				float origHeight = b.getHeight();
 				float scale = origWidth / origHeight;
 				float newHeight = 135 / scale;
-				this._photo.setImageBitmap(Bitmap.createScaledBitmap(b, 135, (int)newHeight, false));
-			}
+				this._photoImageView.setImageBitmap(Bitmap.createScaledBitmap(b, 135, (int)newHeight, false));
+		}
 
-			if (engine.getCurrentMode() == Mode.Check)
-			{
+		if (engine.getCurrentMode() == Mode.Check)
+		{
 				this._iconMode.setImageResource(R.drawable.check);
 				this._labelMode.setText(R.string.mode_check_result);
-				//UIHelper.Instance().ShowScreenFromBackground(MainActivity.State.MODE_SELECTION, TIME_OUT);
-			}
-			else if (engine.getCurrentMode() == Mode.StartWork)
-			{
+				//___old___//UIHelper.Instance().ShowScreenFromBackground(MainActivity.State.MODE_SELECTION, TIME_OUT);
+		}
+		else if (engine.getCurrentMode() == Mode.StartWork)
+		{
 				this._iconMode.setImageResource(R.drawable.start);
 				this._labelMode.setText(R.string.mode_start_result);
-			}
-			else if (engine.getCurrentMode() == Mode.EndWork)
-			{
+		}
+		else if (engine.getCurrentMode() == Mode.EndWork)
+		{
 				this._iconMode.setImageResource(R.drawable.finish);
 				this._labelMode.setText(R.string.mode_end_result);
-			}
-			else if (engine.getCurrentMode() == Mode.Pause)
-			{
+		}
+		else if (engine.getCurrentMode() == Mode.Pause)
+		{
 				this._iconMode.setImageResource(R.drawable.pause2);
 				this._labelMode.setText(R.string.mode_pause);
-			}
-			//localMainEngine.showScreen(MainActivity.State.WAIT_MODE, TIME_OUT);
-		
-			if(this.IsShowCheckiedWorker)
-			{
-				this._checkin_btn.setVisibility( View.INVISIBLE );
-				this._block_exit_tracked.setVisibility( View.VISIBLE );
-			}
-			else
-			{
-				this._checkin_btn.setVisibility( View.VISIBLE );
-				this._block_exit_tracked.setVisibility( View.INVISIBLE );
-			}
 		}
-		/*else
-		{
-			//this._labelLastName.setText("Сотрудника");
-			//this._labelName.setText("нет");
-			//this._labelThirdName.setText("в базе");
-			//this._photo.setImageResource(R.drawable.no_photo);
+		//___old___//localMainEngine.showScreen(MainActivity.State.WAIT_MODE, TIME_OUT);
 
-			this._checkin_btn.setVisibility( View.INVISIBLE );
-
-			this._block_exit_tracked.setVisibility( View.INVISIBLE );
-			//this._iconMode.setVisibility( View.INVISIBLE );
-			//this._labelMode.setVisibility( View.INVISIBLE );
-
-			long idLong = Long.parseLong(p.CardId);
-			//int idInt = (int)idLong;
-			String str = Long.toHexString(idLong);
-			_hex_number_card.setText(str);
-		}*/
+		if(this.IsShowCheckiedWorker) {
+			this.__isResized = false;
+			Tab.Hide(this._checkin_btn);
+			Tab.Show(this._block_exit_tracked);
+		} else {
+			this.__isResized = false;
+			Tab.Show(this._checkin_btn);
+			Tab.Hide(this._block_exit_tracked);
+		}
+		//ResizeFoto();
+		//setImageResource(R.drawable.no_photo);
 	}
 
 

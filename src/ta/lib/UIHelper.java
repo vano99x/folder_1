@@ -40,7 +40,7 @@ public class UIHelper implements IMessageReceiver
 	private ViewGroup         rootView;
 	public  State             currentState;
 
-	//public  PanelButton           svBox;
+	public  SvBox           svBox;
 	//public  WrapperCtrl<PanelButton> panelButton;
 	public  TabPin           tabPin;
 	//public  TabMainMenu      tabMainMenu;
@@ -93,7 +93,6 @@ public class UIHelper implements IMessageReceiver
 		//this.svBox = new PanelButton( this.context, this.rootView);
 		//this.panelButton = 
 			new PanelButton( this.context, this.rootView, R.layout.panel_button, R.id.PnBtn_RootId, this);
-		//svBox.HideNameBlock();
 
 		this.tabPin             = new TabPin(            this.context, this.rootView, R.layout._1_pin,                 R.id.PagePin);
 		this.tabReference        = new TabReference(       this.context, this.rootView, R.layout._5_reference,              R.id.Reference_Id);
@@ -110,12 +109,11 @@ public class UIHelper implements IMessageReceiver
 		this.tabFacilityInfo    = new TabFacilityInfo(   this.context, this.rootView, R.layout.p_facility_info,        R.id.FacilityInfo_RootId);
 		this.tabSettings        = new TabSettings(       this.context, this.rootView, R.layout.p_settings,             R.id.Settings_RootId);
 
-		SvBox sb = new SvBox( this.context, this.rootView);
+		this.svBox = new SvBox( this.context, this.rootView);
 		this.SetToDefaultState();
 	}
 	public void UIHelper_Clear()
 	{
-		//svBox.Clear();
 		//panelButton.Clear();
 		tabPin.Clear();
 		//tabMainMenu.Clear();
@@ -133,7 +131,6 @@ public class UIHelper implements IMessageReceiver
 	}
 	private void Nulling()
 	{
-		//svBox = null;
 		//panelButton = null;
 		tabPin = null;
 		//tabMainMenu = null;
@@ -175,10 +172,10 @@ public class UIHelper implements IMessageReceiver
 		int count = myArray.length;
 		for( int i = 0; i < count; i++)
 		{
-		    ViewGroup viewGroup = myArray[i].Tab.getRoot();
+			ViewGroup viewGroup = myArray[i].Tab.getRoot();
 			viewGroup.setPadding(0, dpAsPixels, 0, 0);
-		    //ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) viewGroup.getLayoutParams();
-		    //mlp.setMargins(0, 20, 0, 0);
+			//ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) viewGroup.getLayoutParams();
+			//mlp.setMargins(0, 20, 0, 0);
 		}
 	}
 	public void HideAll()
@@ -766,45 +763,14 @@ public class UIHelper implements IMessageReceiver
 
 
 
-
-
-	//************************************************************************************************
-	// 3 update screen from back-ground thread
-	public void ShowScreenFromBackground(State state, long paramLong)
-	{
-		this.showScreenRunnable = get_onShowScreen(state);
-
-		MainActivity.get_RespondHandler().postDelayed(this.showScreenRunnable, paramLong);
-	}
-	private onShowScreen get_onShowScreen(State state)
-	{
-		onShowScreen o = new onShowScreen();
-		o.arg1 = this;
-		o.arg2 = state;
-		return o;
-	}
-	class onShowScreen extends RunnableWithArgs { public void run()
-	{
-		UIHelper ui = (UIHelper)this.arg1;
-		State state = (State)this.arg2;
-
-		ui.switchState(state);
-	}}
-
-
-
-
-
 	//************************************************************************************************
 	//       show status bar
 	//************************************************************************************************
 	public void ShowStatusBar()
 	{
 		android.view.Window wnd = this.context.getWindow();
-
 		wnd.clearFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	}
-	
 
 
 

@@ -299,6 +299,9 @@
     <Content Include="src\ta\timeattendance\Models\ISettingSvModel.java" />
     <Content Include="src\ta\timeattendance\Models\SettingSvModel.java" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\lib\test1.java" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

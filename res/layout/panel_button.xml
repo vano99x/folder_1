@@ -12,25 +12,21 @@
 			<!--//android:id="@id/PnBtn_SyncImg_Id" //-->
 			<ImageView android:src="@drawable/_1" style="@style/PnBtn_B2_Img" />
 		</LinearLayout>
-		<!--//< Space style="@style/PnBtn_Space_Style" />//-->
 
 		<!--//<Button android:id="@id/PnBtn_CheckinListBtn_Id"  android:text="События"  style="@style/PnBtn_Button_Style" />//-->
 		<LinearLayout android:id="@id/PnBtn_CheckinListBtn_Id" style="@style/PnBtn_B2" >
 			<ImageView android:src="@drawable/_2_a" style="@style/PnBtn_B2_Img" />
 		</LinearLayout>
-		<!--//<Space style="@style/PnBtn_Space_Style" />//-->
 	
 		<!--//<Button android:id="@id/PnBtn_SettingsBtn_Id"     android:text="Настр"    style="@style/PnBtn_Button_Style" />//-->
 		<LinearLayout android:id="@id/PnBtn_SettingsBtn_Id" style="@style/PnBtn_B2" >
 			<ImageView android:src="@drawable/_3_a" style="@style/PnBtn_B2_Img" />
 		</LinearLayout>
-		<!--//<Space style="@style/PnBtn_Space_Style" />//-->
 	
 		<!--//<Button android:id="@id/PnBtn_FacilityInfoBtn_Id" android:text="Опер Обст" style="@style/PnBtn_Button_Style" />//-->
 		<LinearLayout android:id="@id/PnBtn_FacilityInfoBtn_Id" style="@style/PnBtn_B2" >
 			<ImageView android:src="@drawable/_4_a" style="@style/PnBtn_B2_Img" />
 		</LinearLayout>
-		<!--//<Space style="@style/PnBtn_Space_Style" />//-->
 	
 		<LinearLayout android:id="@id/PnBtn_ReferenceBtn_Id" style="@style/PnBtn_B2" >
 			<ImageView android:src="@drawable/_5_a" style="@style/PnBtn_B2_Img" />

@@ -9,6 +9,7 @@ public class AppService implements IAppService
 		this.Closing = new ClosingEventClass();
 		this.Running = new RunningEventClass();
 		this.Logout = new LogoutEventClass();
+		this.GotFocus = new GotFocusEventClass();
 	}
 
 
@@ -27,6 +28,10 @@ public class AppService implements IAppService
 	private LogoutEventClass Logout;
 	public LogoutEventClass get_Logout(){ return this.Logout; }
 
+	public class GotFocusEventClass extends Event<Object,Object> {}
+	private GotFocusEventClass GotFocus;
+	public GotFocusEventClass get_GotFocus(){ return this.GotFocus; }
+
 
 
 	public void ClosingRunEvent()
@@ -40,5 +45,9 @@ public class AppService implements IAppService
 	public void LogoutRunEvent()
 	{
 		this.Logout.RunEvent( null );
+	}
+	public void GotFocusRunEvent()
+	{
+		this.GotFocus.RunEvent( null );
 	}
 }

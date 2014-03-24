@@ -46,7 +46,7 @@
 	
 	<item type="id" name="PagePersonelInfo" />
 	<item type="id" name="block_exit_tracked" />
-	<item type="id" name="personel_photo" />
+	<item type="id" name="PagePersonelInfo_PhotoImageView_Id" />
 	<item type="id" name="last_name" />
 	<item type="id" name="name" />
 	<item type="id" name="third_name" />

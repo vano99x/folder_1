@@ -293,6 +293,7 @@ public class MainActivity
 			this._isRunning = true;
 			if(this.__svModel.get_CurrentSuperviser() == null){
 				UIHelper.Instance().switchState(State.PIN);
+				//UIHelper.Instance().switchState(State.PERSONEL_INFO);
 			}else{
 				UIHelper.Instance().switchState(State.MODE_SELECTION);
 			}
@@ -324,22 +325,17 @@ public class MainActivity
 	}
 	public void Pause()
 	{
-		//TALog.Log("===========onPause=================");
-
-		//if(this.get_PowerManager().isScreenOn())
-		//{
-		//    int aaa = 9;
-		//    int aaa2 = aaa - 2;
-		//}
-
+		//if(this.get_PowerManager().isScreenOn()) { int aaa = 9; int aaa2 = aaa - 2; }
 		NFCHelper.Instance().Disable();
 		//MainActivityProxy context = this.get_FragmentActivity();
-		//if(_updateReceiver != null){
-		//context.unregisterReceiver(_updateReceiver);
-		//}
+		//if(_updateReceiver != null){ context.unregisterReceiver(_updateReceiver); }
 
 		//this.mEngine.cancelTimerTask();
 		//this.mEngine.saveState(UIHelper.Instance().currentState);
+	}
+	public void GotFocus()
+	{
+		this.__appService.GotFocusRunEvent();
 	}
 
 	//=============================================================================================
