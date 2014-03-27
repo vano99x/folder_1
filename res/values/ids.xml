@@ -45,6 +45,8 @@
 	
 	
 	<item type="id" name="PagePersonelInfo" />
+	<item type="id" name="PagePersonelInfo_LayoutRoot" />
+	<item type="id" name="PagePersonelInfo_DismissImageView_Id" />
 	<item type="id" name="block_exit_tracked" />
 	<item type="id" name="PagePersonelInfo_PhotoImageView_Id" />
 	<item type="id" name="last_name" />

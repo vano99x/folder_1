@@ -3,6 +3,7 @@ package ta.Tabs.PersonelInfo;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.Button;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
-
 import ta.lib.*;
 import ta.timeattendance.*;
 import ta.timeattendance.Models.*;
@@ -26,7 +26,9 @@ import ta.timeattendance.R;
 
 public class TabPersonelInfo extends Tab implements View.OnClickListener
 {
-	//private static final long TIME_OUT = 3000L;
+	private LinearLayout _layoutRoot;
+	private View _dismissImageView;
+
 	private ImageView _iconMode;
 	private TextView  _labelMode;
 	private TextView  _labelLastName;
@@ -49,6 +51,12 @@ public class TabPersonelInfo extends Tab implements View.OnClickListener
 		super(paramContext, paramViewGroup, paramInt1, paramInt2);
 		this.IsShowCheckiedWorker = false;
 		this.__isResized = false;
+
+		this._layoutRoot = (LinearLayout)this.root.findViewById(R.id.PagePersonelInfo_LayoutRoot);
+		this._dismissImageView  = this.root.findViewById(R.id.PagePersonelInfo_DismissImageView_Id);
+		this._dismissImageView.setOnClickListener(this);
+		this._dismissImageView.setTag(R.id.PagePersonelInfo_DismissImageView_Id);
+		Tab.Hide(this._dismissImageView);
 
 		_iconMode =       (ImageView)this.root.findViewById(R.id.iconMode);
 		_labelMode =      (TextView)this.root.findViewById(R.id.mode);
@@ -124,14 +132,14 @@ public class TabPersonelInfo extends Tab implements View.OnClickListener
 	//**     private func
 	private void ResizeFoto()
 	{
-		int parentHeight = this.root.getHeight();
+		int parentHeight = this._layoutRoot.getHeight();
 		if(parentHeight == 0) {
 			return;
 		}
 
-		int count = this.root.getChildCount();
+		int count = this._layoutRoot.getChildCount();
 		int index = count - 1;
-		View lastElement = this.root.getChildAt(index);
+		View lastElement = this._layoutRoot.getChildAt(index);
 		if(lastElement == null) {
 			return;
 		}
@@ -146,11 +154,8 @@ public class TabPersonelInfo extends Tab implements View.OnClickListener
 			return;
 		}
 
-		//
-		int svBoxHeight = UIHelper.Instance().svBox.getRoot().getHeight();
-		//
-
 		int freeHeight = parentHeight - y2;
+		int svBoxHeight = UIHelper.Instance().svBox.getRoot().getHeight();
 		freeHeight = freeHeight - svBoxHeight;
 
 		int fotoHeight = this._photoImageView.getHeight();
@@ -186,14 +191,14 @@ public class TabPersonelInfo extends Tab implements View.OnClickListener
 
 		if( p.Photo != null )
 		{
-				//Bitmap bitmap = BitmapFactory.decodeByteArray( p.Photo, 0, p.Photo.length );
-				//this._photoImageView.setImageBitmap(bitmap);
-				Bitmap b = BitmapFactory.decodeByteArray(p.Photo, 0, p.Photo.length);
-				float origWidth = b.getWidth();
-				float origHeight = b.getHeight();
-				float scale = origWidth / origHeight;
-				float newHeight = 135 / scale;
-				this._photoImageView.setImageBitmap(Bitmap.createScaledBitmap(b, 135, (int)newHeight, false));
+			//Bitmap bitmap = BitmapFactory.decodeByteArray( p.Photo, 0, p.Photo.length );
+			//this._photoImageView.setImageBitmap(bitmap);
+			Bitmap b = BitmapFactory.decodeByteArray(p.Photo, 0, p.Photo.length);
+			float origWidth = b.getWidth();
+			float origHeight = b.getHeight();
+			float scale = origWidth / origHeight;
+			float newHeight = 135 / scale;
+			this._photoImageView.setImageBitmap(Bitmap.createScaledBitmap(b, 135, (int)newHeight, false));
 		}
 
 		if (engine.getCurrentMode() == Mode.Check)
@@ -228,6 +233,12 @@ public class TabPersonelInfo extends Tab implements View.OnClickListener
 			Tab.Show(this._checkin_btn);
 			Tab.Hide(this._block_exit_tracked);
 		}
+
+		if(p.IsDismiss)
+		{
+		Tab.Show(this._dismissImageView);
+		}
+
 		//ResizeFoto();
 		//setImageResource(R.drawable.no_photo);
 	}
@@ -245,7 +256,6 @@ public class TabPersonelInfo extends Tab implements View.OnClickListener
 	//{
 	//    Object[] resultArr = (Object[])this.result;
 	//    boolean result = ((Boolean)resultArr[0]).booleanValue();
-
 	//    if(result)
 	//    {
 	//        UIHelper.Instance().switchState(MainActivity.State.WAIT_MODE);
@@ -254,7 +264,6 @@ public class TabPersonelInfo extends Tab implements View.OnClickListener
 
 	public void onClick(View paramView)
 	{
-		int aaa = 9;
 		Object tag = paramView.getTag();
 		Integer integer = operator.as(Integer.class, tag);
 		
@@ -264,6 +273,10 @@ public class TabPersonelInfo extends Tab implements View.OnClickListener
 		{
 			switch(integer)
 			{
+				case R.id.PagePersonelInfo_DismissImageView_Id:{
+					int aaa = 9;
+					int aaa2 = aaa-9;
+				break;}
 				case R.id.checkin_btn:{
 					engine.SaveCheckin();
 				break;}

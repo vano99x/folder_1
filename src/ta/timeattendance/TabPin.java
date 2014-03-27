@@ -14,7 +14,6 @@ import ta.timeattendance.R;
 public class TabPin extends Tab implements View.OnClickListener
 {
 	MainEngine _engine;
-	private String mPin;
 	private EditText mPinEditText;
 	private boolean _isBisy;
 
@@ -70,22 +69,23 @@ public class TabPin extends Tab implements View.OnClickListener
 	//       Control Handler
 	private void continue_button_Click()
 	{
+		//int Width= this.getParent().getWidth();
+		//int Height= this.getParent().getHeight();
+
 		if(this._isBisy == false)
 		{
 			this._isBisy = true;
 
-			this.mPin = this.mPinEditText.getText().toString().trim();
-
-			if( this.mPin == "" )//if (str.isEmpty())
+			String mPin = this.mPinEditText.getText().toString().trim();
+			if(mPin == null || mPin.isEmpty())
 			{
 				UIHelper.Instance().Toast("Неверный пин-код!");
 			}
 			else
 			{
 				UIHelper.Instance().hideKeyboard();
-				this._engine.AuthenticateSV( this.mPin );
+				this._engine.AuthenticateSV( mPin );
 			}
-
 			this._isBisy = false;
 		}
 	}

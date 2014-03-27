@@ -52,6 +52,7 @@ public class Personel //extends EntityBase
 	public String PhotoTimeSpan;
 
 	public boolean IsDeleted;
+	public boolean IsDismiss;
 	public byte[] Photo;
 	public Point [] pointArray;
 
@@ -206,6 +207,19 @@ public class Personel //extends EntityBase
 
 	//************************************************************************************************
 	// static
+	private static ArrayList<Personel> ArrayFromCursor(Cursor cursor)
+	{
+		ArrayList<Personel> list = new ArrayList<Personel>();
+		if (!cursor.isAfterLast())
+		{
+			do
+			{
+				list.add(   FromCursor(cursor)   );
+			}
+			while( cursor.moveToNext() );
+		}
+		return list;
+	}
 	public static Personel FromCursor(Cursor cursor)
 	{
 		if(cursor.isAfterLast())
@@ -241,6 +255,15 @@ public class Personel //extends EntityBase
 				int i = cursor.getInt(index);
 				boolean isSv = i > 0? true: false;
 				p.IsSupervisor  = isSv;
+			}
+			index = cursor.getColumnIndex("IsDismiss");
+			if(index != -1){
+				int i = cursor.getInt(index);
+				if(i == 1){
+					p.IsDismiss = true;
+				}else{
+					p.IsDismiss = false;
+				}
 			}
 
 			index = cursor.getColumnIndex("Pin");
@@ -318,6 +341,14 @@ public class Personel //extends EntityBase
 					p.IsDeleted = jo.getBoolean("IsDeleted");
 				}
 
+				p.IsDismiss = false;
+				if (jo.has("IsDismiss")) {
+					int isDismiss = jo.getInt("IsDismiss");
+					if(isDismiss == 1){
+						p.IsDismiss = true;
+					}
+				}
+
 				if(jo.has("Photo"))
 				{
 					p.PhotoTimeSpan = jo.getString("Photo");
@@ -383,23 +414,12 @@ public class Personel //extends EntityBase
 			cv.put("PhotoTimeSpan",                 p.PhotoTimeSpan);
 		}
 
+		cv.put("IsDismiss",  Boolean.valueOf(p.IsDismiss));
+
 		return db.insert("Personel", cv);
-	}/**/
-
-
-	private static ArrayList<Personel> getPersonelList(Cursor cursor)
-	{
-		ArrayList<Personel> list = new ArrayList<Personel>();
-		if (!cursor.isAfterLast())
-		{
-			do
-			{
-				list.add(   FromCursor(cursor)   );
-			}
-			while( cursor.moveToNext() );
-		}
-		return list;
 	}
+
+
 	public static Personel[] search(String paramString, Context context)
 	{
 		DbConnector db = DbConnector.getInstance();
@@ -411,7 +431,7 @@ public class Personel //extends EntityBase
 
 		Cursor c = db.Select(str, null);
 
-		ArrayList<Personel> al = getPersonelList(c);
+		ArrayList<Personel> al = ArrayFromCursor(c);
 
 		Personel[] arr = al.toArray(new Personel[0]);
 

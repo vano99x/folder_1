@@ -48,7 +48,7 @@ public class TabPersonelList extends Tab implements View.OnClickListener
 
 		Personel[] arrPersonel = this.arg;
 
-		_this.changeList(arrPersonel);
+		_this.createAdapter(arrPersonel);
 	}}
 
 
@@ -74,11 +74,6 @@ public class TabPersonelList extends Tab implements View.OnClickListener
 		{
 			//TALog.Log(localException.toString());
 		}
-	}
-
-	public void changeList(Personel[] paramArrayOfPersonel)
-	{
-		createAdapter(paramArrayOfPersonel);
 	}
 
 	public String getSearchString()

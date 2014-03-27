@@ -57,6 +57,10 @@ public abstract class Tab
 	{
 		return this.root;
 	}
+	public ViewGroup getParent()
+	{
+		return this.parent;
+	}
 
 
 
