@@ -9,6 +9,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import ta.lib.*;
+import ta.timeattendance.Models.*;
 import ta.Database.*;
 import ta.timeattendance.Models.*;
 import ta.timeattendance.Services.*;
@@ -60,6 +61,16 @@ public class SendChekinService implements ISendChekinService
 		};
 
 		_scheduled.scheduleAtFixedRate(task, 5L, 600L, TimeUnit.SECONDS);
+	}
+	public void ClearDependencies() {
+	}
+	public boolean get_IsClearDependencies() {
+		return false;
+	}
+	public void UpdateDependencies() {
+	}
+	public boolean get_IsKeepAlive() {
+		return false;
 	}
 
 

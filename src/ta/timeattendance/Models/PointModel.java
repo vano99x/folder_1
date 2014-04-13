@@ -10,20 +10,30 @@ public class PointModel implements IPointModel
 
 	public PointModel()
 	{
-		this.CurrentPointApplied = new CurrentPointAppliedEventClass();
+		this.CurrentPointChanged = new CurrentPointChangedEventClass();
 		this.__svModel = Bootstrapper.Resolve( ISupervisorModel.class );
+	}
+	public void ClearDependencies() {
+	}
+	public boolean get_IsClearDependencies() {
+		return false;
+	}
+	public void UpdateDependencies() {
+	}
+	public boolean get_IsKeepAlive() {
+		return false;
 	}
 
 
 
 	//*********************************************************************************************
 	//**     Event
-	class   CurrentPointAppliedEventClass extends Event<Point,Boolean> {}
-	private CurrentPointAppliedEventClass CurrentPointApplied;
+	class   CurrentPointChangedEventClass extends Event<Point,Boolean> {}
+	private CurrentPointChangedEventClass CurrentPointChanged;
 	@Override
-	public void set_CurrentPointApplied(RunnableWithArgs runnable)
+	public void set_CurrentPointChanged(RunnableWithArgs runnable)
 	{
-		this.CurrentPointApplied.Add(runnable);
+		this.CurrentPointChanged.Add(runnable);
 	}
 
 
@@ -49,7 +59,7 @@ public class PointModel implements IPointModel
 		}
 		else
 		{
-			this.CurrentPointApplied.RunEvent( this.__currentPoint );
+			this.CurrentPointChanged.RunEvent( this.__currentPoint );
 		}
 	}
 }

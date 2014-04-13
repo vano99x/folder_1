@@ -109,7 +109,7 @@ public class UIHelper implements IMessageReceiver
 		this.tabFacilityInfo    = new TabFacilityInfo(   this.context, this.rootView, R.layout.p_facility_info,        R.id.FacilityInfo_RootId);
 		this.tabSettings        = new TabSettings(       this.context, this.rootView, R.layout.p_settings,             R.id.Settings_RootId);
 
-		this.svBox = new SvBox( this.context, this.rootView);
+		this.svBox = new SvBox( this.context, this.rootView, this);
 		this.SetToDefaultState();
 	}
 	public void UIHelper_Clear()
@@ -533,19 +533,8 @@ public class UIHelper implements IMessageReceiver
 	//}
 	public static String ExceptionToMsg(Exception e)
 	{
-		String res = e.getClass().getName();
-		int index = res.lastIndexOf(".");
-		if(index != -1 )
-		{
-			String target = ".";
-			String replacement = "";
-			res = res.substring(index).replace(target, replacement);
-			res = 
-				"*********\n" +
-				"\t-"+res+"-\n" + 
-				"*********\n" +
-				e.getMessage();
-		}
+		String res = ta.lib.Common.CommonHelper.GetExceptionName(e);
+		res = "*********\n" +    "\t-"+res+"-\n"    +  "*********\n" +    e.getMessage();
 		return res;
 	}
 

@@ -4,14 +4,16 @@ public class TypeItem
 {
 	public  String  marker;
 	public  Class   type;
-	private boolean isSengleton;
-	private Object _obj;
+	private boolean _isSengleton;
+	private boolean _isAliveBetweenRecreations;
+	private IBaseModel _obj;
 
-	public TypeItem(String _marker, Class _type, boolean _isSengleton)
+	public TypeItem(String _marker, Class _type, boolean isSengleton, boolean isAliveBetweenRecreations)
 	{
 		marker      = _marker;
 		type        = _type;
-		isSengleton = _isSengleton;
+		_isSengleton = isSengleton;
+		_isAliveBetweenRecreations = isAliveBetweenRecreations;
 		_obj = null;
 	}
 
@@ -19,15 +21,23 @@ public class TypeItem
 	{
 		Object result = null;
 
-		if(isSengleton)
+		if(_isSengleton)
 		{
 			if(_obj == null)
 			{
 				try{
-					_obj = type.newInstance();
-				}catch(Exception e){
+					//IllegalAccessException InstantiationException
+					_obj = (IBaseModel)type.newInstance();
+				}
+				catch(java.lang.IllegalAccessException e){
+					Exception ex = e;
+				}catch(java.lang.InstantiationException e){
 					Exception ex = e;
 				}
+			}
+			else if(_obj.get_IsClearDependencies())
+			{
+				_obj.UpdateDependencies();
 			}
 			result = _obj;
 		}
@@ -40,6 +50,13 @@ public class TypeItem
 
 	public void Clear()
 	{
-		this._obj = null;
+		if(_isAliveBetweenRecreations && this._obj.get_IsKeepAlive())
+		{
+			this._obj.ClearDependencies();
+		}
+		else
+		{
+			this._obj = null;
+		}
 	}
 }

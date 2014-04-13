@@ -6,8 +6,8 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 >
 
-	<DatePicker
-		android:id="@+id/DatePicker"
+	<ta.lib.DatePicker.CustomDatePickerControl
+		android:id="@+id/DatePicker" android:calendarViewShown="false"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="5.0dip" 

@@ -8,14 +8,37 @@ public class SupervisorModel implements ISupervisorModel
 {
 	private IAppService __appService;
 	//private static int _counter;
+	private static boolean __isClearDependencies;
+	private static boolean __isKeepAlive;
 	public SupervisorModel()
 	{
 		//_counter++;
+		this.__isClearDependencies = false;
+		this.__isKeepAlive = true;
 		this.CurrentSuperviserApplied = new CurrentSuperviserAppliedEventClass();
-		this.__appService = Bootstrapper.Resolve( IAppService.class );
-		this.__appService.get_Logout().Add(get_onLogout());
+
+		UpdateDependencies();
 	}
 
+
+
+	public void ClearDependencies()
+	{
+		this.__appService = null;
+		this.__isClearDependencies = true;
+	}
+	public boolean get_IsClearDependencies() {
+		return this.__isClearDependencies;
+	}
+	public void UpdateDependencies()
+	{
+		this.__appService = Bootstrapper.Resolve( IAppService.class );
+		this.__appService.get_Logout().Add(get_onLogout());
+		this.__isClearDependencies = false;
+	}
+	public boolean get_IsKeepAlive() {
+		return this.__isKeepAlive;
+	}
 
 
 	//*********************************************************************************************
@@ -25,6 +48,7 @@ public class SupervisorModel implements ISupervisorModel
 	{
 		SupervisorModel _this = (SupervisorModel)this.arg1;
 		_this.__currentSuperviser = null;
+		_this.__isKeepAlive = false;
 	}}
 
 

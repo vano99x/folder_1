@@ -5,6 +5,7 @@ import java.net.URL;
 import org.json.JSONObject;
 
 import ta.lib.*;
+import ta.timeattendance.Models.*;
 import ta.timeattendance.MainEngine;
 import ta.timeattendance.MainActivity;
 
@@ -17,6 +18,16 @@ public class CurrentVersionServices implements ICurrentVersionServices
 		this._engine = MainEngine.getInstance();
 		//_context = MainActivity.get_FragmentActivity();
 		this.CurrentVersionLoaded = new CurrentVersionLoadedEventClass();
+	}
+	public void ClearDependencies() {
+	}
+	public boolean get_IsClearDependencies() {
+		return false;
+	}
+	public void UpdateDependencies() {
+	}
+	public boolean get_IsKeepAlive() {
+		return false;
 	}
 
 

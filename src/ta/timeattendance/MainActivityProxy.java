@@ -251,6 +251,11 @@ public class MainActivityProxy extends FragmentActivity
 	class onClickBackBtn implements DialogInterface.OnClickListener { public MainActivityProxy _this;public void onClick( 
 		DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt)
 	{
+		if( MainActivityProxy.ma != null && MainActivityProxy.ma.get_Index() == _this._index)
+		{
+			MainActivityProxy.ma.MainActivity_Logout();
+		}
+
 		try{
 			_this.finish();
 		}catch(Exception e ){

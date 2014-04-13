@@ -11,6 +11,7 @@ import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,53 +25,59 @@ import ta.timeattendance.R;
 public class CheckinAdapter3 extends BaseAdapter implements Filterable
 {
 	//private View.OnClickListener listener;
-	public TabCheckinList listener;
+	public TabCheckinList tabCheckinList;
 	private LayoutInflater mInflater;
 	public Context _context;
 
-	public ArrayList<Checkin> items;
+	public List<Checkin> items;
 	public ArrayList<Checkin> original;
 
 	public CheckinAdapter3(
 		Context paramContext, 
 		Checkin[] checkinArr, 
-		TabCheckinList paramOnClickListener)//Object paramOnClickListener)
+		TabCheckinList paramOnClickListener)
 	{
 		this.mInflater = ((LayoutInflater)paramContext.getSystemService("layout_inflater"));
-		this.listener = paramOnClickListener;
+		this.tabCheckinList = paramOnClickListener;
 		this._context = paramContext;
+		
+		this.original = new ArrayList<Checkin>(Arrays.asList(checkinArr));
 
-		this.items = new ArrayList<Checkin>(Arrays.asList(checkinArr));
-		
-		//List<Checkin> o = Arrays.asList(checkinArr);
-		
-		this.original = new ArrayList<Checkin>();
-		this.original.addAll(this.items);
+		//this.items.addAll(this.original);
+		this.items = CheckinAdapter3.GetCheckinListByDatesInterval(this.tabCheckinList, this.original);
 	}
-
-
 	
 	//*********************************************************************************************
-	//*      properties
-	//private
-
-	public int getCount()
+	//*      public static
+	public static List<Checkin> GetCheckinListByDatesInterval( TabCheckinList tabCheckinList, ArrayList<Checkin> original)
 	{
-		if (this.items == null)
+		int year1  = tabCheckinList._year1;
+		int month1 = tabCheckinList._month1;
+		int day1   = tabCheckinList._day1;
+		int year2  = tabCheckinList._year2;
+		int month2 = tabCheckinList._month2;
+		int day2   = tabCheckinList._day2;
+
+		//long currentMS     = System.currentTimeMillis();
+		//Date currentDate   = new Date(currentMS);
+		Calendar selectedDate1 = Calendar.getInstance();
+		Calendar selectedDate2 = Calendar.getInstance();
+		selectedDate1.set( year1 , month1, day1,  0,  0,  0);
+		selectedDate2.set( year2 , month2, day2, 23, 59, 59);
+
+		List<Checkin> list = new ArrayList<Checkin>();
+		for (Checkin ch : original)
 		{
-			return 0;
+			//Date checkinDate = ch.get_DateObj();
+			Calendar checkinDate = ch.get_CalendarObj();
+
+			if(checkinDate.after(selectedDate1) && checkinDate.before(selectedDate2))
+			{
+				list.add(ch);
+			}
 		}
-		return this.items.size();
-	}
 
-	public Object getItem(int paramInt)
-	{
-		return Integer.valueOf(paramInt);
-	}
-
-	public long getItemId(int paramInt)
-	{
-		return paramInt;
+		return list;
 	}
 
 	private static SimpleDateFormat _dateFormat;
@@ -95,7 +102,34 @@ public class CheckinAdapter3 extends BaseAdapter implements Filterable
 		return nameStr + " "+ dateStr;
 	}
 
-	public View getView(int paramInt, View paramView, ViewGroup paramViewGroup)
+
+	
+	//*********************************************************************************************
+	//*      Override
+	@Override
+	public int getCount()
+	{
+		if (this.items == null)
+		{
+			return 0;
+		}
+		return this.items.size();
+	}
+
+	@Override
+	public Object getItem(int paramInt)
+	{
+		return Integer.valueOf(paramInt);
+	}
+
+	@Override
+	public long getItemId(int paramInt)
+	{
+		return paramInt;
+	}
+
+	@Override
+	public View getView(int paramInt, View paramView, ViewGroup viewGroup)
 	{
 		if( paramView == null )
 		{
@@ -106,7 +140,7 @@ public class CheckinAdapter3 extends BaseAdapter implements Filterable
 		TextView     chView  = (TextView)paramView.findViewById(R.id.CheckinListItem_TextId);
 		TextView     stateView = (TextView)paramView.findViewById(R.id.CheckinListItem_StateId);
 		//LinearLayout baseView = (LinearLayout)paramView.findViewById(R.id.CheckinListItem_RootId);
-		//baseView.setOnClickListener(this.listener);
+		//baseView.setOnClickListener(this.tabCheckinList);
 
 		if( this.items != null && this.items.size() != 0 )
 		{

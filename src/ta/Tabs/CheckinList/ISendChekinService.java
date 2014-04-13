@@ -1,6 +1,8 @@
 ﻿package ta.Tabs.CheckinList;
 
-public interface ISendChekinService
+import ta.timeattendance.Models.*;
+
+public interface ISendChekinService extends IBaseModel
 {
 	void SendCheckin();
 }

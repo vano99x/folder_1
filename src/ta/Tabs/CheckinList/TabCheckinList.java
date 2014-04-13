@@ -111,7 +111,7 @@ public class TabCheckinList extends Tab implements View.OnClickListener
 		DateTime dt          = this.arg.dt;
 		int year          = dt.Year;
 		int monthOfYear   = dt.Month;
-		int dayOfMonth    = dt.Second;
+		int dayOfMonth    = dt.Day;
 
 		if(pickerName.equals("left"))
 		{

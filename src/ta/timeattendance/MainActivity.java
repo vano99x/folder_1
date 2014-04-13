@@ -201,8 +201,44 @@ public class MainActivity
 	//       ctor
 	public MainActivity(MainActivityProxy fa)
 	{
-		this.Nulling();                 //TALog.Log("===========MainActivity=================");
-		this.set_FragmentActivity( fa );//TALog.Log("===========onCreate=================");
+		this.Nulling();
+
+		//
+		final MainActivityProxy faForEx = fa;
+		//Thread.setDefaultUncaughtExceptionHandler(
+		//java.lang.Process.this.
+		Thread.currentThread().setUncaughtExceptionHandler( new Thread.UncaughtExceptionHandler()
+		{
+			@Override
+			public void uncaughtException(Thread thread, Throwable ex)
+			{
+				int aaa = 9;
+				int aaa2 = aaa-2;
+
+				//try{ Thread.sleep(500L); }catch(InterruptedException e){  }
+				//java.lang.StackTraceElement[] st = ex.getStackTrace();
+				//StackTraceElement first = st[0];
+				//String type1 = first.getClassName();
+				//ta.lib.Common.CommonHelper.GetExceptionName();
+				//Class type2 = ex.getClass();
+				String msg = ex.getMessage();
+
+				//try{
+				Intent intent;
+				intent = new Intent("ru.startandroid.intent.action.showdate");
+				intent.putExtra("Message", msg );
+				faForEx.startActivity(intent);
+
+				int p = android.os.Process.myPid();
+				android.os.Process.killProcess(p);
+				//}catch(Exception e){
+				//	Exception ex2 = e;
+				//}
+			}
+		});/**/
+		//
+
+		this.set_FragmentActivity( fa );
 		MainActivityProxy context = this.get_FragmentActivity();
 
 		// 3 Db
@@ -238,6 +274,8 @@ public class MainActivity
 		Bootstrapper.Init();
 		this.__appService = Bootstrapper.Resolve( IAppService.class );
 		this.__svModel = Bootstrapper.Resolve( ISupervisorModel.class );
+
+		this.__appService.CreateRunEvent();
 		//_2();
 	}
 	public void MainActivity_Clear()
@@ -265,7 +303,6 @@ public class MainActivity
 		NFCHelper.Instance().Clear(); NFCHelper.DeleteInstance();
 		}
 
-		this.__appService.LogoutRunEvent();
 		Bootstrapper.Clear();
 		this.Nulling();
 	}
@@ -282,6 +319,10 @@ public class MainActivity
 		this.__index = -1;
 		this.__powerManager = null;
 		this.__nfcManager = null;
+	}
+	public void MainActivity_Logout()
+	{
+		this.__appService.LogoutRunEvent();
 	}
 
 

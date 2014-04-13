@@ -1,6 +1,8 @@
 ﻿package ta.Tabs.Settings;
 
-public interface ICurrentVersionServices
+import ta.timeattendance.Models.*;
+
+public interface ICurrentVersionServices extends IBaseModel
 {
 	void LoadCurrentVersionNumber();
 	

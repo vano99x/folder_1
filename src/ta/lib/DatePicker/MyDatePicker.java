@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Button;
 import android.support.v4.app.FragmentManager;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Calendar;
 
 import ta.lib.*;
@@ -37,14 +39,15 @@ public class MyDatePicker extends DialogFragment implements DatePickerDialog.OnD
 		this._fragmentManager = fragmentManager;
 		this.SelectedDateChanged = new SelectedDateChangedEventClass();
 	}
-    public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
+	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
-        this.getDialog().getWindow().requestFeature(android.view.Window.FEATURE_NO_TITLE); // !!!
+		this.getDialog().getWindow().requestFeature(android.view.Window.FEATURE_NO_TITLE); // !!!
 
-        View view = inflater.inflate(R.layout.ctrl_date_picker, container);
+		View view = inflater.inflate(R.layout.ctrl_date_picker, container);
 		//this.setStyle( STYLE_NORMAL, android.R.style.Theme_Holo_Light_Dialog);
-        this._datePicker = (DatePicker) view.findViewById(R.id.DatePicker);
+		this._datePicker = (DatePicker) view.findViewById(R.id.DatePicker);
 		this._datePicker.updateDate( get_CurrentDateTime().Year, get_CurrentDateTime().Month, get_CurrentDateTime().Day);
+		//this._datePicker.setCalendarViewShown(false);
 
 		Button ok = (Button)view.findViewById(R.id.MyDatePickerView_OkId);
 		ok.setOnClickListener(this);
@@ -127,6 +130,7 @@ public class MyDatePicker extends DialogFragment implements DatePickerDialog.OnD
 
 
 		this.dismiss();
+		//this.
 	}
 	public void onClick_cancelBtn()
 	{

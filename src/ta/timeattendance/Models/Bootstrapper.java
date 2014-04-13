@@ -27,21 +27,20 @@ ISettingSvModel - ISupervisorModel
 */
 	public static void Init()
 	{
-		Bootstrapper.Instance();
+		Bootstrapper bs = Bootstrapper.Instance();
+		bs.RunControllers();
 	}
 	private Bootstrapper()
 	{
 		_typeItems = new ArrayList<TypeItem>(9);
-		_typeItems.add(new TypeItem("ISupervisorModel", SupervisorModel.class, true));
-		_typeItems.add(new TypeItem("IPointModel",      PointModel.class,      true));
-		_typeItems.add(new TypeItem("ICurrentVersionServices", ta.Tabs.Settings.CurrentVersionServices.class, true));
-		_typeItems.add(new TypeItem("ISendChekinService",      ta.Tabs.CheckinList.SendChekinService.class,   true));
-		_typeItems.add(new TypeItem("IAppService",             ta.timeattendance.Services.AppService.class,   true));
-		_typeItems.add(new TypeItem("ISettingSvModel",         ta.timeattendance.Models.SettingSvModel.class,   true));
+		_typeItems.add(new TypeItem("ISupervisorModel",        ta.timeattendance.Models.SupervisorModel.class, true, true));
+		_typeItems.add(new TypeItem("IPointModel",             ta.timeattendance.Models.PointModel.class,      true, false));
+		_typeItems.add(new TypeItem("ISettingSvModel",         ta.timeattendance.Models.SettingSvModel.class,  true, false));
+		_typeItems.add(new TypeItem("IAppService",             ta.timeattendance.Services.AppService.class,    true, false));
+		_typeItems.add(new TypeItem("ICurrentVersionServices", ta.Tabs.Settings.CurrentVersionServices.class,  true, false));
+		_typeItems.add(new TypeItem("ISendChekinService",      ta.Tabs.CheckinList.SendChekinService.class,    true, false));
 		
 		Bootstrapper._instance = this;
-		
-		RunControllers();
 	}
 	private void RunControllers()
 	{
@@ -62,7 +61,7 @@ ISettingSvModel - ISupervisorModel
 	public static void Clear()
 	{
 		Bootstrapper.Instance()._Clear();
-		Bootstrapper._instance = null;
+		//Bootstrapper._instance = null;
 	}
 	private void _Clear()
 	{

@@ -90,22 +90,22 @@ public class Event<TArg,TRes>
 		}
 		return res;
 	}
-
-	public void Add(RunnableWithArgs<TArg,TRes> toAdd)
+	
+                                  //<TArg,TRes>
+	public void Add(RunnableWithArgs            handler)
 	{
 		int aaa = 9;
-		int aaa2 = 9 - 7;
+		int aaa2 = 9 - 2;
 
-		String hm = Event.GetHandlerMarker(toAdd);
+		String hm = Event.GetHandlerMarker(handler);
 		Object typeHolder = this.get_EventTypeHolder();
 		String vm = this.get_EventMarker(typeHolder);
 
 		if(vm.equals(hm)){
-			this.listeners.add(toAdd);
+			this.listeners.add(handler);
 		} else {
-			//throw new Exception("aaa");
-			int [] Exception = new int[]{0};
-			int throW = Exception[1];
+			throw new RuntimeException( ta.lib.Common.CommonHelper.CreateMessageForException("ta.lib.Event.Add") );
+			//int [] Exception = new int[]{0};    //int throW = Exception[1];
 		}
 	}
 

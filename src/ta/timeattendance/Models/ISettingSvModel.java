@@ -3,7 +3,7 @@
 import ta.Database.*;
 import ta.lib.*;
 
-public interface ISettingSvModel
+public interface ISettingSvModel extends IBaseModel
 {
 	void PointSettingChanged_Add(RunnableWithArgs runnable);
 }

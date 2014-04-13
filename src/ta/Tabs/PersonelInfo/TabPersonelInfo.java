@@ -236,7 +236,11 @@ public class TabPersonelInfo extends Tab implements View.OnClickListener
 
 		if(p.IsDismiss)
 		{
-		Tab.Show(this._dismissImageView);
+			if(!Tab.IsShow(this._dismissImageView))
+				Tab.Show(this._dismissImageView);
+		}
+		else if(Tab.IsShow(this._dismissImageView)){
+			Tab.Hide(this._dismissImageView);
 		}
 
 		//ResizeFoto();

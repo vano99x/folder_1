@@ -76,11 +76,15 @@ public abstract class Tab
 	{
 		if(Tab.IsShow(ctrl)) {
 			ctrl.setVisibility(View.GONE);
+			int aaa = ctrl.getVisibility();
+			int aaa2 = aaa-2;
 		}
 	}
 	public static boolean IsShow(View ctrl)
 	{
-		return ctrl.getVisibility() == View.VISIBLE;
+		int aaa = ctrl.getVisibility();
+		boolean bbb = aaa == View.VISIBLE;
+		return bbb;
 	}
 
 	public static void UpdateTextView(TextView ctrl, String text)
@@ -88,13 +92,13 @@ public abstract class Tab
 		if(ctrl == null)
 			return;
 
-		boolean aaa1 = text != null;
-		boolean aaa2 = false;//!("".equals(text));
-		if(aaa1) {
-			aaa2 = !(text.isEmpty());
-		} //int aaa3 = text.length();
+		boolean isShow = false;
+		if(text != null)
+		{
+			isShow = !(text.isEmpty());
+		}
 
-		if(aaa1 && aaa2)
+		if(isShow)
 		{
 			if( ! Tab.IsShow(ctrl)) {
 				Tab.Show(ctrl);

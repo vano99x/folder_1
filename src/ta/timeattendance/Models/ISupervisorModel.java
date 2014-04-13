@@ -3,7 +3,7 @@
 import ta.lib.*;
 import ta.Database.*;
 
-public interface ISupervisorModel
+public interface ISupervisorModel extends IBaseModel
 {
 	Personel get_CurrentSuperviser();
 	void set_CurrentSuperviser(Personel p);

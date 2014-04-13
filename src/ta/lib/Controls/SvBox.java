@@ -12,14 +12,13 @@ import ta.lib.tabui.*;
 import ta.timeattendance.*;
 import ta.Database.*;
 import ta.timeattendance.Models.*;
+import ta.timeattendance.MainActivity.State;
 import ta.timeattendance.R;
 
 public class SvBox extends Tab implements View.OnClickListener
 {
 	MainEngine _engine;
 	private TextView     _labelPoint;
-	//private String     _pointName;
-	//private LinearLayout _NameBlock;
 	private TextView     _labelLastName;
 	private TextView     _labelName;
 	private TextView     _labelThirdName;
@@ -27,24 +26,23 @@ public class SvBox extends Tab implements View.OnClickListener
 	private ISupervisorModel __svModel;
 	private IPointModel      __pointModel;
 
-	public SvBox(Context mainActivity, ViewGroup rootView)
+	private boolean _isUiDataValid;
+
+	public SvBox(Context mainActivity, ViewGroup rootView, UIHelper uiHelper)
 	{
 		super( mainActivity, rootView, R.layout.sv_box, R.id.SvBox_RootId);
+
+		uiHelper.set_CurrentStateChanged(get_CurrentStateChanged());
 		this._engine = MainEngine.getInstance();
+		_isUiDataValid = false;
 
 		this._labelPoint      = (TextView)    this.root.findViewById(R.id.SvBox_Point);
-		//this._pointName = null;
 		//this._NameBlock       = (LinearLayout)this.root.findViewById(R.id.SvBox_NameBlockId);
 		this._labelLastName   = (TextView)    this.root.findViewById(R.id.SvBox_LastName);
 		this._labelName       = (TextView)    this.root.findViewById(R.id.SvBox_Name);
 		this._labelThirdName  = (TextView)    this.root.findViewById(R.id.SvBox_ThirdName);
 
-		//CheckBox checkBoxInternet = ((CheckBox)this.root.findViewById(R.id.checkBoxInternet));
-		//checkBoxInternet.setOnClickListener(this);
-		//checkBoxInternet.setTag(R.id.checkBoxInternet);
-
 		Tab.Hide(this._labelPoint);
-		//this.HideNameBlock();
 		Tab.Hide(this._labelLastName);
 		Tab.Hide(this._labelName);
 		Tab.Hide(this._labelThirdName);
@@ -54,46 +52,70 @@ public class SvBox extends Tab implements View.OnClickListener
 		//this._engine.Closing.Add(get_onClosing());
 
 		this.__svModel = Bootstrapper.Resolve( ISupervisorModel.class );
-		this.__svModel.SvChanged_EventAdd(get_onAuthSV());
+		//this.__svModel.SvChanged_EventAdd(get_onAuthSV());
 		this.__pointModel = Bootstrapper.Resolve( IPointModel.class );
-		this.__pointModel.set_CurrentPointApplied(get_onSetCurPt());
+		this.__pointModel.set_CurrentPointChanged(get_onCurPtChanged());
 	}
 
 
-	//*********************************************************************************************
-	//*      public func
 
 	//*********************************************************************************************
 	//**     Event Handler
-	private onSetCurPt get_onSetCurPt() { onSetCurPt o = new onSetCurPt(); o.arg1 = this; return o; }
-	class   onSetCurPt extends RunnableWithArgs<Point,Boolean> { public void run()
+	private onCurStChng get_CurrentStateChanged() { onCurStChng o = new onCurStChng(); o.arg1 = this; return o; }
+	class   onCurStChng extends RunnableWithArgs<State,Boolean> { public void run()
+	{
+		SvBox _this = (SvBox)this.arg1;
+		State state = this.arg;
+
+		if(state.equals(State.MODE_SELECTION))
+		{
+			if( ! _this._isUiDataValid)
+			{
+				_this.UpdateSvTextView();
+				_this.UpdatePointTextView();
+				_this._isUiDataValid = true;
+			}
+		}
+	}}
+
+	private onCurPtCh get_onCurPtChanged() { onCurPtCh o = new onCurPtCh(); o.arg1 = this; return o; }
+	class   onCurPtCh extends RunnableWithArgs<Point,Boolean> { public void run()
 	{
 		SvBox _this = (SvBox)this.arg1;
 		//Point p = this.arg;
-		//_this._pointName = p.Name;
-		UpdatePointTextView();
+		_this.UpdatePointTextView();
 	}}
 
-	private onAuthSV get_onAuthSV() { onAuthSV a = new onAuthSV(); a.arg1 = this; return a; }
+	/*private onAuthSV get_onAuthSV() { onAuthSV a = new onAuthSV(); a.arg1 = this; return a; }
 	class   onAuthSV extends RunnableWithArgs<Personel,Object> { public void run()
 	{
 		if( this.arg != null)
 		{
 			SvBox _this = (SvBox)this.arg1;
-			Personel p = this.arg;
+			//Personel p = this.arg;
 
-			Tab.UpdateTextView( _this._labelLastName,  p.LastName);
-			Tab.UpdateTextView( _this._labelName,      p.FirstName);
-			Tab.UpdateTextView( _this._labelThirdName, p.ThirdName);
-			
+			_this.UpdateSvTextView();
 			_this.UpdatePointTextView();
 		}
-	}}
+	}}*/
 
+
+
+	//*********************************************************************************************
+	//**     private func
+	private void UpdateSvTextView()
+	{
+		Personel p = this.__svModel.get_CurrentSuperviser();
+		if(p != null)
+		{
+			Tab.UpdateTextView( this._labelLastName,  p.LastName);
+			Tab.UpdateTextView( this._labelName,      p.FirstName);
+			Tab.UpdateTextView( this._labelThirdName, p.ThirdName);
+		}
+	}
 
 	private void UpdatePointTextView()
 	{
-		String ctrlStr = this._labelPoint.getText().toString();
 		String str = null;
 
 		Point point = this.__pointModel.get_CurrentPoint();
@@ -103,6 +125,7 @@ public class SvBox extends Tab implements View.OnClickListener
 			str = point.Name;
 		}
 
+		String ctrlStr = this._labelPoint.getText().toString();
 		if(ctrlStr == null || ! ctrlStr.equals(str)){
 			Tab.UpdateTextView( this._labelPoint, str);
 		}

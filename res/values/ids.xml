@@ -8,7 +8,8 @@
 	<item type="id" name="PagePin" />
 	<item type="id" name="pin_edit" />
 	<item type="id" name="continue_button" />
-	
+
+	<item type="id" name="ExceptionActivity_TextView" />
 	
 	<item type="id" name="PageModeSelection" />
 	<item type="id" name="PageModeSelection_start_button" />

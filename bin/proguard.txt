@@ -1,3 +1,9 @@
-# view AndroidManifest.xml #generated:24
+# view res/layout/ctrl_date_picker.xml #generated:9
+-keep class ta.lib.DatePicker.CustomDatePickerControl { <init>(...); }
+
+# view AndroidManifest.xml #generated:35
+-keep class ta.timeattendance.ExceptionActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:25
 -keep class ta.timeattendance.MainActivityProxy { <init>(...); }
 

@@ -100,6 +100,7 @@
     <Content Include="res\layout\ctrl_loading_progress_bar.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="res\layout\exception_activity.xml" />
     <Content Include="res\layout\list_item.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -301,6 +302,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="src\ta\lib\test1.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\lib\DatePicker\CustomDatePickerControl.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\timeattendance\Models\IBaseModel.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\timeattendance\ExceptionActivity.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\ta\lib\Common\CommonHelper.java" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
