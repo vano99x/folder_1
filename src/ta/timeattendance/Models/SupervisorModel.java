@@ -8,8 +8,8 @@ public class SupervisorModel implements ISupervisorModel
 {
 	private IAppService __appService;
 	//private static int _counter;
-	private static boolean __isClearDependencies;
-	private static boolean __isKeepAlive;
+	private boolean __isClearDependencies;
+	private boolean __isKeepAlive;
 	public SupervisorModel()
 	{
 		//_counter++;

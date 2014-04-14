@@ -329,7 +329,6 @@ public class MainEngine
 	private onClickOkMessageBox get_onClickOkMessageBox() { onClickOkMessageBox o = new onClickOkMessageBox(); o._this = this; return o; } 
 	class onClickOkMessageBox implements OnClickListener { public MainEngine _this;public void onClick(DialogInterface di, int paramAnonymousInt)
 	{
-		_this.SaveCheckinCompleteEvent.RunEvent(null,false);
 	}}
 	public void OnNfcTagApply(final long cardId) // ---> call in bg thread
 	{
@@ -341,6 +340,9 @@ public class MainEngine
 		}
 		else
 		{
+			ta.timeattendance.MainActivity.get_RespondHandler().post(new Runnable() { public void run() {
+				MainEngine.getInstance().SaveCheckinCompleteEvent.RunEvent(null,false);
+			}});
 			UIHelper.Instance().MessageBoxInUIThread(
 				"Сотрудник не найден! \r\n " + Long.toHexString(cardId),
 				get_onClickOkMessageBox(),
@@ -365,7 +367,7 @@ public class MainEngine
 	class onBfComplete extends RunnableWithArgs<Checkin,Boolean> { public void run() // ---> call in ui thread
 	{
 		MainEngine _this = (MainEngine)this.arg1;
-		Checkin ch = this.arg; Boolean res = this.result;
+		Boolean res = this.result;
 		_this.SaveCheckinCompleteEvent.RunEvent(null,res);
 	}}
 	
@@ -379,20 +381,21 @@ public class MainEngine
 		//MsgFromBackground(Act.StartOperation);
 
 		Point p = engine.__pointModel.get_CurrentPoint();
+		Personel w = engine.get_CurrentWorker();
 		if(p == null)
 		{
 			result = false;
 			MsgFromBackground( Act.CheckpointNotSelect );
 		}
-		else
+		else if(!w.IsDismiss)
 		{
 			ch = new Checkin(
-				engine.__svModel.get_CurrentSuperviser().Id, // SupervicerId
-				engine.get_CurrentWorker().Id,							// WorkerId
-				engine.get_CurrentWorker().CardId,						// CardId
-				engine.getCurrentMode(),							// Mode
-				p.Id,
-				String.valueOf(System.currentTimeMillis()) // DateTime
+				engine.__svModel.get_CurrentSuperviser().Id,	// SupervicerId
+				w.Id,											// WorkerId
+				w.CardId,										// CardId
+				engine.getCurrentMode(),						// Mode
+				p.Id,											// PointId
+				String.valueOf(System.currentTimeMillis())		// DateTime
 			);
 
 			ch.IsCheckinExistOnServer = false;
