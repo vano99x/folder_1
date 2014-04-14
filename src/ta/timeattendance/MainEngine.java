@@ -387,7 +387,7 @@ public class MainEngine
 			result = false;
 			MsgFromBackground( Act.CheckpointNotSelect );
 		}
-		else if(!w.IsDismiss)
+		else //if(!w.IsDismiss)
 		{
 			ch = new Checkin(
 				engine.__svModel.get_CurrentSuperviser().Id,	// SupervicerId
